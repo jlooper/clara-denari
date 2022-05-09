@@ -4,7 +4,6 @@ module.exports = {
 	postcss: {
 		plugins: [require('autoprefixer'), require('tailwindcss')('./tailwind.config.js')],
 	},
-	base: '/SpaceQuest/',
 	themeConfig: {
 		search: false,
 	},
