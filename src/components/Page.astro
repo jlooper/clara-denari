@@ -1,0 +1,45 @@
+---
+export interface Props {
+  url: string;
+  instructions?: string;
+  action: string;
+  condition?: string;
+}
+
+const { url, instructions = "", action, condition = "none" } = Astro.props;
+---
+
+<div class="page-navigation">
+  {instructions && <p class="mb-4">{instructions}</p>}
+  
+  <button 
+    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+    data-url={url}
+    data-condition={condition}
+    id={`page-btn-${url}`}
+  >
+    {action}
+  </button>
+</div>
+
+<script>
+  // Add event listener when DOM is loaded
+  document.addEventListener('DOMContentLoaded', () => {
+    // Find all page navigation buttons
+    const pageButtons = document.querySelectorAll('[data-url]');
+    pageButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const url = button.getAttribute('data-url');
+        const condition = button.getAttribute('data-condition');
+        
+        // Check condition if specified
+        if (condition && condition !== 'none') {
+          // For now, we'll just navigate - condition logic can be added later
+        }
+        
+        // Navigate to the page
+        window.location.href = `/${url}`;
+      });
+    });
+  });
+</script> 

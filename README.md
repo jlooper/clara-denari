@@ -1,47 +1,102 @@
-# 🚀👽✨ Welcome to your new game! 🚀👽✨
+# SpaceQuest - Interactive Story Engine
 
-## Description
+An interactive story/game engine converted from VuePress to Astro.
 
-This repo contains the elements you need to create a cool text-based game that can be deployed as a web site. Amaze your friends! Fork the repo and build out the game elements by writing a fun storyline. You don't have to keep it as SpaceQuest, it could be a walk through a spooky house, a mysterious forest, a scuba adventure, or a bike race...let your imagination guide you! Tell us what you create in the [Issues tab](https://github.com/jlooper/static-game-engine/issues/new/choose)!
+## Features
 
-![Space Quest](screenshot.png)
+- **Interactive Storytelling**: Navigate through story pages with custom components
+- **Inventory System**: Collect and manage items throughout the adventure
+- **Responsive Design**: Works on desktop and mobile devices
+- **Modern Tech Stack**: Built with Astro and Tailwind CSS
 
-## History of the Project
+## Getting Started
 
-Microsoft Azure Advocates have been creating fun text-based games to encourage students of all ages to learn about Microsoft Learn and Docs. The [Azure Mystery Mansion](https://aka.ms/mysterymansion), and the ongoing [Azure Maya Mystery](https://aka.ms/AzureMayaMystery) all fit into this prototype. Em Lazer-Walker and Jen Looper worked as primary developers on the Mystery Mansion, and Jen Looper and Chris Noring were primary developers on the Maya Mystery. This game engine is a prototype that we hope will be forked and reused by all kinds of people who want to create fun text-based games and learn about web programming as well.
+### Prerequisites
 
-## Architecture
+- Node.js (version 16 or higher)
+- npm or yarn
 
-This site is a hybrid of a Vue.js Single Page Web App and a VuePress static site. Most written content is written using VuePress's markdown architecture, and the game elements are build as standard Vue.js app elements. The game is contained in the [`app`](./app) folder. The site is deployed on [Azure Static Web Apps](https://azure.microsoft.com/services/app-service/static/?WT.mc_id=gameengine-github-jelooper#overview).
+### Installation
 
-Create new pages of your Mystery Adventure game by adding Markdown files in the [`app/game/.vuepress`](./app/game/.vuepress) folder. Currently there are three narrative files (README.md, 1.md and 2.md). You can make your game trickier by renaming these files with unique words or a unique id, to that people won't be able to guess the next step by its url without solving a challenge. If you do, don't forget to change the Page url where the user clicks to get to the next page.
-
-Create elements of the game in [`app/game/.vuepress/theme/utils/items.json`](./app/game/.vuepress/theme/utils/items.json). Here you can include items to pick up and results of picking up the items. Let your creativity guide you!
-
-## Running your site locally
-
-To run this app, you need to fork it and make sure you have your development environment set up for Vue and VuePress development. First, ensure that you have [node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) or [node and yarn](https://classic.yarnpkg.com/en/docs/install/#mac-stable) installed.
-
-For VuePress, install the [package globally](https://vuepress.vuejs.org) using yarn or npm:
-
-```
-yarn global add vuepress
-or
-npm install -g vuepress
+1. Clone the repository:
+```bash
+git clone https://github.com/jlooper/static-game-engine.git
+cd static-game-engine
 ```
 
-Follow the instructions [here](https://vuepress.vuejs.org/guide/getting-started.html) to get set up. When your local system is ready, you can start running this web site for local development.
+2. Install dependencies:
+```bash
+npm install
+```
 
-To run the site locally, use the command:
+3. Start the development server:
+```bash
+npm run dev
+```
 
-`npm run dev`.
+4. Open your browser and navigate to `http://localhost:4321`
 
-Build the site locally:
+## Project Structure
 
-`npm run build`.
+```
+src/
+├── components/          # Reusable Astro components
+│   ├── Nav.astro       # Navigation component
+│   ├── Inventory.astro # Inventory management
+│   ├── Page.astro      # Page navigation component
+│   ├── Item.astro      # Interactive item component
+│   └── Footer.astro    # Footer component
+├── layouts/            # Page layouts
+│   └── Layout.astro    # Main layout with backdrop support
+├── pages/              # Story pages
+│   ├── index.astro     # Home page
+│   ├── 1.astro         # Story page 1
+│   └── 2.astro         # Story page 2
+├── data/               # Game data
+│   └── items.json      # Item definitions
+└── utils/              # Utility functions
+    └── helpers.js      # Inventory management helpers
+```
 
-## Deploying your site
+## Game Components
 
-You can deploy this site to your own Static Web App:
+### Page Component
+Used for navigation between story pages:
+```astro
+<Page url="1" instructions="" action="Press the button" condition="none" />
+```
 
-[![Deploy to Azure button](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/?feature.customportal=false&WT.mc_id=gameengine-github-jelooper#create/Microsoft.StaticApp)
+### Item Component
+Used for interactive items that can be collected:
+```astro
+<Item id="1" />
+```
+
+## Building for Production
+
+```bash
+npm run build
+```
+
+The built files will be in the `dist/` directory.
+
+## Conversion Notes
+
+This project was converted from VuePress to Astro with the following changes:
+
+- **Vue Components → Astro Components**: All Vue components were converted to Astro components
+- **Vue Router → Astro Pages**: Navigation is now handled by Astro's file-based routing
+- **Vuex → Local Storage**: State management simplified to use browser localStorage
+- **VuePress Theme → Custom Layout**: Custom theme converted to Astro layout system
+- **Build System**: VuePress build system replaced with Astro's build system
+
+## Technologies Used
+
+- **Astro**: Static site generator
+- **Tailwind CSS**: Utility-first CSS framework
+- **JavaScript**: Client-side interactivity
+- **Local Storage**: State persistence
+
+## License
+
+MIT License - see LICENSE file for details.

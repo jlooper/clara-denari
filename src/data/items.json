@@ -1,0 +1,16 @@
+[
+	{
+		"id": 1,
+		"instructions": "Pick up the",
+		"name": "key",
+		"initialHide": true,
+		"result": "You use your ship's robotic arm to pick up the key."
+	},
+	{
+		"id": 2,
+		"instructions": "Ignore the key and instead pick up an interesting",
+		"name": "meteorite",
+		"initialHide": true,
+		"result": "That's not super helpful. Now what?"
+	}
+] 

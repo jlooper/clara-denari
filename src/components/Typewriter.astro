@@ -1,0 +1,64 @@
+---
+export interface Props {
+  text: string;
+  speed?: number;
+  delay?: number;
+  class?: string;
+}
+
+const { text, speed = 50, delay = 0, class: className = "" } = Astro.props;
+---
+
+<div class={`typewriter ${className}`} data-text={text} data-speed={speed} data-delay={delay}>
+  <span class="typewriter-text"></span>
+  <span class="typewriter-cursor">|</span>
+</div>
+
+<style>
+  .typewriter-cursor {
+    animation: blink 1s infinite;
+    color: #00ff00;
+  }
+
+  @keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+  }
+</style>
+
+<script>
+  class Typewriter {
+    constructor(element) {
+      this.element = element;
+      this.textElement = element.querySelector('.typewriter-text');
+      this.text = element.dataset.text;
+      this.speed = parseInt(element.dataset.speed) || 50;
+      this.delay = parseInt(element.dataset.delay) || 0;
+      this.currentIndex = 0;
+      
+      this.init();
+    }
+
+    init() {
+      setTimeout(() => {
+        this.type();
+      }, this.delay);
+    }
+
+    type() {
+      if (this.currentIndex < this.text.length) {
+        this.textElement.textContent += this.text.charAt(this.currentIndex);
+        this.currentIndex++;
+        setTimeout(() => this.type(), this.speed);
+      }
+    }
+  }
+
+  // Initialize typewriter effects when DOM is loaded
+  document.addEventListener('DOMContentLoaded', () => {
+    const typewriterElements = document.querySelectorAll('.typewriter');
+    typewriterElements.forEach(element => {
+      new Typewriter(element);
+    });
+  });
+</script> 

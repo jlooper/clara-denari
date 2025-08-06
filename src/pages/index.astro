@@ -1,0 +1,30 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Page from '../components/Page.astro';
+import Typewriter from '../components/Typewriter.astro';
+
+const title = "Welcome, explorer!";
+const backdrop = "/images/space.png";
+---
+
+<Layout title={title} backdrop={backdrop}>
+  <div class="prose max-w-none">
+    <h1>{title}</h1>
+    
+    <Typewriter 
+      text="You have been traveling through space, on a mission to join the International Space Station. The astronauts there await the arrival of supplies from your ship."
+      speed={30}
+      delay={1000}
+      class="block mb-4"
+    />
+    
+    <Typewriter 
+      text="According to your coordinates, however, you are badly lost! Suddenly, your console lights up and a button turns red and starts beeping."
+      speed={30}
+      delay={4000}
+      class="block mb-4"
+    />
+    
+    <Page url="1" instructions="" action="Press the button" condition="none" />
+  </div>
+</Layout> 

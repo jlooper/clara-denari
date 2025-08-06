@@ -1,0 +1,17 @@
+---
+export interface Props {
+  backdrop?: string;
+}
+
+const { backdrop } = Astro.props;
+---
+
+{backdrop && (
+  <div
+    role="banner"
+    style={`background-image: url(${backdrop})`}
+    class="w-screen h-64 backdrop rounded-none -mx-8 -mt-6 mb-4"
+  >
+    
+  </div>
+)} 

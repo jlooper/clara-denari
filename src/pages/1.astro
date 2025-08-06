@@ -1,0 +1,36 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Page from '../components/Page.astro';
+import Item from '../components/Item.vue';
+
+const title = "A Message";
+const backdrop = "/images/space.png";
+---
+
+<Layout title={title} backdrop={backdrop}>
+  <div class="prose max-w-none">
+    <h1>{title}</h1>
+    
+    <p>
+      You press the button, and a screen flickers, then lights up. A shadowy figure looms into focus.
+    </p>
+    
+    <p>
+      "Why have you entered our quadrant?"
+    </p>
+    
+    <p>
+      You try to explain that you're lost, and that you need to get to the ISS.
+    </p>
+    
+    <p>
+      "I can help you find your route, but first you need to do something for me. I've lost the keys 
+      to my spaceship, and we are stranded. I think they fell near your ship, can you look?"
+    </p>
+    
+    <Item id="1" client:load />
+    <Item id="2" client:load />
+    
+    <Page url="2" instructions="" action="Fly West" condition="1" />
+  </div>
+</Layout> 

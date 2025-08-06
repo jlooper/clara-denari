@@ -1,0 +1,34 @@
+{
+	"name": "static-game-engine",
+	"version": "1.0.0",
+	"description": "Explore and Learn!",
+	"type": "module",
+	"scripts": {
+		"dev": "astro dev",
+		"start": "astro dev",
+		"build": "astro build",
+		"preview": "astro preview",
+		"astro": "astro"
+	},
+	"keywords": [],
+	"author": "softchris,jlooper",
+	"license": "MIT",
+	"dependencies": {
+		"@astrojs/tailwind": "^5.0.0",
+		"@astrojs/vue": "^4.5.3",
+		"astro": "^4.0.0",
+		"vue": "^3.5.18"
+	},
+	"devDependencies": {
+		"autoprefixer": "^10.0.0",
+		"tailwindcss": "^3.0.0"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/jlooper/static-game-engine"
+	},
+	"bugs": {
+		"url": "https://github.com/jlooper/static-game-engine"
+	},
+	"homepage": "https://github.com/jlooper/static-game-engine"
+}

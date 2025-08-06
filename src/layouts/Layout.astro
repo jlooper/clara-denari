@@ -1,0 +1,183 @@
+---
+import Nav from '../components/Nav.astro';
+import Inventory from '../components/Inventory.vue';
+import Footer from '../components/Footer.astro';
+import Notification from '../components/Notification.astro';
+import Banner from '../components/Banner.astro';
+import '../styles/global.css';
+
+export interface Props {
+  title: string;
+  backdrop?: string;
+  fullScreenLayout?: boolean;
+}
+
+const { title, backdrop, fullScreenLayout = false } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="SpaceQuest - Enjoy the Journey">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="markdown-body font-serif m-1 sm:m-2 md:m-4 lg:m-8 text-base rounded-lg relative overflow-hidden">
+        <Nav />
+        
+        <Banner backdrop={backdrop} />
+        
+        <!-- Mobile Inventory Button -->
+        <div class="lg:hidden md:hidden sm:block block fixed top-4 left-4 z-50">
+          <button 
+            id="mobile-inventory-btn"
+            class="bg-black text-green-500 border border-green-500 px-3 py-2 text-sm rounded"
+            style="text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);"
+          >
+            Inventory
+          </button>
+        </div>
+        
+        <!-- Mobile Inventory Panel -->
+        <div 
+          id="mobile-inventory-panel"
+          class="lg:hidden md:hidden sm:block block fixed top-16 left-4 z-40 bg-black border-2 border-green-500 rounded p-4 max-w-xs hidden"
+          style="text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);"
+        >
+          <div id="mobile-inventory-content">
+            <!-- Inventory content will be loaded here -->
+          </div>
+        </div>
+        
+        <div class="flex mb-2">
+          {!fullScreenLayout && (
+            <div role="complementary" class="lg:inline-block md:hidden sm:hidden hidden w-1/3 pr-2">
+              <Inventory client:load />
+            </div>
+          )}
+          <div role="main" class="w-full">
+            <slot />
+          </div>
+        </div>
+
+        <Footer />
+      </div>
+    </div>
+    
+    <Notification id="global-notification" type="info" message="" />
+    
+    <!-- Fallback notification system -->
+    <div id="fallback-notification" class="fixed top-4 right-4 bg-black border-2 border-green-500 text-green-500 p-4 rounded hidden z-50" style="text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);">
+      <div class="flex items-center gap-2">
+        <span>✓</span>
+        <span id="fallback-message"></span>
+      </div>
+    </div>
+  </body>
+</html>
+
+<style>
+  .backdrop {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+</style>
+
+<script>
+  // Keyboard navigation
+  document.addEventListener('DOMContentLoaded', () => {
+    const buttons = document.querySelectorAll('button');
+    let currentFocusIndex = 0;
+
+    // Add tabindex to buttons for keyboard navigation
+    buttons.forEach((button, index) => {
+      button.setAttribute('tabindex', '0');
+    });
+
+    // Handle keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      switch(e.key) {
+        case 'ArrowRight':
+        case 'ArrowDown':
+          e.preventDefault();
+          currentFocusIndex = (currentFocusIndex + 1) % buttons.length;
+          buttons[currentFocusIndex].focus();
+          break;
+        case 'ArrowLeft':
+        case 'ArrowUp':
+          e.preventDefault();
+          currentFocusIndex = (currentFocusIndex - 1 + buttons.length) % buttons.length;
+          buttons[currentFocusIndex].focus();
+          break;
+        case 'Enter':
+        case ' ':
+          if (document.activeElement && document.activeElement.tagName === 'BUTTON') {
+            e.preventDefault();
+            (document.activeElement as HTMLElement).click();
+          }
+          break;
+      }
+    });
+
+    // Focus first button on page load
+    if (buttons.length > 0) {
+      buttons[0].focus();
+    }
+  });
+
+  // Fallback notification function
+  (window as any).showFallbackNotification = (message, duration = 3000) => {
+    const notification = document.getElementById('fallback-notification');
+    const messageEl = document.getElementById('fallback-message');
+    
+    if (notification && messageEl) {
+      messageEl.textContent = message;
+      notification.classList.remove('hidden');
+      
+      setTimeout(() => {
+        notification.classList.add('hidden');
+      }, duration);
+    }
+  };
+
+  // Mobile inventory toggle
+  document.addEventListener('DOMContentLoaded', () => {
+    const mobileInventoryBtn = document.getElementById('mobile-inventory-btn');
+    const mobileInventoryPanel = document.getElementById('mobile-inventory-panel');
+    const mobileInventoryContent = document.getElementById('mobile-inventory-content');
+    
+    if (mobileInventoryBtn && mobileInventoryPanel) {
+      mobileInventoryBtn.addEventListener('click', () => {
+        const isHidden = mobileInventoryPanel.classList.contains('hidden');
+        
+        if (isHidden) {
+          mobileInventoryPanel.classList.remove('hidden');
+          mobileInventoryBtn.textContent = '❌ Close';
+          
+          // Load inventory content
+          if (mobileInventoryContent) {
+            const inventoryNames = JSON.parse(localStorage.getItem('inventory_item') || '{}');
+            const names = Object.keys(inventoryNames);
+            
+            if (names.length === 0) {
+              mobileInventoryContent.innerHTML = '<p class="text-green-500 text-sm">Sorry, there are no items here yet</p>';
+            } else {
+              const itemsHtml = names.map(name => `<p class="text-green-500 text-sm">• ${name}</p>`).join('');
+              mobileInventoryContent.innerHTML = `
+                <h3 class="text-green-500 font-bold mb-2">Inventory</h3>
+                ${itemsHtml}
+              `;
+            }
+          }
+        } else {
+          mobileInventoryPanel.classList.add('hidden');
+          mobileInventoryBtn.textContent = '📦 Inventory';
+        }
+      });
+    }
+  });
+</script> 
