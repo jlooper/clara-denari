@@ -1,12 +1,14 @@
 ---
 export interface Props {
-  url: string;
+  url?: string;
   instructions?: string;
   action: string;
   condition?: string;
+  resultText?: string;
+  showResultOnly?: boolean;
 }
 
-const { url, instructions = "", action, condition = "none" } = Astro.props;
+const { url, instructions = "", action, condition = "none", resultText = "", showResultOnly = false } = Astro.props;
 ---
 
 <div class="page-navigation">
@@ -17,7 +19,9 @@ const { url, instructions = "", action, condition = "none" } = Astro.props;
     style="text-shadow: 0 0 5px rgba(244, 227, 153, 0.242);"
     data-url={url}
     data-condition={condition}
-    id={`page-btn-${url}`}
+    data-result-text={resultText}
+    data-show-result-only={showResultOnly}
+    id={`page-btn-${url || 'result'}`}
   >
     {action}
   </button>
@@ -27,19 +31,35 @@ const { url, instructions = "", action, condition = "none" } = Astro.props;
   // Add event listener when DOM is loaded
   document.addEventListener('DOMContentLoaded', () => {
     // Find all page navigation buttons
-    const pageButtons = document.querySelectorAll('[data-url]');
+    const pageButtons = document.querySelectorAll('[data-url], [data-show-result-only]');
     pageButtons.forEach(button => {
       button.addEventListener('click', () => {
         const url = button.getAttribute('data-url');
         const condition = button.getAttribute('data-condition');
+        const resultText = button.getAttribute('data-result-text');
+        const showResultOnly = button.getAttribute('data-show-result-only') === 'true';
+        
+        // If there's result text, show it in the notification panel
+        if (resultText) {
+          if (typeof window !== 'undefined' && (window as any).showNotificationPanel) {
+            (window as any).showNotificationPanel(resultText, 4000);
+          }
+        }
+        
+        // If showResultOnly is true, don't navigate
+        if (showResultOnly) {
+          return;
+        }
         
         // Check condition if specified
         if (condition && condition !== 'none') {
           // For now, we'll just navigate - condition logic can be added later
         }
         
-        // Navigate to the page
-        window.location.href = `/${url}`;
+        // Navigate to the page if URL is provided
+        if (url) {
+          window.location.href = `/${url}`;
+        }
       });
     });
   });

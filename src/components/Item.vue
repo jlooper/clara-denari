@@ -44,8 +44,6 @@ export default {
       // Show result message with notification
       if (typeof window !== 'undefined' && window.showNotification) {
         window.showNotification(item.value.result, 'success', 4000);
-      } else if (typeof window !== 'undefined' && window.showFallbackNotification) {
-        window.showFallbackNotification(item.value.result, 4000);
       } else {
         alert(item.value.result);
       }

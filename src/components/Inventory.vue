@@ -14,11 +14,25 @@
           <div 
             v-for="item in inventory" 
             :key="item.name"
-            class="item mb-2"
+            class="item mb-4 p-3 bg-black bg-opacity-30"
           >
-            <p class="text-amber-200 text-sm" style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);">
-              • {{ item.name }}
-            </p>
+            <div class="flex items-center gap-3">
+              <!-- Image if available -->
+              <div v-if="item.imageUrl" class="flex-shrink-0">
+                <img 
+                  :src="item.imageUrl" 
+                  :alt="item.name"
+                  class="w-12 h-12 object-cover"
+                />
+              </div>
+              
+              <!-- Item name -->
+              <div class="flex-1">
+                <p class="text-amber-200 text-sm font-medium" style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);">
+                  {{ item.name }}
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -29,6 +43,7 @@
 <script>
 import { ref, onMounted, watch } from 'vue';
 import { getItems, addItem } from '../utils/helpers.js';
+import itemsData from '../data/items.json';
 
 export default {
   name: 'Inventory',
@@ -36,8 +51,14 @@ export default {
     const inventory = ref([]);
 
     const loadInventory = () => {
-      const names = getItems();
-      inventory.value = names.map(name => ({ name }));
+      const itemIds = getItems();
+      inventory.value = itemIds.map(id => {
+        const itemData = itemsData.find(item => item.id == parseInt(id));
+        return {
+          name: itemData ? itemData.name : `Item ${id}`,
+          imageUrl: itemData ? itemData.imageUrl : null
+        };
+      });
     };
 
     // Listen for item added events

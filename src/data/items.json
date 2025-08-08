@@ -1,16 +1,16 @@
 [
   {
     "id": 1,
-    "instructions": "Pick up the",
-    "name": "key",
+    "instructions": "Open the",
+    "name": "envelope",
+    "imageUrl": "/images/pic-1.png",
     "initialHide": true,
-    "result": "You use your ship's robotic arm to pick up the key."
+    "result": "You open the envelope to find a torn corner of a photograph. It's hard to make out what it is."
   },
   {
     "id": 2,
-    "instructions": "Ignore the key and instead pick up an interesting",
-    "name": "meteorite",
+    "instructions": "Ask about any reward money",
     "initialHide": true,
-    "result": "That's not super helpful. Now what?"
+    "result": "The Director rolls his eyes as the wealthy lady clutches her purse tighter."
   }
 ] 

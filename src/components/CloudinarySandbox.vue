@@ -2,7 +2,7 @@
   <div class="cloudinary-sandbox">
     <div class="sandbox-header">
       <h3 class="text-green-500 text-lg font-bold mb-4" style="text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);">
-        Cloudinary Transformation Sandbox
+        Transformation Lab
       </h3>
     </div>
     

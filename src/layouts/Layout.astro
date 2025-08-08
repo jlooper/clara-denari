@@ -3,7 +3,6 @@ import Nav from '../components/Nav.astro';
 import Inventory from '../components/Inventory.vue';
 import Footer from '../components/Footer.astro';
 import Notification from '../components/Notification.astro';
-import CloudinarySandbox from '../components/CloudinarySandbox.vue';
 import '../styles/global.css';
 
 export interface Props {
@@ -35,7 +34,7 @@ const { title, backdrop, fullScreenLayout = false } = Astro.props;
             class="bg-gradient-to-br from-gray-800 to-gray-900 text-amber-400 border-2 border-amber-600 px-3 py-2 text-sm rounded-lg hover:from-amber-700 hover:to-amber-800 hover:text-white transition-all duration-200 shadow-lg"
             style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);"
           >
-            🧪 Sandbox
+            🧪 Lab
           </button>
         </div>
         
@@ -47,7 +46,7 @@ const { title, backdrop, fullScreenLayout = false } = Astro.props;
           <div class="border-2 border-amber-600 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl" style="background: linear-gradient(135deg, #2a1f1a 0%, #1a1410 25%, #0f0a08 50%, #0a0705 75%, #050302 100%), url('data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100\' height=\'100\' filter=\'url(%23noise)\' opacity=\'0.1\'/%3E%3C/svg%3E');">
                           <div class="flex justify-between items-center p-4 border-b border-amber-600">
                 <h2 class="text-amber-400 text-xl font-bold" style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);">
-                  Cloudinary Sandbox
+                  Transformation Lab
                 </h2>
                 <button 
                   id="close-sandbox"
@@ -118,14 +117,6 @@ const { title, backdrop, fullScreenLayout = false } = Astro.props;
     </div>
     
     <Notification id="global-notification" type="info" message="" />
-    
-    <!-- Fallback notification system -->
-    <div id="fallback-notification" class="fixed top-4 right-4 border-2 border-amber-600 text-amber-400 p-4 rounded-lg hidden z-50 shadow-xl" style="background: linear-gradient(135deg, #2a1f1a 0%, #1a1410 25%, #0f0a08 50%, #0a0705 75%, #050302 100%), url('data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100\' height=\'100\' filter=\'url(%23noise)\' opacity=\'0.1\'/%3E%3C/svg%3E'); text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);">
-      <div class="flex items-center gap-2">
-        <span class="text-amber-300">✓</span>
-        <span id="fallback-message"></span>
-      </div>
-    </div>
   </body>
 </html>
 
@@ -176,21 +167,6 @@ const { title, backdrop, fullScreenLayout = false } = Astro.props;
       buttons[0].focus();
     }
   });
-
-  // Fallback notification function
-  (window as any).showFallbackNotification = (message, duration = 3000) => {
-    const notification = document.getElementById('fallback-notification');
-    const messageEl = document.getElementById('fallback-message');
-    
-    if (notification && messageEl) {
-      messageEl.textContent = message;
-      notification.classList.remove('hidden');
-      
-      setTimeout(() => {
-        notification.classList.add('hidden');
-      }, duration);
-    }
-  };
 
   // Mobile inventory toggle
   document.addEventListener('DOMContentLoaded', () => {
@@ -393,9 +369,7 @@ const { title, backdrop, fullScreenLayout = false } = Astro.props;
       
       function copyUrl() {
         navigator.clipboard.writeText(generatedUrlInput.value).then(() => {
-          if (typeof window !== 'undefined' && (window as any).showFallbackNotification) {
-            (window as any).showFallbackNotification('URL copied to clipboard!', 2000);
-          }
+          // URL copied successfully
         });
       }
       

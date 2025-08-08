@@ -1,29 +1,21 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Page from '../components/Page.astro';
-import Item from '../components/Item.vue';
-import Inventory from '../components/Inventory.vue';
+import GameAction from '../components/GameAction.vue';
+import GameLayout from '../components/GameLayout.astro';
+import Typewriter from '../components/Typewriter.astro';
+import NotificationPanel from '../components/NotificationPanel.astro';
 
-const title = "A Message";
-const backdrop = "/images/clara-denari.webp";
+const title = "Purloined Property";
+const backdrop = "/images/clara-2.png";
+
+const storyText = `When she arrived, the Director was tapping his foot. "It's that sticky-fingered kleptomaniac, Dr. Oscuro again". "What's he pilfered this time?" Clara asked, sighing. This particular thief had a penchant for sending detectives chasing around the globe to find where he hid his ill-gotten gains. He also had a notoriously terrible memory, and tended to steal things, then forget where he hid them. "He broke into the National Bank," said the Director grimly, " and managed to spirit away a valuable jewelled necklace belonging to madame here". For the first time Clara noticed a lady in a mink coat standing in the corner, quietly tearing a damp handkerchief to shreds. "I'm sorry that your property has been stolen," said Clara, "but rest assured, we'll get it back." As the lady burst into relieved tears, the Director handed Clara an envelope. "Inside this envelope you'll find a small bit of evidence tying the crime to Dr. Oscuro."`;
 ---
 
 <Layout title={title} backdrop={backdrop} fullScreenLayout={true}>
   <div class="prose max-w-none">
     <!-- Main content area with image and inventory side by side -->
-    <div class="flex flex-col lg:flex-row gap-6 mb-8">
-      <!-- Square image on the left -->
-      <div class="lg:w-1/3">
-        <div class="aspect-square bg-cover bg-center rounded-lg overflow-hidden" 
-             style={`background-image: url(${backdrop})`}>
-        </div>
-      </div>
-      
-      <!-- Inventory on the right -->
-      <div class="lg:w-2/3">
-        <Inventory client:load />
-      </div>
-    </div>
+    <GameLayout title={title} backdrop={backdrop} />
     
     <!-- Full width storyline -->
     <div class="w-full mb-6">
@@ -31,35 +23,45 @@ const backdrop = "/images/clara-denari.webp";
         {title}
       </h1>
       
-      <div class="bg-black bg-opacity-50 border-2 border-green-500 rounded-lg p-6 mb-6">
-        <p class="text-green-500 text-lg leading-relaxed mb-4" style="text-shadow: 0 0 3px rgba(0, 255, 0, 0.5);">
-          You press the button, and a screen flickers, then lights up. A shadowy figure looms into focus.
-        </p>
-        
-        <p class="text-green-500 text-lg leading-relaxed mb-4" style="text-shadow: 0 0 3px rgba(0, 255, 0, 0.5);">
-          "Why have you entered our quadrant?"
-        </p>
-        
-        <p class="text-green-500 text-lg leading-relaxed mb-4" style="text-shadow: 0 0 3px rgba(0, 255, 0, 0.5);">
-          You try to explain that you're lost, and that you need to get to the ISS.
-        </p>
-        
-        <p class="text-green-500 text-lg leading-relaxed" style="text-shadow: 0 0 3px rgba(0, 255, 0, 0.5);">
-          "I can help you find your route, but first you need to do something for me. I've lost the keys 
-          to my spaceship, and we are stranded. I think they fell near your ship, can you look?"
-        </p>
+      <div class="bg-black bg-opacity-50 border-2 border-amber-500 rounded-lg p-6 mb-6">
+        <Typewriter 
+          text={storyText}
+          speed={30}
+          delay={1000}
+          class="block mb-4 text-amber-500 text-lg leading-relaxed"
+        />
       </div>
     </div>
+    
+    <!-- Notification Panel -->
+    <NotificationPanel />
     
     <!-- Full width items and buttons -->
     <div class="w-full">
       <div class="flex flex-col sm:flex-row gap-4 justify-center mb-6">
-        <Item id="1" client:load />
-        <Item id="2" client:load />
+        <!-- Inventory item -->
+        <GameAction id="1" actionType="item" client:load />
+        
+        <!-- Text-only action -->
+        <GameAction 
+          id="ask_reward" 
+          actionType="text" 
+          customText="Ask about reward money"
+          customResult="The Director rolls his eyes as the wealthy lady clutches her purse tighter. 'We'll discuss compensation after the case is solved,' he says sternly."
+          client:load 
+        />
       </div>
       
-      <div class="flex justify-center">
-        <Page url="2" instructions="" action="Fly West" condition="1" />
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <!-- Button with result text before navigation -->
+        <Page 
+          url="2" 
+          action="Head to the Lab" 
+          condition="1"
+          resultText="Time to do some transformation magic!"
+        />
+        
+       
       </div>
     </div>
   </div>

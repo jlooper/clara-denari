@@ -1,0 +1,27 @@
+---
+import Inventory from './Inventory.vue';
+
+export interface Props {
+  title: string;
+  backdrop: string;
+  imageClass?: string;
+  inventoryClass?: string;
+}
+
+const { title, backdrop, imageClass = "lg:w-1/3 pt-3", inventoryClass = "lg:w-2/3" } = Astro.props;
+---
+
+<!-- Main content area with image and inventory side by side -->
+<div class="flex flex-col lg:flex-row gap-6 mb-8">
+  <!-- Square image on the left -->
+  <div class={imageClass}>
+    <div class="aspect-square bg-cover bg-center rounded-lg overflow-hidden" 
+         style={`background-image: url(${backdrop})`}>
+    </div>
+  </div>
+  
+  <!-- Inventory on the right -->
+  <div class={inventoryClass}>
+    <Inventory client:load />
+  </div>
+</div>

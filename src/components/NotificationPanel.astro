@@ -1,0 +1,41 @@
+---
+export interface Props {
+  id?: string;
+  class?: string;
+}
+
+const { id = "notification-panel", class: className = "" } = Astro.props;
+---
+
+<div 
+  id={id} 
+  class={`notification-panel w-full mb-6 p-4 border-2 border-amber-600 rounded-lg bg-black bg-opacity-50 text-amber-400 hidden ${className}`}
+  style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8); background: linear-gradient(135deg, #2a1f1a 0%, #1a1410 25%, #0f0a08 50%, #0a0705 75%, #050302 100%);"
+>
+  <div class="flex items-center gap-3">
+    <span class="text-amber-300 text-xl">✓</span>
+    <span id="notification-message" class="text-lg leading-relaxed"></span>
+  </div>
+</div>
+
+<script>
+  // Global notification function
+  (window as any).showNotificationPanel = (message: string, duration: number = 4000) => {
+    const panel = document.getElementById('notification-panel');
+    const messageEl = document.getElementById('notification-message');
+    
+    if (panel && messageEl) {
+      messageEl.textContent = message;
+      panel.classList.remove('hidden');
+      
+      setTimeout(() => {
+        panel.classList.add('hidden');
+      }, duration);
+    }
+  };
+
+  // Initialize when DOM is loaded
+  document.addEventListener('DOMContentLoaded', () => {
+    // Component is ready
+  });
+</script>

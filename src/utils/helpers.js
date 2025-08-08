@@ -8,7 +8,7 @@ if (typeof window === 'undefined') {
     getItem() {
       // we need a mocked response of all items, otherwise the build process will crash every time we add a new item
       const mockResponse = itemsData.reduce((acc, curr) => {
-        return { ...acc, [curr.name]: true };
+        return { ...acc, [curr.id]: true };
       }, {});
       return JSON.stringify(mockResponse);
     },
@@ -34,14 +34,14 @@ export function addItem(id) {
     inv_items = {};
   }
   
-  inv_items[item.name] = true;
+  inv_items[id] = true;
   
   const newJson = JSON.stringify(inv_items);
   
   localStorage.setItem('inventory_item', newJson);
   
   // Dispatch event for inventory update
-  window.dispatchEvent(new CustomEvent('item_added', { detail: { name: item.name } }));
+  window.dispatchEvent(new CustomEvent('item_added', { detail: { id: id, name: item.name } }));
 }
 
 export function getItems() {
@@ -57,6 +57,6 @@ export function getItems() {
     inv_items = {};
   }
   
-  var names = Object.keys(inv_items);
-  return names;
+  var ids = Object.keys(inv_items);
+  return ids;
 } 

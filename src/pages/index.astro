@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Page from '../components/Page.astro';
 import Typewriter from '../components/Typewriter.astro';
-import Inventory from '../components/Inventory.vue';
+import GameLayout from '../components/GameLayout.astro';
 
 const title = "Clara Denari and the Mysterious Transformations";
 const backdrop = "/images/clara-denari.webp";
@@ -11,19 +11,7 @@ const backdrop = "/images/clara-denari.webp";
 <Layout title={title} backdrop={backdrop} fullScreenLayout={true}>
   <div class="prose max-w-none">
     <!-- Main content area with image and inventory side by side -->
-    <div class="flex flex-col lg:flex-row gap-6 mb-8">
-      <!-- Square image on the left -->
-      <div class="lg:w-1/3 pt-3">
-        <div class="aspect-square bg-cover bg-center rounded-lg overflow-hidden" 
-             style={`background-image: url(${backdrop})`}>
-        </div>
-      </div>
-      
-      <!-- Inventory on the right -->
-      <div class="lg:w-2/3">
-        <Inventory client:load />
-      </div>
-    </div>
+    <GameLayout title={title} backdrop={backdrop} />
     
     <!-- Full width storyline -->
     <div class="w-full mb-6">
@@ -45,7 +33,7 @@ const backdrop = "/images/clara-denari.webp";
     
     <!-- Full width buttons -->
     <div class="w-full flex justify-center">
-      <Page url="1" instructions="" action="Press the button" condition="none" />
+      <Page url="1" instructions="" action="Grab a Taxi to HQ" condition="none" />
     </div>
   </div>
 </Layout> 
