@@ -2,29 +2,50 @@
 import Layout from '../layouts/Layout.astro';
 import Page from '../components/Page.astro';
 import Typewriter from '../components/Typewriter.astro';
+import Inventory from '../components/Inventory.vue';
 
-const title = "Welcome, explorer!";
+const title = "Clara Denari and the Mysterious Transformations";
 const backdrop = "/images/clara-denari.webp";
 ---
 
-<Layout title={title} backdrop={backdrop}>
+<Layout title={title} backdrop={backdrop} fullScreenLayout={true}>
   <div class="prose max-w-none">
-    <h1>{title}</h1>
+    <!-- Main content area with image and inventory side by side -->
+    <div class="flex flex-col lg:flex-row gap-6 mb-8">
+      <!-- Square image on the left -->
+      <div class="lg:w-1/3 pt-3">
+        <div class="aspect-square bg-cover bg-center rounded-lg overflow-hidden" 
+             style={`background-image: url(${backdrop})`}>
+        </div>
+      </div>
+      
+      <!-- Inventory on the right -->
+      <div class="lg:w-2/3">
+        <Inventory client:load />
+      </div>
+    </div>
     
-    <Typewriter 
-      text="You have been traveling through space, on a mission to join the International Space Station. The astronauts there await the arrival of supplies from your ship."
-      speed={30}
-      delay={1000}
-      class="block mb-4"
-    />
+    <!-- Full width storyline -->
+    <div class="w-full mb-6">
+      <h1 class="text-3xl font-bold text-green-500 mb-4" style="text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);">
+        {title}
+      </h1>
+      
+      <div class="bg-black bg-opacity-50 border-2 border-amber-500 rounded-lg p-6 mb-6">
+        <Typewriter 
+          text="The hooded figure was almost indistinguishable from the gloom that surrounded it as it crept stealthily through the grass behind the abandoned mansion. It crouched next to the old stone well and drew a small object from under its robes. Quickly it tossed the metal box down the long, damp shaft, listening attentively to the dull 'plunk' as it reached the bottom.'That should keep it nice and safe', chortled the figure grimly, and it glided away, melting into the shadows of the moonlit night. <br/><br/> Clara Denari, master detective, was paging through a newspaper and eating breakfast when her pager started to beep urgently. 'Code 404' - that meant trouble. Hastily gulping down her coffee and bagel, Clara put a few tools into her bag, buckled on her utility belt, and shrugged her coat over her shoulders. There was no telling what the problem might be, she thought, as she headed to headquarters."
+          speed={30}
+          delay={1000}
+          class="block mb-4 text-amber-500 text-lg leading-relaxed"
+        />
+        
+        
+      </div>
+    </div>
     
-    <Typewriter 
-      text="According to your coordinates, however, you are badly lost! Suddenly, your console lights up and a button turns red and starts beeping."
-      speed={30}
-      delay={4000}
-      class="block mb-4"
-    />
-    
-    <Page url="1" instructions="" action="Press the button" condition="none" />
+    <!-- Full width buttons -->
+    <div class="w-full flex justify-center">
+      <Page url="1" instructions="" action="Press the button" condition="none" />
+    </div>
   </div>
 </Layout> 

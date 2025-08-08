@@ -2,7 +2,8 @@
   <div class="item-container">
     <button 
       v-if="!collected"
-      class="markdown-body-button"
+      class="bg-black text-green-500 border-2 border-green-500 px-6 py-3 rounded-lg hover:bg-green-500 hover:text-black transition-colors duration-200 font-bold text-lg"
+      style="text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);"
       @click="collectItem"
     >
       {{ buttonText }}

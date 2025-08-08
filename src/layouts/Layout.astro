@@ -3,7 +3,6 @@ import Nav from '../components/Nav.astro';
 import Inventory from '../components/Inventory.vue';
 import Footer from '../components/Footer.astro';
 import Notification from '../components/Notification.astro';
-import Banner from '../components/Banner.astro';
 import CloudinarySandbox from '../components/CloudinarySandbox.vue';
 import '../styles/global.css';
 
@@ -20,7 +19,7 @@ const { title, backdrop, fullScreenLayout = false } = Astro.props;
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="SpaceQuest - Enjoy the Journey">
+    <meta name="description" content="Cloudinary - Stay Curious! ">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
   </head>
@@ -29,24 +28,74 @@ const { title, backdrop, fullScreenLayout = false } = Astro.props;
       <div class="markdown-body font-serif m-1 sm:m-2 md:m-4 lg:m-8 text-base rounded-lg relative overflow-hidden">
         <Nav />
         
-        <Banner backdrop={backdrop} />
+        <!-- Sandbox Button -->
+        <div class="fixed top-4 right-4 z-50">
+          <button 
+            id="sandbox-btn"
+            class="bg-gradient-to-br from-gray-800 to-gray-900 text-amber-400 border-2 border-amber-600 px-3 py-2 text-sm rounded-lg hover:from-amber-700 hover:to-amber-800 hover:text-white transition-all duration-200 shadow-lg"
+            style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);"
+          >
+            🧪 Sandbox
+          </button>
+        </div>
+        
+        <!-- Sandbox Popup -->
+        <div 
+          id="sandbox-popup"
+          class="fixed inset-0 bg-black bg-opacity-95 z-50 hidden flex items-center justify-center p-4"
+        >
+          <div class="border-2 border-amber-600 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl" style="background: linear-gradient(135deg, #2a1f1a 0%, #1a1410 25%, #0f0a08 50%, #0a0705 75%, #050302 100%), url('data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100\' height=\'100\' filter=\'url(%23noise)\' opacity=\'0.1\'/%3E%3C/svg%3E');">
+                          <div class="flex justify-between items-center p-4 border-b border-amber-600">
+                <h2 class="text-amber-400 text-xl font-bold" style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);">
+                  Cloudinary Sandbox
+                </h2>
+                <button 
+                  id="close-sandbox"
+                  class="text-amber-400 hover:text-red-400 text-2xl font-bold transition-colors duration-200"
+                  style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);"
+                >
+                  ×
+                </button>
+              </div>
+              <div class="p-6">
+                <p class="text-amber-200 mb-6" style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);">
+                  Test Cloudinary image transformations in real-time. Enter your cloud name, public ID, and transformation parameters to see the results.
+                </p>
+              
+              <div id="sandbox-content">
+                <!-- CloudinarySandbox component will be loaded here -->
+              </div>
+              
+              <div class="mt-8 p-4 border border-amber-600 rounded-lg" style="background: linear-gradient(135deg, #2a1f1a 0%, #1a1410 25%, #0f0a08 50%, #0a0705 75%, #050302 100%), url('data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100\' height=\'100\' filter=\'url(%23noise)\' opacity=\'0.1\'/%3E%3C/svg%3E');">
+                <h3 class="text-amber-400 text-lg font-bold mb-3" style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);">Usage Tips:</h3>
+                <ul class="text-amber-200 text-sm space-y-2" style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);">
+                  <li>• Use "demo" as cloud name and "sample" as public ID for testing</li>
+                  <li>• Try the preset buttons for common transformations</li>
+                  <li>• Transformation parameters follow Cloudinary's URL API format</li>
+                  <li>• Examples: <code class="bg-gray-700 px-1 rounded">c_scale,w_300,h_200</code> or <code class="bg-gray-700 px-1 rounded">e_grayscale,c_fill,w_400,h_300</code></li>
+                  <li>• The generated URL can be copied and used directly</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
         
         <!-- Mobile Inventory Button -->
-        <div class="lg:hidden md:hidden sm:block block fixed top-4 left-4 z-50">
+        <div class="lg:hidden md:hidden sm:block block fixed top-4 left-4 z-40">
           <button 
             id="mobile-inventory-btn"
-            class="bg-black text-green-500 border border-green-500 px-3 py-2 text-sm rounded"
-            style="text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);"
+            class="bg-gradient-to-br from-gray-800 to-gray-900 text-amber-400 border-2 border-amber-600 px-3 py-2 text-sm rounded-lg hover:from-amber-700 hover:to-amber-800 hover:text-white transition-all duration-200 shadow-lg"
+            style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);"
           >
-            Inventory
+            📦 Inventory
           </button>
         </div>
         
         <!-- Mobile Inventory Panel -->
         <div 
           id="mobile-inventory-panel"
-          class="lg:hidden md:hidden sm:block block fixed top-16 left-4 z-40 bg-black border-2 border-green-500 rounded p-4 max-w-xs hidden"
-          style="text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);"
+          class="lg:hidden md:hidden sm:block block fixed top-16 left-4 z-30 border-2 border-amber-600 rounded-lg p-4 max-w-xs hidden shadow-xl"
+          style="background: linear-gradient(135deg, #2a1f1a 0%, #1a1410 25%, #0f0a08 50%, #0a0705 75%, #050302 100%), url('data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100\' height=\'100\' filter=\'url(%23noise)\' opacity=\'0.1\'/%3E%3C/svg%3E'); text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);"
         >
           <div id="mobile-inventory-content">
             <!-- Inventory content will be loaded here -->
@@ -71,9 +120,9 @@ const { title, backdrop, fullScreenLayout = false } = Astro.props;
     <Notification id="global-notification" type="info" message="" />
     
     <!-- Fallback notification system -->
-    <div id="fallback-notification" class="fixed top-4 right-4 bg-black border-2 border-green-500 text-green-500 p-4 rounded hidden z-50" style="text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);">
+    <div id="fallback-notification" class="fixed top-4 right-4 border-2 border-amber-600 text-amber-400 p-4 rounded-lg hidden z-50 shadow-xl" style="background: linear-gradient(135deg, #2a1f1a 0%, #1a1410 25%, #0f0a08 50%, #0a0705 75%, #050302 100%), url('data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100\' height=\'100\' filter=\'url(%23noise)\' opacity=\'0.1\'/%3E%3C/svg%3E'); text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);">
       <div class="flex items-center gap-2">
-        <span>✓</span>
+        <span class="text-amber-300">✓</span>
         <span id="fallback-message"></span>
       </div>
     </div>
@@ -163,11 +212,11 @@ const { title, backdrop, fullScreenLayout = false } = Astro.props;
             const names = Object.keys(inventoryNames);
             
             if (names.length === 0) {
-              mobileInventoryContent.innerHTML = '<p class="text-green-500 text-sm">Sorry, there are no items here yet</p>';
+              mobileInventoryContent.innerHTML = '<p class="text-amber-800 text-sm">Sorry, there are no items here yet</p>';
             } else {
-              const itemsHtml = names.map(name => `<p class="text-green-500 text-sm">• ${name}</p>`).join('');
+              const itemsHtml = names.map(name => `<p class="text-amber-800 text-sm">• ${name}</p>`).join('');
               mobileInventoryContent.innerHTML = `
-                <h3 class="text-green-500 font-bold mb-2">Inventory</h3>
+                <h3 class="text-amber-800 font-bold mb-2">Inventory</h3>
                 ${itemsHtml}
               `;
             }
@@ -177,6 +226,188 @@ const { title, backdrop, fullScreenLayout = false } = Astro.props;
           mobileInventoryBtn.textContent = '📦 Inventory';
         }
       });
+    }
+  });
+
+  // Sandbox popup functionality
+  document.addEventListener('DOMContentLoaded', () => {
+    const sandboxBtn = document.getElementById('sandbox-btn');
+    const sandboxPopup = document.getElementById('sandbox-popup');
+    const closeSandbox = document.getElementById('close-sandbox');
+    const sandboxContent = document.getElementById('sandbox-content');
+    
+    if (sandboxBtn && sandboxPopup && closeSandbox) {
+      // Open sandbox
+      sandboxBtn.addEventListener('click', () => {
+        sandboxPopup.classList.remove('hidden');
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        
+        // Load CloudinarySandbox component content
+        if (sandboxContent) {
+          sandboxContent.innerHTML = `
+            <div class="cloudinary-sandbox">
+              <div class="sandbox-content">
+                <!-- Input Section -->
+                <div class="input-section mb-6">
+                  <div class="mb-4">
+                    <label class="block text-amber-500 text-sm mb-2">Cloud Name:</label>
+                                         <input 
+                       id="cloud-name"
+                       type="text" 
+                       class="w-full p-2 bg-gray-800 border border-amber-600 text-amber-200 rounded"
+                       placeholder="your-cloud-name"
+                       value="demo"
+                     />
+                   </div>
+                   
+                   <div class="mb-4">
+                     <label class="block text-amber-800 text-sm mb-2">Public ID:</label>
+                     <input 
+                       id="public-id"
+                       type="text" 
+                       class="w-full p-2 bg-gray-800 border border-amber-600 text-amber-200 rounded"
+                       placeholder="sample"
+                       value="sample"
+                     />
+                   </div>
+                   
+                   <div class="mb-4">
+                     <label class="block text-amber-800 text-sm mb-2">Transformation:</label>
+                     <input 
+                       id="transformation"
+                       type="text" 
+                       class="w-full p-2 bg-gray-800 border border-amber-600 text-amber-200 rounded font-mono text-sm"
+                       placeholder="c_scale,w_300,h_200,f_auto,q_auto"
+                       value="c_scale,w_300,h_200,f_auto,q_auto"
+                     />
+                   </div>
+                   
+                   <div class="mb-4">
+                     <label class="block text-amber-800 text-sm mb-2">Format:</label>
+                     <select 
+                       id="format"
+                       class="w-full p-2 bg-gray-800 border border-amber-600 text-amber-200 rounded"
+                     >
+                      <option value="auto">Auto</option>
+                      <option value="jpg">JPG</option>
+                      <option value="png">PNG</option>
+                      <option value="webp">WebP</option>
+                      <option value="avif">AVIF</option>
+                    </select>
+                  </div>
+                </div>
+                
+                                 <!-- URL Display -->
+                 <div class="url-section mb-6">
+                   <label class="block text-amber-800 text-sm mb-2">Generated URL:</label>
+                   <div class="flex">
+                     <input 
+                       id="generated-url"
+                       type="text" 
+                       readonly
+                       class="flex-1 p-2 bg-gray-800 border border-amber-600 text-amber-200 rounded font-mono text-xs"
+                     />
+                     <button 
+                       id="copy-url"
+                       class="ml-2 px-3 py-2 bg-gray-800 border border-amber-600 text-amber-200 rounded hover:bg-amber-700 transition-colors"
+                     >
+                       Copy
+                     </button>
+                   </div>
+                 </div>
+                 
+                 <!-- Preview Section -->
+                 <div class="preview-section">
+                   <h4 class="text-amber-800 text-md font-bold mb-3">Preview:</h4>
+                   <div class="preview-container">
+                     <img 
+                       id="preview-image"
+                       class="max-w-full border border-amber-600 rounded"
+                       alt="Transformation preview"
+                     />
+                   </div>
+                 </div>
+              </div>
+            </div>
+          `;
+          
+          // Initialize sandbox functionality
+          initializeSandbox();
+        }
+      });
+      
+      // Close sandbox
+      closeSandbox.addEventListener('click', () => {
+        sandboxPopup.classList.add('hidden');
+        document.body.style.overflow = ''; // Restore scrolling
+      });
+      
+      // Close on backdrop click
+      sandboxPopup.addEventListener('click', (e) => {
+        if (e.target === sandboxPopup) {
+          sandboxPopup.classList.add('hidden');
+          document.body.style.overflow = '';
+        }
+      });
+      
+      // Close on escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !sandboxPopup.classList.contains('hidden')) {
+          sandboxPopup.classList.add('hidden');
+          document.body.style.overflow = '';
+        }
+      });
+    }
+    
+    function initializeSandbox() {
+      const cloudNameInput = document.getElementById('cloud-name') as HTMLInputElement;
+      const publicIdInput = document.getElementById('public-id') as HTMLInputElement;
+      const transformationInput = document.getElementById('transformation') as HTMLInputElement;
+      const formatSelect = document.getElementById('format') as HTMLSelectElement;
+      const generatedUrlInput = document.getElementById('generated-url') as HTMLInputElement;
+      const copyUrlBtn = document.getElementById('copy-url') as HTMLButtonElement;
+      const previewImage = document.getElementById('preview-image') as HTMLImageElement;
+      
+      if (!cloudNameInput || !publicIdInput || !transformationInput || !formatSelect || 
+          !generatedUrlInput || !copyUrlBtn || !previewImage) {
+        console.error('Some sandbox elements not found');
+        return;
+      }
+      
+      function updateUrl() {
+        const cloudName = cloudNameInput.value;
+        const publicId = publicIdInput.value;
+        const transformation = transformationInput.value;
+        const format = formatSelect.value;
+        
+        if (!cloudName || !publicId) return;
+        
+        const baseUrl = `https://res.cloudinary.com/${cloudName}/image/upload`;
+        const transformPath = transformation ? `/${transformation}` : '';
+        const formatExt = format !== 'auto' ? `.${format}` : '';
+        
+        const url = `${baseUrl}${transformPath}/${publicId}${formatExt}`;
+        generatedUrlInput.value = url;
+        previewImage.src = url;
+      }
+      
+      function copyUrl() {
+        navigator.clipboard.writeText(generatedUrlInput.value).then(() => {
+          if (typeof window !== 'undefined' && (window as any).showFallbackNotification) {
+            (window as any).showFallbackNotification('URL copied to clipboard!', 2000);
+          }
+        });
+      }
+      
+      // Add event listeners
+      [cloudNameInput, publicIdInput, transformationInput, formatSelect].forEach(input => {
+        input.addEventListener('input', updateUrl);
+      });
+      
+      copyUrlBtn.addEventListener('click', copyUrl);
+      
+      // Initialize URL
+      updateUrl();
     }
   });
 </script> 

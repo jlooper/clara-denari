@@ -17,7 +17,7 @@ const { text, speed = 50, delay = 0, class: className = "" } = Astro.props;
 <style>
   .typewriter-cursor {
     animation: blink 1s infinite;
-    color: #00ff00;
+    color: #ffd700;
   }
 
   @keyframes blink {
@@ -27,7 +27,27 @@ const { text, speed = 50, delay = 0, class: className = "" } = Astro.props;
 </style>
 
 <script>
+  interface TextItem {
+    type: 'text';
+    content: string;
+  }
+
+  interface BreakItem {
+    type: 'break';
+  }
+
+  type ProcessedItem = TextItem | BreakItem;
+
   class Typewriter {
+      element: any;
+      textElement: any;
+      text: any;
+      speed: number;
+      delay: number;
+      currentIndex: number;
+      processedText: ProcessedItem[];
+      currentTextNode: any;
+      
     constructor(element) {
       this.element = element;
       this.textElement = element.querySelector('.typewriter-text');
@@ -35,8 +55,27 @@ const { text, speed = 50, delay = 0, class: className = "" } = Astro.props;
       this.speed = parseInt(element.dataset.speed) || 50;
       this.delay = parseInt(element.dataset.delay) || 0;
       this.currentIndex = 0;
+      this.processedText = this.parseTextWithBreaks(this.text);
+      this.currentTextNode = null;
       
       this.init();
+    }
+
+    parseTextWithBreaks(text: string): ProcessedItem[] {
+      // Split text by <br/> tags and convert them to actual line breaks
+      const parts = text.split(/<br\s*\/?>/i);
+      const processed: ProcessedItem[] = [];
+      
+      for (let i = 0; i < parts.length; i++) {
+        if (i > 0) {
+          // Add a line break element
+          processed.push({ type: 'break' });
+        }
+        // Add the text part
+        processed.push({ type: 'text', content: parts[i] });
+      }
+      
+      return processed;
     }
 
     init() {
@@ -46,8 +85,31 @@ const { text, speed = 50, delay = 0, class: className = "" } = Astro.props;
     }
 
     type() {
-      if (this.currentIndex < this.text.length) {
-        this.textElement.textContent += this.text.charAt(this.currentIndex);
+      if (this.currentIndex < this.processedText.length) {
+        const currentItem = this.processedText[this.currentIndex];
+        
+        if (currentItem.type === 'break') {
+          // Create a line break
+          const br = document.createElement('br');
+          this.textElement.appendChild(br);
+          this.currentIndex++;
+          setTimeout(() => this.type(), this.speed);
+        } else if (currentItem.type === 'text') {
+          // Create a new text node for this text segment
+          this.currentTextNode = document.createTextNode('');
+          this.textElement.appendChild(this.currentTextNode);
+          // Type out the text character by character
+          this.typeText(currentItem.content, 0);
+        }
+      }
+    }
+
+    typeText(text: string, charIndex: number) {
+      if (charIndex < text.length) {
+        this.currentTextNode.textContent += text.charAt(charIndex);
+        setTimeout(() => this.typeText(text, charIndex + 1), this.speed);
+      } else {
+        // Text part is complete, move to next item
         this.currentIndex++;
         setTimeout(() => this.type(), this.speed);
       }

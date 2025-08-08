@@ -1,14 +1,71 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Inventory from '../components/Inventory.vue';
 
 const title = "To be continued!....";
-const backdrop = "/images/clara-denari-2.webp";
+const backdrop = "/images/clara-2.png";
 ---
 
-<Layout title={title} backdrop={backdrop}>
+<Layout title={title} backdrop={backdrop} fullScreenLayout={true}>
   <div class="prose max-w-none">
-    <h1>{title}</h1>
+    <!-- Main content area with image and inventory side by side -->
+    <div class="flex flex-col lg:flex-row gap-6 mb-8">
+      <!-- Square image on the left -->
+      <div class="lg:w-1/3">
+        <div class="aspect-square bg-cover bg-center rounded-lg overflow-hidden" 
+             style={`background-image: url(${backdrop})`}>
+        </div>
+      </div>
+      
+      <!-- Inventory on the right -->
+      <div class="lg:w-2/3">
+        <Inventory client:load />
+      </div>
+    </div>
     
-    <p>Now it's your turn to continue the adventure!</p>
+    <!-- Full width storyline -->
+    <div class="w-full mb-6">
+      <h1 class="text-3xl font-bold text-green-500 mb-4" style="text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);">
+        {title}
+      </h1>
+      
+      <div class="bg-black bg-opacity-50 border-2 border-green-500 rounded-lg p-6 mb-6">
+        <p class="text-green-500 text-lg leading-relaxed" style="text-shadow: 0 0 3px rgba(0, 255, 0, 0.5);">
+          Now it's your turn to continue the adventure! The journey through space has brought you to a critical crossroads. 
+          Your decisions will shape the fate of your crew and the mission.
+        </p>
+        
+        <p class="text-green-500 text-lg leading-relaxed mt-4" style="text-shadow: 0 0 3px rgba(0, 255, 0, 0.5);">
+          What will you do next? Choose your path wisely...
+        </p>
+      </div>
+    </div>
+    
+    <!-- Full width buttons -->
+    <div class="w-full flex flex-col sm:flex-row gap-4 justify-center">
+      <button 
+        class="bg-black text-green-500 border-2 border-green-500 px-6 py-3 rounded-lg hover:bg-green-500 hover:text-black transition-colors duration-200 font-bold text-lg"
+        style="text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);"
+        onclick="window.showFallbackNotification('Exploring the unknown...', 2000)"
+      >
+        🚀 Continue Mission
+      </button>
+      
+      <button 
+        class="bg-black text-green-500 border-2 border-green-500 px-6 py-3 rounded-lg hover:bg-green-500 hover:text-black transition-colors duration-200 font-bold text-lg"
+        style="text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);"
+        onclick="window.showFallbackNotification('Analyzing data...', 2000)"
+      >
+        🔍 Investigate
+      </button>
+      
+      <button 
+        class="bg-black text-green-500 border-2 border-green-500 px-6 py-3 rounded-lg hover:bg-green-500 hover:text-black transition-colors duration-200 font-bold text-lg"
+        style="text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);"
+        onclick="window.showFallbackNotification('Returning to base...', 2000)"
+      >
+        🏠 Return to Base
+      </button>
+    </div>
   </div>
 </Layout> 

@@ -1,13 +1,13 @@
 <template>
   <div class="markdown-body">
     <div class="flex justify-between items-center">
-      <p class="text-xl pb-3 p-3 text-sans text-green-500 text-start" style="text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);">
+      <p class="text-xl pb-3 p-3 text-sans text-amber-400 text-start" style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);">
         Inventory
       </p>
     </div>
     <div class="p-3">
       <div id="inventory-container">
-        <div v-if="inventory.length === 0" class="text-green-500 text-start p-2" style="text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);">
+        <div v-if="inventory.length === 0" class="text-amber-200 text-start p-2" style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);">
           Sorry, there are no items here yet
         </div>
         <div v-else class="wrapper">
@@ -16,7 +16,7 @@
             :key="item.name"
             class="item mb-2"
           >
-            <p class="text-green-500 text-sm" style="text-shadow: 0 0 3px rgba(0, 255, 0, 0.5);">
+            <p class="text-amber-200 text-sm" style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);">
               • {{ item.name }}
             </p>
           </div>

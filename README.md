@@ -1,4 +1,4 @@
-# SpaceQuest - Interactive Story Engine
+# Interactive Story Engine
 
 An interactive story/game engine converted from VuePress to Astro.
 
@@ -7,7 +7,7 @@ An interactive story/game engine converted from VuePress to Astro.
 - **Interactive Storytelling**: Navigate through story pages with custom components
 - **Inventory System**: Collect and manage items throughout the adventure
 - **Responsive Design**: Works on desktop and mobile devices
-- **Modern Tech Stack**: Built with Astro and Tailwind CSS
+- **Modern Tech Stack**: Built with Astro, Vue and Tailwind CSS
 
 ## Getting Started
 

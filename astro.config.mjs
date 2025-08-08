@@ -5,6 +5,6 @@ import vue from '@astrojs/vue';
 export default defineConfig({
   integrations: [tailwind(), vue()],
   site: 'https://github.com/jlooper/static-game-engine',
-  title: 'SpaceQuest',
-  description: 'Enjoy the Journey'
+  title: 'Clara Denari Adventures',
+  description: 'Mysteries by Cloudinary'
 }); 

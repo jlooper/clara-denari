@@ -10,10 +10,11 @@ const { url, instructions = "", action, condition = "none" } = Astro.props;
 ---
 
 <div class="page-navigation">
-  {instructions && <p class="mb-4">{instructions}</p>}
+  {instructions && <p class="mb-4 text-amber-500">{instructions}</p>}
   
   <button 
-    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+    class="bg-black text-green-500 border-2 border-amber-500 px-6 py-3 rounded-lg hover:bg-green-500 hover:text-black transition-colors duration-200 font-bold text-lg"
+    style="text-shadow: 0 0 5px rgba(244, 227, 153, 0.242);"
     data-url={url}
     data-condition={condition}
     id={`page-btn-${url}`}
