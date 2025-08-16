@@ -3,11 +3,71 @@ import Inventory from './Inventory.vue';
 // Nav component for Astro
 ---
 
-<nav class="nav rounded-t flex items-center justify-between flex-wrap text-right pr-0 lg:pr-5 md:pr-3 sm:pr-0">
-  <div class="flex items-center">
-    <a href="/" class="text-amber-800 hover:text-amber-600 transition-colors mr-4">
+<nav class="nav rounded-t flex items-center justify-between flex-wrap text-right pr-0 lg:pr-8 md:pr-6 sm:pr-4">
+  
+  <div class="flex items-center space-x-4">
+    
+    <a href="/" class="text-amber-800 hover:text-amber-600 transition-colors">
       Home
     </a>
+   
+    
+    <!-- Language Selector Dropdown -->
+    <div class="relative">
+      <button 
+        id="language-dropdown-btn"
+        class="flex items-center space-x-2 text-amber-800 hover:text-amber-600 transition-colors px-3 py-2 rounded-lg hover:bg-amber-900 hover:bg-opacity-20"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <span id="current-lang">English</span>
+        <span id="current-flag">🇺🇸</span>
+        <svg class="w-4 h-4 float-right mt-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+      </button>
+      
+      <div 
+        id="language-dropdown"
+        class="absolute left-0 mt-2 w-56 bg-gray-800 border border-amber-600 rounded-lg shadow-xl hidden z-50"
+        style="background: linear-gradient(135deg, #2a1f1a 0%, #1a1410 25%, #0f0a08 50%, #0a0705 75%, #050302 100%);"
+      >
+        <div class="py-2 m-2">
+          <button 
+            class="w-full text-left px-4 py-2 text-amber-200 hover:bg-amber-700 hover:bg-opacity-30 transition-colors flex items-center space-x-3"
+            data-lang="en"
+            data-flag="🇺🇸"
+          >
+            <span>🇺🇸</span>
+            <span>English</span>
+          </button>
+          <button 
+            class="w-full text-left px-4 py-2 text-amber-200 hover:bg-amber-700 hover:bg-opacity-30 transition-colors flex items-center space-x-3"
+            data-lang="fr"
+            data-flag="🇫🇷"
+          >
+            <span>🇫🇷</span>
+            <span>Français</span>
+          </button>
+          <button 
+            class="w-full text-left px-4 py-2 text-amber-200 hover:bg-amber-700 hover:bg-opacity-30 transition-colors flex items-center space-x-3"
+            data-lang="es"
+            data-flag="🇪🇸"
+          >
+            <span>🇪🇸</span>
+            <span>Español</span>
+          </button>
+          <button 
+            class="w-full text-left px-4 py-2 text-amber-200 hover:bg-amber-700 hover:bg-opacity-30 transition-colors flex items-center space-x-3"
+            data-lang="pt-br"
+            data-flag="🇧🇷"
+          >
+            <span>🇧🇷</span>
+            <span>Português (Brasil)</span>
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="w-full block justify-end lg:flex lg:w-auto">
@@ -19,8 +79,104 @@ import Inventory from './Inventory.vue';
   </div>
 </nav>
 
+<script>
+  // Language dropdown functionality
+  document.addEventListener('DOMContentLoaded', () => {
+    const languageBtn = document.getElementById('language-dropdown-btn');
+    const languageDropdown = document.getElementById('language-dropdown');
+    const currentLang = document.getElementById('current-lang');
+    
+    const currentFlag = document.getElementById('current-flag');
+    
+    if (languageBtn && languageDropdown && currentLang && currentFlag) {
+      // Toggle dropdown
+      languageBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isExpanded = languageBtn.getAttribute('aria-expanded') === 'true';
+        
+        if (isExpanded) {
+          languageDropdown.classList.add('hidden');
+          languageBtn.setAttribute('aria-expanded', 'false');
+        } else {
+          languageDropdown.classList.remove('hidden');
+          languageBtn.setAttribute('aria-expanded', 'true');
+        }
+      });
+      
+      // Handle language selection
+      languageDropdown.addEventListener('click', (e) => {
+        const target = e.target as HTMLElement;
+        const langButton = target.closest('button[data-lang]') as HTMLButtonElement;
+        
+        if (langButton) {
+          const lang = langButton.getAttribute('data-lang');
+          const flag = langButton.getAttribute('data-flag');
+          
+          if (lang && flag) {
+            // Update current language display
+            const languageNames = {
+              'en': 'English',
+              'fr': 'Français',
+              'es': 'Español',
+              'pt-br': 'Português (Brasil)'
+            };
+            currentLang.textContent = languageNames[lang] || lang;
+            currentFlag.textContent = flag;
+            
+            // Store language preference
+            localStorage.setItem('preferred-language', lang);
+            
+            // Close dropdown
+            languageDropdown.classList.add('hidden');
+            languageBtn.setAttribute('aria-expanded', 'false');
+            
+            // Trigger language change event
+            window.dispatchEvent(new CustomEvent('language-changed', { 
+              detail: { language: lang } 
+            }));
+            
+            console.log(`Language changed to: ${lang}`);
+          }
+        }
+      });
+      
+      // Close dropdown when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!languageBtn.contains(e.target as Node) && !languageDropdown.contains(e.target as Node)) {
+          languageDropdown.classList.add('hidden');
+          languageBtn.setAttribute('aria-expanded', 'false');
+        }
+      });
+      
+              // Load saved language preference after a short delay to avoid hydration issues
+        setTimeout(() => {
+          const savedLang = localStorage.getItem('preferred-language');
+          if (savedLang) {
+            const langButton = languageDropdown.querySelector(`button[data-lang="${savedLang}"]`) as HTMLButtonElement;
+            if (langButton) {
+              const flag = langButton.getAttribute('data-flag');
+              const languageNames = {
+                'en': 'English',
+                'fr': 'Français',
+                'es': 'Español',
+                'pt-br': 'Português (Brasil)'
+              };
+              currentLang.textContent = languageNames[savedLang] || savedLang;
+              currentFlag.textContent = flag;
+            }
+          }
+        }, 150);
+    }
+  });
+</script>
+
 <style>
   .markdown-body a {
     text-decoration: none;
+  }
+  
+  /* Dropdown arrow rotation */
+  #language-dropdown-btn[aria-expanded="true"] svg {
+    transform: rotate(90deg);
   }
 </style> 

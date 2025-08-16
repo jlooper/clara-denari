@@ -1,0 +1,281 @@
+---
+// SandboxPopup.astro - Cloudinary transformation testing popup
+---
+
+<!-- Sandbox Popup -->
+<div 
+  id="sandbox-popup"
+  class="fixed inset-0 bg-black bg-opacity-95 z-50 hidden flex items-center justify-center p-4"
+>
+  <div class="border-2 border-amber-600 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl" style="background: linear-gradient(135deg, #2a1f1a 0%, #1a1410 25%, #0f0a08 50%, #0a0705 75%, #050302 100%), url('data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100\' height=\'100\' filter=\'url(%23noise)\' opacity=\'0.1\'/%3E%3C/svg%3E');">
+    <div class="flex justify-between items-center p-4 border-b border-amber-600">
+      <h2 class="text-amber-400 text-xl font-bold" style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);" id="sandbox-title">
+        Transformation Lab
+      </h2>
+      <button 
+        id="close-sandbox"
+        class="text-amber-400 hover:text-red-400 text-2xl font-bold transition-colors duration-200"
+        style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);"
+      >
+        ×
+      </button>
+    </div>
+    <div class="p-6">
+      <p class="text-amber-200 mb-6" style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);" id="sandbox-description">
+        Test Cloudinary image transformations in real-time. Enter your cloud name, public ID, and transformation parameters to see the results.
+      </p>
+    
+      <div id="sandbox-content">
+        <!-- CloudinarySandbox component will be loaded here -->
+      </div>
+      
+      <div class="mt-8 p-4 border border-amber-600 rounded-lg" style="background: linear-gradient(135deg, #2a1f1a 0%, #1a1410 25%, #0f0a08 50%, #0a0705 75%, #050302 100%), url('data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100\' height=\'100\' filter=\'url(%23noise)\' opacity=\'0.1\'/%3E%3C/svg%3E');">
+        <h3 class="text-amber-400 text-lg font-bold mb-3" style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);" id="usage-tips-title">Usage Tips:</h3>
+        <ul class="text-amber-200 text-sm space-y-2" style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);">
+          <li>• Use "demo" as cloud name and "sample" as public ID for testing</li>
+          <li>• Try the preset buttons for common transformations</li>
+          <li>• Transformation parameters follow Cloudinary's URL API format</li>
+          <li>• Examples: <code class="bg-gray-700 px-1 rounded">c_scale,w_300,h_200</code> or <code class="bg-gray-700 px-1 rounded">e_grayscale,c_fill,w_400,h_300</code></li>
+          <li>• The generated URL can be copied and used directly</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Sandbox popup functionality
+  document.addEventListener('DOMContentLoaded', () => {
+    const sandboxPopup = document.getElementById('sandbox-popup');
+    const closeSandbox = document.getElementById('close-sandbox');
+    const sandboxContent = document.getElementById('sandbox-content');
+    
+    // i18n function
+    function t(key: string): string {
+      const translations: { [key: string]: { [lang: string]: string } } = {
+        'sandbox.title': {
+          'en': 'Transformation Lab',
+          'fr': 'Laboratoire de Transformation',
+          'es': 'Laboratorio de Transformación',
+          'pt-br': 'Laboratório de Transformação'
+        },
+        'sandbox.description': {
+          'en': 'Test Cloudinary image transformations in real-time. Enter your cloud name, public ID, and transformation parameters to see the results.',
+          'fr': 'Testez les transformations d\'images Cloudinary en temps réel. Entrez votre nom de cloud, ID public et paramètres de transformation pour voir les résultats.',
+          'es': 'Prueba las transformaciones de imágenes de Cloudinary en tiempo real. Ingresa tu nombre de nube, ID público y parámetros de transformación para ver los resultados.',
+          'pt-br': 'Teste transformações de imagens Cloudinary em tempo real. Digite seu nome de nuvem, ID público e parâmetros de transformação para ver os resultados.'
+        },
+        'sandbox.usageTips': {
+          'en': 'Usage Tips:',
+          'fr': 'Conseils d\'utilisation :',
+          'es': 'Consejos de uso:',
+          'pt-br': 'Dicas de uso:'
+        }
+      };
+      
+      const currentLang = localStorage.getItem('preferred-language') || 'en';
+      return translations[key]?.[currentLang] || translations[key]?.['en'] || key;
+    }
+    
+    // Update text content based on current language
+    function updateTextContent() {
+      const titleElement = document.getElementById('sandbox-title');
+      const descriptionElement = document.getElementById('sandbox-description');
+      const usageTipsElement = document.getElementById('usage-tips-title');
+      
+      if (titleElement) titleElement.textContent = t('sandbox.title');
+      if (descriptionElement) descriptionElement.textContent = t('sandbox.description');
+      if (usageTipsElement) usageTipsElement.textContent = t('sandbox.usageTips');
+      
+      // Force a re-render by triggering a custom event
+      window.dispatchEvent(new CustomEvent('sandbox-content-updated'));
+    }
+    
+    if (sandboxPopup) {
+      console.log('Found sandbox popup, setting up event listeners');
+      
+      // Update text content initially
+      updateTextContent();
+      
+      // Listen for language changes
+      window.addEventListener('language-changed', updateTextContent);
+      
+      // Use event delegation to catch clicks on the sandbox button
+      document.addEventListener('click', (e) => {
+        const target = e.target as HTMLElement;
+        if (target && target.id === 'sandbox-btn') {
+          console.log('Sandbox button clicked via event delegation');
+          sandboxPopup.classList.remove('hidden');
+          document.body.style.overflow = 'hidden'; // Prevent background scrolling
+          
+          // Load CloudinarySandbox component content
+          if (sandboxContent) {
+            sandboxContent.innerHTML = `
+              <div class="cloudinary-sandbox">
+                <div class="sandbox-content">
+                  <!-- Input Section -->
+                  <div class="input-section mb-6">
+                    <div class="mb-4">
+                      <label class="block text-amber-500 text-sm mb-2">Cloud Name:</label>
+                      <input 
+                        id="cloud-name"
+                        type="text" 
+                        class="w-full p-2 bg-gray-800 border border-amber-600 text-amber-200 rounded"
+                        placeholder="your-cloud-name"
+                        value="demo"
+                      />
+                    </div>
+                    
+                    <div class="mb-4">
+                      <label class="block text-amber-800 text-sm mb-2">Public ID:</label>
+                      <input 
+                        id="public-id"
+                        type="text" 
+                        class="w-full p-2 bg-gray-800 border border-amber-600 text-amber-200 rounded"
+                        placeholder="sample"
+                        value="sample"
+                      />
+                    </div>
+                    
+                    <div class="mb-4">
+                      <label class="block text-amber-800 text-sm mb-2">Transformation:</label>
+                      <input 
+                        id="transformation"
+                        type="text" 
+                        class="w-full p-2 bg-gray-800 border border-amber-600 text-amber-200 rounded font-mono text-sm"
+                        placeholder="c_scale,w_300,h_200,f_auto,q_auto"
+                        value="c_scale,w_300,h_200,f_auto,q_auto"
+                      />
+                    </div>
+                    
+                    <div class="mb-4">
+                      <label class="block text-amber-800 text-sm mb-2">Format:</label>
+                      <select 
+                        id="format"
+                        class="w-full p-2 bg-gray-800 border border-amber-600 text-amber-200 rounded"
+                      >
+                        <option value="auto">Auto</option>
+                        <option value="jpg">JPG</option>
+                        <option value="png">PNG</option>
+                        <option value="webp">WebP</option>
+                        <option value="avif">AVIF</option>
+                      </select>
+                    </div>
+                  </div>
+                  
+                  <!-- URL Display -->
+                  <div class="url-section mb-6">
+                    <label class="block text-amber-800 text-sm mb-2">Generated URL:</label>
+                    <div class="flex">
+                      <input 
+                        id="generated-url"
+                        type="text" 
+                        readonly
+                        class="flex-1 p-2 bg-gray-800 border border-amber-600 text-amber-200 rounded font-mono text-xs"
+                      />
+                      <button 
+                        id="copy-url"
+                        class="ml-2 px-3 py-2 bg-gray-800 border border-amber-600 text-amber-200 rounded hover:bg-amber-700 transition-colors"
+                      >
+                        Copy
+                      </button>
+                    </div>
+                  </div>
+                  
+                  <!-- Preview Section -->
+                  <div class="preview-section">
+                    <h4 class="text-amber-800 text-md font-bold mb-3">Preview:</h4>
+                    <div class="preview-container">
+                      <img 
+                        id="preview-image"
+                        class="max-w-full border border-amber-600 rounded"
+                        alt="Transformation preview"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            `;
+            
+            // Initialize sandbox functionality
+            initializeSandbox();
+          }
+        }
+      });
+      
+      // Close sandbox
+      if (closeSandbox) {
+        closeSandbox.addEventListener('click', () => {
+          sandboxPopup.classList.add('hidden');
+          document.body.style.overflow = ''; // Restore scrolling
+        });
+      }
+      
+      // Close on backdrop click
+      sandboxPopup.addEventListener('click', (e) => {
+        if (e.target === sandboxPopup) {
+          sandboxPopup.classList.add('hidden');
+          document.body.style.overflow = '';
+        }
+      });
+      
+      // Close on escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !sandboxPopup.classList.contains('hidden')) {
+          sandboxPopup.classList.add('hidden');
+          document.body.style.overflow = '';
+        }
+      });
+    }
+    
+    function initializeSandbox() {
+      const cloudNameInput = document.getElementById('cloud-name') as HTMLInputElement;
+      const publicIdInput = document.getElementById('public-id') as HTMLInputElement;
+      const transformationInput = document.getElementById('transformation') as HTMLInputElement;
+      const formatSelect = document.getElementById('format') as HTMLSelectElement;
+      const generatedUrlInput = document.getElementById('generated-url') as HTMLInputElement;
+      const copyUrlBtn = document.getElementById('copy-url') as HTMLButtonElement;
+      const previewImage = document.getElementById('preview-image') as HTMLImageElement;
+      
+      if (!cloudNameInput || !publicIdInput || !transformationInput || !formatSelect || 
+          !generatedUrlInput || !copyUrlBtn || !previewImage) {
+        console.error('Some sandbox elements not found');
+        return;
+      }
+      
+      function updateUrl() {
+        const cloudName = cloudNameInput.value;
+        const publicId = publicIdInput.value;
+        const transformation = transformationInput.value;
+        const format = formatSelect.value;
+        
+        if (!cloudName || !publicId) return;
+        
+        const baseUrl = `https://res.cloudinary.com/${cloudName}/image/upload`;
+        const transformPath = transformation ? `/${transformation}` : '';
+        const formatExt = format !== 'auto' ? `.${format}` : '';
+        
+        const url = `${baseUrl}${transformPath}/${publicId}${formatExt}`;
+        generatedUrlInput.value = url;
+        previewImage.src = url;
+      }
+      
+      function copyUrl() {
+        navigator.clipboard.writeText(generatedUrlInput.value).then(() => {
+          // URL copied successfully
+        });
+      }
+      
+      // Add event listeners
+      [cloudNameInput, publicIdInput, transformationInput, formatSelect].forEach(input => {
+        input.addEventListener('input', updateUrl);
+      });
+      
+      copyUrlBtn.addEventListener('click', copyUrl);
+      
+      // Initialize URL
+      updateUrl();
+    }
+  });
+</script>
+
