@@ -5,9 +5,9 @@
 <!-- Sandbox Popup -->
 <div 
   id="sandbox-popup"
-  class="fixed inset-0 bg-black bg-opacity-95 z-50 hidden flex items-center justify-center p-4"
+  class="fixed inset-0 bg-black bg-opacity-95 z-50 hidden flex items-start justify-center pt-8 pb-4 px-4"
 >
-  <div class="border-2 border-amber-600 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl" style="background: linear-gradient(135deg, #2a1f1a 0%, #1a1410 25%, #0f0a08 50%, #0a0705 75%, #050302 100%), url('data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100\' height=\'100\' filter=\'url(%23noise)\' opacity=\'0.1\'/%3E%3C/svg%3E');">
+  <div class="border-2 border-amber-600 rounded-lg max-w-4xl w-full max-h-[85vh] overflow-y-auto shadow-2xl" style="background: linear-gradient(135deg, #2a1f1a 0%, #1a1410 25%, #0f0a08 50%, #0a0705 75%, #050302 100%), url('data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100\' height=\'100\' filter=\'url(%23noise)\' opacity=\'0.1\'/%3E%3C/svg%3E');">
     <div class="flex justify-between items-center p-4 border-b border-amber-600">
       <h2 class="text-amber-400 text-xl font-bold" style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);" id="sandbox-title">
         Transformation Lab
@@ -278,4 +278,25 @@
     }
   });
 </script>
+
+<style>
+  /* Custom scrollbar for sandbox popup */
+  #sandbox-popup .overflow-y-auto::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  #sandbox-popup .overflow-y-auto::-webkit-scrollbar-track {
+    background: rgba(139, 69, 19, 0.2);
+    border-radius: 4px;
+  }
+  
+  #sandbox-popup .overflow-y-auto::-webkit-scrollbar-thumb {
+    background: rgba(139, 69, 19, 0.6);
+    border-radius: 4px;
+  }
+  
+  #sandbox-popup .overflow-y-auto::-webkit-scrollbar-thumb:hover {
+    background: rgba(139, 69, 19, 0.8);
+  }
+</style>
 
