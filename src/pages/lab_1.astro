@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import GameLayout from '../components/GameLayout.astro';
 import NotificationPanel from '../components/NotificationPanel.astro';
+import Page from '../components/Page.astro';
 
 const title = "Lab 1";
 const backdrop = "https://res.cloudinary.com/dr60nybtj/image/upload/v1756945788/clara_scrap_im34z1.png";
@@ -22,7 +23,7 @@ const backdrop = "https://res.cloudinary.com/dr60nybtj/image/upload/v1756945788/
         <p class="text-green-500 text-lg leading-relaxed" style="text-shadow: 0 0 3px rgba(0, 255, 0, 0.5);">
           The image appears to be burned and is far too dark to read easily. Use a Cloudinary transformation in the Lab to enhance the image's contrast to find your first clue.
           <br/><br/>Create a free account at <a href="https://Cloudinary.com" target="_blank">https://Cloudinary.com</a>. Upload your image to the Media Library. Take note of your <b>cloud name</b> (listed in the top left dropdown menu of the console) and your uploaded image's <b>public ID</b> , which you can find by clicking on the image in the Media Library in the Summary tab.<br/><br/>
-          Click the 'Lab' button and enter your cloud name and the image's public ID. Enhance the image which is very dark, but appears to have a word written on it. Hint: try the <a href="https://cloudinary.com/documentation/transformation_reference#e_contrast">'contrast' transformation</a>. Once you have transformed the image, and the word is visible, enter the word into the text box below.
+          Click the 'Lab' button and enter your cloud name and the image's public ID. Enhance the image which is very dark, but appears to have a word written on it. Hint: try the <a href="https://cloudinary.com/documentation/transformation_reference#e_contrast">'contrast' transformation</a>. Once you have transformed the image, and the word is visible, select the letters from the options in the lab.
 
         </p>
         
@@ -35,20 +36,11 @@ const backdrop = "https://res.cloudinary.com/dr60nybtj/image/upload/v1756945788/
     
     <!-- Full width buttons -->
     <div class="w-full flex flex-col sm:flex-row gap-4 justify-center">
-      <button 
-        class="bg-black text-green-500 border-2 border-green-500 px-6 py-3 rounded-lg hover:bg-green-500 hover:text-black transition-colors duration-200 font-bold text-lg"
-        style="text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);"
-      >
-        Continue Mission
-      </button>
-    
-      
-      <button 
-        class="bg-black text-green-500 border-2 border-green-500 px-6 py-3 rounded-lg hover:bg-green-500 hover:text-black transition-colors duration-200 font-bold text-lg"
-        style="text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);"
-      >
-        Return to HQ
-      </button>
+      <Page 
+      url="sticky_paper" 
+      action="Continue your investigation" 
+      condition="2"
+    />
     </div>
   </div>
 </Layout> 
