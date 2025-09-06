@@ -9,7 +9,8 @@ import NotificationPanel from '../components/NotificationPanel.astro';
 const title = "In the North End";
 const backdrop = "https://res.cloudinary.com/dr60nybtj/image/upload/v1756943680/cd_2.png";
 
-const storyText = `xxx`;
+const storyText = `There was no sign of the old molasses tank now, so many years later, but the gathering darkness of the night still revealed abandoned swingsets in the park where the former factory stood.<br/><br/>
+Her foot tapping against an abandoned bocce ball, Clara looked down and saw a piece of paper sticking out of the ground. It was damp and crumpled, but looked like a wax wrapper of some kind.`;
 ---
 
 <Layout title={title} backdrop={backdrop} fullScreenLayout={true}>
@@ -40,18 +41,21 @@ const storyText = `xxx`;
       <div class="w-full">
         <div class="flex flex-col sm:flex-row gap-4 justify-center mb-6">
           
-          <!-- Text-only action -->
-          <GameAction 
-            id="ask_reward" 
-            actionType="text" 
-            customText="Grab some coffee"
-            customResult="The molasses smell makes you hungry, so you grab a cup of coffee. No harm done there!"
-            client:load 
-          />
+           <!-- Inventory item -->
+        <!-- Text-only action -->
+        <GameAction 
+          id="recycle" 
+          actionType="text" 
+          customText="Toss the wax wrapper in the recycling bin"
+          customResult="Laudable, but you may have just thrown away a clue."
+          client:load 
+        />
+        <GameAction id="2" actionType="item" client:load />
+        
        
           <Page 
-            url="north_end" 
-            action="Walk to the North End" 
+            url="lab_2" 
+            action="Go to the lab" 
             condition="1"
             resultText="Off you go!"
           />

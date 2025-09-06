@@ -1,16 +1,19 @@
 [
   {
     "id": 1,
-    "instructions": "Open the",
-    "name": "burned corner of a scrap of paper",
+    "instructions": "Examine the",
+    "name": "scrap of paper",
     "imageUrl": "https://res.cloudinary.com/dr60nybtj/image/upload/v1756949210/9c6ce5d8-db57-4fc2-b483-2698dcb2c158-1_ne9nlo.png",
     "initialHide": true,
-    "result": "You open the envelope to find a torn corner of a scrap of paper. It's hard to make out what it is as it's been burned."
+    "result": "You open the envelope to find a torn corner of a scrap of paper. It's hard to make out what it is as it looks burned."
   },
   {
     "id": 2,
-    "instructions": "Ask about any reward money",
+    "instructions": "Pick up the",
+    "name": "wax wrapper",
+    "imageUrl": "",
     "initialHide": true,
-    "result": "The Director rolls his eyes as the wealthy lady clutches her purse tighter."
+    "result": "You pick up the wax wrapper. It's crumpled and looks like it has crumbs of something crispy in it, like cannolli crumbs. Better take it to the lab to discover where it came from. "
   }
+ 
 ] 

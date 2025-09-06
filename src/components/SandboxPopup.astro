@@ -282,13 +282,13 @@
       // Check if we're on a lab page
       function isLabPage() {
         const path = window.location.pathname;
-        return path.includes('lab_') || path.includes('/1') || path.includes('/2') || path.includes('/3');
+        return path.includes('lab_1') || path.includes('lab_2') || path.includes('/1') || path.includes('/2');
       }
       
       // Get current lab based on URL
       function getCurrentLab() {
         const path = window.location.pathname;
-        if (path.includes('lab_1') || path.includes('1')) {
+        if (path.includes('lab_1') || path.includes('/1')) {
           return {
             name: 'Lab 1',
             correctAnswer: 'Ch Os',
@@ -299,22 +299,25 @@
               { value: 'C H O S', text: 'C H O S' },
               { value: 'Other', text: 'Other' }
             ],
-            successMessage: 'Well done! You\'ve successfully enhanced the image and discovered the hidden letters "Ch Os". It looks like this is a piece of Dr. Chiaro Obscuro\'s stationary, and it ties this criminal to the crime. Keep this information safe as you continue your investigation!'
+            successMessage: 'Well done! You\'ve successfully enhanced the image and discovered the hidden letters "Ch Os". It looks like this is a piece of Dr. Chiaro Obscuro\'s stationery, and it ties this criminal to the crime. Keep this information safe as you continue your investigation!'
           };
         }
-        // Add more labs here as needed
-        return {
-          name: 'Lab 1',
-          correctAnswer: 'Ch Os',
-          question: 'After transforming the image, what letters or words can you see?',
-          options: [
-            { value: 'Ch Os', text: 'Ch Os' },
-            { value: 'Cl Os', text: 'Cl Os' },
-            { value: 'C H O S', text: 'C H O S' },
-            { value: 'Other', text: 'Other' }
-          ],
-          successMessage: 'Well done! You\'ve successfully enhanced the image and discovered the hidden letters "Ch Os". It looks like this is a piece of Dr. Chiaro Obscuro\'s stationery, and it ties this criminal to the crime. Keep this information safe as you continue your investigation!'
-        };
+        if (path.includes('lab_2') || path.includes('/2')) {
+          return {
+            name: 'Lab 2',
+            correctAnswer: 'Lab 2 Answer',
+            question: 'Lab 2 question here?',
+            options: [
+              { value: 'Option 1', text: 'Option 1' },
+              { value: 'Option 2', text: 'Option 2' },
+              { value: 'Option 3', text: 'Option 3' },
+              { value: 'Other', text: 'Other' }
+            ],
+            successMessage: 'Lab 2 success message here!'
+          };
+        }
+        // Default fallback - should not reach here if isLabPage() works correctly
+        return null;
       }
       
       // Lab results validation
@@ -527,9 +530,14 @@
       updateResultsDisplay();
       
       if (isLabPage()) {
-        showLabTest();
-        generateQuiz();
-        checkLabCompletion();
+        const currentLab = getCurrentLab();
+        if (currentLab) {
+          showLabTest();
+          generateQuiz();
+          checkLabCompletion();
+        } else {
+          hideLabTest();
+        }
       } else {
         hideLabTest();
       }
