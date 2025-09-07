@@ -5,6 +5,7 @@
     "name": "scrap of paper",
     "imageUrl": "https://res.cloudinary.com/dr60nybtj/image/upload/v1756949210/9c6ce5d8-db57-4fc2-b483-2698dcb2c158-1_ne9nlo.png",
     "initialHide": true,
+    "location": "sticky_paper",
     "result": "You open the envelope to find a torn corner of a scrap of paper. It's hard to make out what it is as it looks burned."
   },
   {
@@ -13,7 +14,8 @@
     "name": "piece of string",
     "imageUrl": "https://res.cloudinary.com/dr60nybtj/image/upload/e_sepia/twine_w1pkkj",
     "initialHide": true,
-    "result": "You pick up soggy piece of string. It looks like baker's twine, but you can't tell for sure."
+    "location": "north_end",
+    "result": "You pick up the soggy piece of string. It looks like baker's twine, but you can't tell for sure."
   }
  
 ] 

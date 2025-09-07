@@ -4,13 +4,6 @@
       <p class="text-xl pb-3 p-3 text-sans text-amber-400 text-start" style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);">
         {{ isHydrated ? titleText : 'Inventory' }}
       </p>
-      <button 
-        id="sandbox-btn"
-        class="bg-gradient-to-br from-gray-800 to-gray-900 text-amber-400 border-2 border-amber-600 px-3 py-2 text-sm rounded-lg hover:from-amber-700 hover:to-amber-800 hover:text-white transition-all duration-200 shadow-lg"
-        style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);"
-      >
-        🧪 {{ isHydrated ? labText : 'Lab' }}
-      </button>
     </div>
     <div class="p-3">
       <div id="inventory-container">
@@ -36,7 +29,7 @@
               <!-- Item name -->
               <div class="flex-1">
                 <p class="text-amber-200 text-sm font-medium" style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);">
-                  {{ item.name }}
+                  <a :href="item.location">{{ item.name }}</a>
                 </p>
               </div>
             </div>

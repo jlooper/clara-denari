@@ -53,7 +53,20 @@ const { url, instructions = "", action, condition = "none", resultText = "", sho
         
         // Check condition if specified
         if (condition && condition !== 'none') {
-          // For now, we'll just navigate - condition logic can be added later
+          // Check if this is a lab completion condition
+          if (condition.startsWith('lab_')) {
+            const labName = condition.replace('lab_', 'Lab ');
+            const results = JSON.parse(localStorage.getItem('labResults') || '[]');
+            const labCompleted = results.some((result: any) => result.lab === labName && result.correct === true);
+            
+            if (!labCompleted) {
+              // Show notification that lab must be completed first
+              if (typeof window !== 'undefined' && (window as any).showNotificationPanel) {
+                (window as any).showNotificationPanel(`You must complete ${labName} first! Use the Lab button to take the quiz.`, 5000);
+              }
+              return; // Don't navigate
+            }
+          }
         }
         
         // Navigate to the page if URL is provided

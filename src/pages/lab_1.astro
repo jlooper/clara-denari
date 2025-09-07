@@ -34,13 +34,45 @@ const backdrop = "https://res.cloudinary.com/dr60nybtj/image/upload/v1756945788/
     <!-- Notification Panel -->
     <NotificationPanel />
     
-    <!-- Full width buttons -->
+    <!-- Lab Button -->
     <div class="w-full flex flex-col sm:flex-row gap-4 justify-center">
-      <Page 
-      url="sticky_paper" 
-      action="Continue your investigation" 
-      condition="2"
-    />
+      <button 
+        id="sandbox-btn"
+        class="bg-gradient-to-br from-gray-800 to-gray-900 text-amber-400 border-2 border-amber-600 px-6 py-3 text-lg rounded-lg hover:from-amber-700 hover:to-amber-800 hover:text-white transition-all duration-200 shadow-lg font-bold"
+        style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);"
+      >
+        🧪 Lab
+      </button>
     </div>
+    
+  
   </div>
-</Layout> 
+</Layout>
+
+<script>
+  // Check if lab is completed and show continue button
+  document.addEventListener('DOMContentLoaded', () => {
+    function checkLabCompletion() {
+      const results = JSON.parse(localStorage.getItem('labResults') || '[]');
+      const labCompleted = results.some((result: any) => result.lab === 'Lab 1' && result.correct === true);
+      
+      const continueSection = document.getElementById('continue-section');
+      if (continueSection) {
+        if (labCompleted) {
+          continueSection.style.display = 'flex';
+        } else {
+          continueSection.style.display = 'none';
+        }
+      }
+    }
+    
+    // Check on page load
+    checkLabCompletion();
+    
+    // Listen for lab completion events
+    window.addEventListener('labCompleted', checkLabCompletion);
+    
+    // Also check periodically in case localStorage is updated from another tab
+    setInterval(checkLabCompletion, 1000);
+  });
+</script> 

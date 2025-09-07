@@ -5,7 +5,7 @@
 <!-- Sandbox Popup -->
 <div 
   id="sandbox-popup"
-  class="fixed inset-0 bg-black bg-opacity-95 z-50 hidden flex items-start justify-center pt-8 pb-4 px-4"
+  class="fixed inset-0 bg-black bg-opacity-95 z-50 hidden flex items-start justify-center pt-4 pb-4 px-4"
 >
   <div class="border-2 border-amber-600 rounded-lg max-w-4xl w-full max-h-[85vh] overflow-y-auto shadow-2xl" style="background: linear-gradient(135deg, #2a1f1a 0%, #1a1410 25%, #0f0a08 50%, #0a0705 75%, #050302 100%), url('data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100\' height=\'100\' filter=\'url(%23noise)\' opacity=\'0.1\'/%3E%3C/svg%3E');">
     <div class="flex justify-between items-center p-4 border-b border-amber-600">
@@ -88,7 +88,10 @@
         if (target && target.id === 'sandbox-btn') {
           console.log('Sandbox button clicked via event delegation');
           sandboxPopup.classList.remove('hidden');
-          document.body.style.overflow = 'hidden'; // Prevent background scrolling
+          sandboxPopup.classList.add('flex');
+          
+          // Scroll to top of page
+          window.scrollTo({ top: 0, behavior: 'smooth' });
           
           // Load CloudinarySandbox component content
           if (sandboxContent) {
@@ -206,6 +209,16 @@
                     <div id="stored-results" class="text-green-200 text-sm space-y-1" style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);">
                       <p class="text-gray-400 italic">No results yet. Complete the lab test above to see your findings.</p>
                     </div>
+                    
+                    <!-- continue button -->
+                    <div class="flex justify-end">
+                      <button 
+                        id="continue-btn"
+                        class="px-4 py-2 bg-amber-600 text-black rounded hover:bg-amber-500 transition-colors font-bold"
+                      >
+                        Continue
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -221,7 +234,7 @@
       if (closeSandbox) {
         closeSandbox.addEventListener('click', () => {
           sandboxPopup.classList.add('hidden');
-          document.body.style.overflow = ''; // Restore scrolling
+          sandboxPopup.classList.remove('flex');
         });
       }
       
@@ -229,7 +242,7 @@
       sandboxPopup.addEventListener('click', (e) => {
         if (e.target === sandboxPopup) {
           sandboxPopup.classList.add('hidden');
-          document.body.style.overflow = '';
+          sandboxPopup.classList.remove('flex');
         }
       });
       
@@ -237,7 +250,7 @@
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && !sandboxPopup.classList.contains('hidden')) {
           sandboxPopup.classList.add('hidden');
-          document.body.style.overflow = '';
+          sandboxPopup.classList.remove('flex');
         }
       });
     }
@@ -355,6 +368,11 @@
           
           // Disable test buttons after successful completion
           disableTestButtons();
+          
+          // Dispatch custom event to notify lab pages
+          window.dispatchEvent(new CustomEvent('labCompleted', { 
+            detail: { labName: currentLab.name } 
+          }));
           
           // Show notification
           if ((window as any).showNotificationPanel) {
