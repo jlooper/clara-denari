@@ -29,7 +29,7 @@
               <!-- Item name -->
               <div class="flex-1">
                 <p class="text-amber-200 text-sm font-medium" style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);">
-                  <a :href="item.location">{{ item.name }}</a>
+                  <a :href="`/${item.location}`">{{ item.name }}</a>
                 </p>
               </div>
             </div>
@@ -73,7 +73,8 @@ export default {
         const itemData = itemsData.find(item => item.id == parseInt(id));
         return {
           name: itemData ? itemData.name : `Item ${id}`,
-          imageUrl: itemData ? itemData.imageUrl : null
+          imageUrl: itemData ? itemData.imageUrl : null,
+          location: itemData ? itemData.location : null
         };
       });
     };
