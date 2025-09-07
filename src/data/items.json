@@ -10,10 +10,10 @@
   {
     "id": 2,
     "instructions": "Pick up the",
-    "name": "wax wrapper",
-    "imageUrl": "",
+    "name": "piece of string",
+    "imageUrl": "https://res.cloudinary.com/dr60nybtj/image/upload/e_sepia/twine_w1pkkj",
     "initialHide": true,
-    "result": "You pick up the wax wrapper. It's crumpled and looks like it has crumbs of something crispy in it, like cannolli crumbs. Better take it to the lab to discover where it came from. "
+    "result": "You pick up soggy piece of string. It looks like baker's twine, but you can't tell for sure."
   }
  
 ] 

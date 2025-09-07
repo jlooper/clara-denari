@@ -148,10 +148,10 @@
                   <!-- URL Display -->
                   <div class="url-section mb-6">
                     <label class="block text-amber-800 text-sm mb-2">Generated URL:</label>
-                    <input 
-                      id="generated-url"
-                      type="text" 
-                      readonly
+                      <input 
+                        id="generated-url"
+                        type="text" 
+                        readonly
                       class="w-full p-2 bg-gray-800 border border-amber-600 text-amber-200 rounded font-mono text-xs"
                     />
                   </div>
@@ -299,21 +299,27 @@
               { value: 'C H O S', text: 'C H O S' },
               { value: 'Other', text: 'Other' }
             ],
-            successMessage: 'Well done! You\'ve successfully enhanced the image and discovered the hidden letters "Ch Os". It looks like this is a piece of Dr. Chiaro Obscuro\'s stationery, and it ties this criminal to the crime. Keep this information safe as you continue your investigation!'
+            successMessage: 'Well done! You\'ve successfully enhanced the image and discovered the hidden letters "Ch Os". It looks like this is a piece of Dr. Chiaro Obscuro\'s stationery, and it ties this criminal to the crime. Keep this information safe as you continue your investigation!',
+            defaultCloudName: 'demo',
+            defaultPublicId: 'sample',
+            defaultTransformation: 'e_contrast:50,c_scale,w_300,h_200,f_auto,q_auto'
           };
         }
         if (path.includes('lab_2') || path.includes('/2')) {
           return {
             name: 'Lab 2',
-            correctAnswer: 'Lab 2 Answer',
-            question: 'Lab 2 question here?',
+            correctAnswer: 'blue and white',
+            question: 'What\'s the original color of the string?',
             options: [
-              { value: 'Option 1', text: 'Option 1' },
-              { value: 'Option 2', text: 'Option 2' },
-              { value: 'Option 3', text: 'Option 3' },
-              { value: 'Other', text: 'Other' }
+              { value: 'red and blue', text: 'red and blue' },
+              { value: 'red and white', text: 'red and white' },
+              { value: 'blue and white', text: 'blue and white' },
+              { value: 'white', text: 'white' }
             ],
-            successMessage: 'Lab 2 success message here!'
+            successMessage: 'Yes! The string is blue and white. It looks like it\'s from a bakery!',
+            defaultCloudName: 'dr60nybtj',
+            defaultPublicId: 'twine_w1pkkj',
+            defaultTransformation: 'e_sepia/f_auto/q_auto'
           };
         }
         // Default fallback - should not reach here if isLabPage() works correctly
@@ -532,6 +538,23 @@
       if (isLabPage()) {
         const currentLab = getCurrentLab();
         if (currentLab) {
+          // Set lab-specific default values
+          if (currentLab.defaultCloudName) {
+            const cloudNameInput = document.getElementById('cloud-name') as HTMLInputElement;
+            if (cloudNameInput) cloudNameInput.value = currentLab.defaultCloudName;
+          }
+          if (currentLab.defaultPublicId) {
+            const publicIdInput = document.getElementById('public-id') as HTMLInputElement;
+            if (publicIdInput) publicIdInput.value = currentLab.defaultPublicId;
+          }
+          if (currentLab.defaultTransformation) {
+            const transformationInput = document.getElementById('transformation') as HTMLInputElement;
+            if (transformationInput) transformationInput.value = currentLab.defaultTransformation;
+          }
+          
+          // Update URL with the new default values
+          updateUrl();
+          
           showLabTest();
           generateQuiz();
           checkLabCompletion();

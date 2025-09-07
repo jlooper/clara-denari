@@ -9,8 +9,8 @@ import NotificationPanel from '../components/NotificationPanel.astro';
 const title = "In the North End";
 const backdrop = "https://res.cloudinary.com/dr60nybtj/image/upload/v1756943680/cd_2.png";
 
-const storyText = `There was no sign of the old molasses tank now, so many years later, but the gathering darkness of the night still revealed abandoned swingsets in the park where the former factory stood.<br/><br/>
-Her foot tapping against an abandoned bocce ball, Clara looked down and saw a piece of paper sticking out of the ground. It was damp and crumpled, but looked like a wax wrapper of some kind.`;
+const storyText = `There was no sign of the old molasses tank now, so many years later, and the gathering darkness of the night revealed abandoned swingsets in the park where the former factory stood.<br/><br/>
+Clara walked around, looking for any clues, and her foot caught in a loop of something, almost making her trip. Looking down, she saw a grimy piece of string on the ground.`;
 ---
 
 <Layout title={title} backdrop={backdrop} fullScreenLayout={true}>
@@ -46,7 +46,7 @@ Her foot tapping against an abandoned bocce ball, Clara looked down and saw a pi
         <GameAction 
           id="recycle" 
           actionType="text" 
-          customText="Toss the wax wrapper in the recycling bin"
+          customText="Toss the string in the trash"
           customResult="Laudable, but you may have just thrown away a clue."
           client:load 
         />
