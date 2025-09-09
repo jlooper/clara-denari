@@ -6,5 +6,5 @@ export default defineConfig({
   integrations: [tailwind(), vue()],
   site: 'https://github.com/jlooper/static-game-engine',
   title: 'Clara Denari Adventures',
-  description: 'Mysteries by Cloudinary'
+  description: 'Clara Denari Adventures by Cloudinary'
 }); 

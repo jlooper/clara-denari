@@ -84,7 +84,6 @@ typings/
 .dynamodb/
 
 # TypeScript output
-dist
 build
 out
 
