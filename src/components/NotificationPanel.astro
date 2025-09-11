@@ -9,12 +9,12 @@ const { id = "notification-panel", class: className = "" } = Astro.props;
 
 <div 
   id={id} 
-  class={`notification-panel w-full mb-6 p-4 border-2 border-amber-600 rounded-lg bg-black bg-opacity-50 text-amber-400 hidden relative ${className}`}
+  class={`notification-panel w-full mb-6 p-4 border-2 border-blue-600 rounded-lg bg-black bg-opacity-50 text-gray-400 hidden relative ${className}`}
   style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8); background: linear-gradient(135deg, #2a1f1a 0%, #1a1410 25%, #0f0a08 50%, #0a0705 75%, #050302 100%);"
 >
   <button 
     id="notification-close" 
-    class="text-amber-300 hover:text-amber-100 text-2xl font-bold leading-none w-8 h-8 flex items-center justify-center rounded-full hover:bg-amber-600 hover:bg-opacity-30 transition-colors z-10"
+    class="text-gray-300 hover:text-gray-100 text-2xl font-bold leading-none w-8 h-8 flex items-center justify-center rounded-full hover:bg-amber-600 hover:bg-opacity-30 transition-colors z-10"
     aria-label="Close notification"
     style="line-height: 1; display: flex; align-items: center; justify-content: center;"
   >×</button>

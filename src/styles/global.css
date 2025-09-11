@@ -5,9 +5,9 @@
 body {
     background-color: #0a0a0a;
     background-image: 
-        radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(255, 119, 48, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 40% 40%, rgba(120, 119, 198, 0.1) 0%, transparent 50%);
+        radial-gradient(circle at 20% 80%, rgba(55, 55, 83, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(26, 19, 102, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(16, 15, 68, 0.1) 0%, transparent 50%);
     background-attachment: fixed;
 }
 
@@ -27,22 +27,22 @@ h1, h2, h3, h4, p {
 
 .markdown-body {
    background: 
-     linear-gradient(135deg, #2a1f1a 0%, #1a1410 25%, #0f0a08 50%, #0a0705 75%, #050302 100%),
+     linear-gradient(135deg, #1a1f2e 0%, #0f1419 25%, #0a0f14 50%, #050a0f 75%, #020508 100%),
      url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.1'/%3E%3C/svg%3E"),
      radial-gradient(circle at 20% 80%, rgba(139, 69, 19, 0.2) 0%, transparent 50%),
      radial-gradient(circle at 80% 20%, rgba(160, 82, 45, 0.15) 0%, transparent 50%);
    min-height: 100%;
    font-family: 'Georgia', 'Times New Roman', serif;
-   padding: 1.5rem;
+   padding: 1rem;
    border-radius: 8px;
    box-shadow: 
        0 8px 32px rgba(0, 0, 0, 0.9),
        inset 0 1px 0 rgba(255, 255, 255, 0.1),
        0 0 20px rgba(255, 193, 7, 0.05);
    color: #e6d7b8;
-   border: 2px solid #8b4513;
+   border: 2px solid #1e3a8a;
    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
-   margin: 0.5rem;
+   margin-bottom: 0.5rem;
    line-height: 1.6;
    position: relative;
    backdrop-filter: blur(1px);
@@ -89,8 +89,8 @@ a.header-anchor {
 .markdown-body button {
   background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
   cursor: pointer;
-  color: #ffd700;
-  border: 2px solid #8b4513;
+  color: #0D9AFF;
+  border: 2px solid #1e3a8a;
   padding: 0.75rem 1.5rem;
   border-radius: 6px;
   font-weight: bold;
@@ -123,10 +123,10 @@ a.header-anchor {
 }
 
 .markdown-body button:hover {
-  background: linear-gradient(145deg, #8b4513, #a0522d);
+  background: linear-gradient(145deg, #1e3a8a, #1e40af);
   cursor: pointer;
   color: #fff;
-  border: 2px solid #ffd700;
+  border: 2px solid #0D9AFF;
   transform: translateY(-2px) scale(1.02);
   box-shadow: 
     0 8px 16px rgba(0, 0, 0, 0.9),
@@ -152,8 +152,8 @@ a.header-anchor {
 .markdown-body-button {
   background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
   cursor: pointer;
-  color: #ffd700;
-  border: 2px solid #8b4513;
+  color: #0D9AFF;
+  border: 2px solid #1e3a8a;
   padding: 0.75rem 1.5rem;
   border-radius: 6px;
   font-weight: bold;
@@ -186,10 +186,10 @@ a.header-anchor {
 }
 
 .markdown-body-button:hover {
-  background: linear-gradient(145deg, #8b4513, #a0522d);
+  background: linear-gradient(145deg, #1e3a8a, #1e40af);
   cursor: pointer;
   color: #fff;
-  border: 2px solid #ffd700;
+  border: 2px solid #0D9AFF;
   transform: translateY(-2px) scale(1.02);
   box-shadow: 
     0 8px 16px rgba(0, 0, 0, 0.9),
@@ -215,7 +215,7 @@ a.header-anchor {
   background-color: transparent;
   text-decoration: underline;
   cursor: pointer;
-  color: #ffd700;
+  color: #0D9AFF;
   font-weight: bold;
   transition: color 0.2s ease;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
@@ -231,14 +231,14 @@ a.header-anchor {
 .markdown-body strong {
   font-weight: inherit;
   font-weight: bolder;
-  color: #ffd700;
+  color: #0D9AFF;
 }
 
 .markdown-body h1 {
   font-size: 2.2em;
   font-weight: bold;
   text-decoration: none;
-  color: #ffd700;
+  color: #0D9AFF;
   text-shadow: 
     0 2px 4px rgba(0, 0, 0, 0.8),
     0 0 20px rgba(255, 193, 7, 0.3);
@@ -262,7 +262,7 @@ a.header-anchor {
 /* Noir-inspired input styling */
 input, select, textarea {
   background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
-  border: 2px solid #8b4513;
+  border: 2px solid #1e3a8a;
   color: #e6d7b8;
   padding: 0.75rem;
   border-radius: 6px;
@@ -275,7 +275,7 @@ input, select, textarea {
 
 input:focus, select:focus, textarea:focus {
   outline: none;
-  border-color: #ffd700;
+  border-color: #0D9AFF;
   box-shadow: 
     0 0 0 3px rgba(255, 193, 7, 0.3),
     0 4px 8px rgba(0, 0, 0, 0.8),
@@ -293,11 +293,11 @@ input:focus, select:focus, textarea:focus {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(145deg, #8b4513, #a0522d);
+  background: linear-gradient(145deg, #1e3a8a, #1e40af);
   border-radius: 6px;
   border: 2px solid #0a0a0a;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(145deg, #a0522d, #cd853f);
+  background: linear-gradient(145deg, #1e40af, #3b82f6);
 } 

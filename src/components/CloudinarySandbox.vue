@@ -90,7 +90,7 @@
           <div v-else-if="imageError" class="p-4 bg-red-900 border border-red-500 text-red-500 rounded">
             Error loading image: {{ imageError }}
           </div>
-          <div v-else class="p-4 bg-gray-900 border border-gray-500 text-gray-500 rounded">
+          <div v-else class="p-4 bg-gray-900 border border-gray-500 text-gray-100 rounded">
             Enter parameters above to see preview
           </div>
         </div>

@@ -1,13 +1,13 @@
 <template>
   <div class="markdown-body">
     <div class="flex justify-between items-center">
-      <p class="text-xl pb-3 p-3 text-sans text-amber-400 text-start" style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);">
+      <h2 class="text-xl pb-3 p-3 text-sans text-gray-200 text-boldtext-start" style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);">
         {{ isHydrated ? titleText : 'Inventory' }}
-      </p>
+      </h2>
     </div>
-    <div class="p-3">
+    
       <div id="inventory-container">
-        <div v-if="inventory.length === 0" class="text-amber-200 text-start p-2" style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);">
+        <div v-if="inventory.length === 0" class="text-gray-200 text-start p-2" style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);">
           {{ isHydrated ? emptyText : 'Sorry, there are no items here yet' }}
         </div>
         <div v-else class="wrapper">
@@ -28,7 +28,7 @@
               
               <!-- Item name -->
               <div class="flex-1">
-                <p class="text-amber-200 text-sm font-medium" style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);">
+                <p class="text-gray-200 text-sm font-medium" style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);">
                   <a :href="`/${item.location}`">{{ item.name }}</a>
                 </p>
               </div>
@@ -36,7 +36,7 @@
           </div>
         </div>
       </div>
-    </div>
+    
   </div>
 </template>
 

@@ -7,21 +7,21 @@
   id="sandbox-popup"
   class="fixed inset-0 bg-black bg-opacity-95 z-50 hidden flex items-start justify-center pt-4 pb-4 px-4"
 >
-  <div class="border-2 border-amber-600 rounded-lg max-w-4xl w-full max-h-[85vh] overflow-y-auto shadow-2xl" style="background: linear-gradient(135deg, #2a1f1a 0%, #1a1410 25%, #0f0a08 50%, #0a0705 75%, #050302 100%), url('data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100\' height=\'100\' filter=\'url(%23noise)\' opacity=\'0.1\'/%3E%3C/svg%3E');">
-    <div class="flex justify-between items-center p-4 border-b border-amber-600">
-      <h2 class="text-amber-400 text-xl font-bold" style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);" id="sandbox-title">
+  <div class="border-2 border-blue-600 rounded-lg max-w-4xl w-full max-h-[85vh] overflow-y-auto shadow-2xl" style="background: linear-gradient(135deg, #2a1f1a 0%, #1a1410 25%, #0f0a08 50%, #0a0705 75%, #050302 100%), url('data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100\' height=\'100\' filter=\'url(%23noise)\' opacity=\'0.1\'/%3E%3C/svg%3E');">
+    <div class="flex justify-between items-center p-4 border-b border-blue-600">
+      <h2 class="text-gray-400 text-xl font-bold" style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);" id="sandbox-title">
         Transformation Lab
       </h2>
       <button 
         id="close-sandbox"
-        class="text-amber-400 hover:text-red-400 text-2xl font-bold transition-colors duration-200"
+        class="text-gray-400 hover:text-red-400 text-2xl font-bold transition-colors duration-200"
         style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);"
       >
         ×
       </button>
     </div>
     <div class="p-6">
-      <p class="text-amber-200 mb-6" style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);" id="sandbox-description">
+      <p class="text-gray-200 mb-6" style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);" id="sandbox-description">
         Test Cloudinary image transformations in real-time. Enter your cloud name, public ID, and transformation parameters to see the results.
       </p>
     
@@ -101,43 +101,43 @@
                   <!-- Input Section -->
                   <div class="input-section mb-6">
                     <div class="mb-4">
-                      <label class="block text-amber-500 text-sm mb-2">Cloud Name:</label>
+                      <label class="block text-gray-100 text-sm mb-2">Cloud Name:</label>
                       <input 
                         id="cloud-name"
                         type="text" 
-                        class="w-full p-2 bg-gray-800 border border-amber-600 text-amber-200 rounded"
+                        class="w-full p-2 bg-gray-800 border border-blue-600 text-gray-200 rounded"
                         placeholder="your-cloud-name"
                         value="demo"
                       />
                     </div>
                     
                     <div class="mb-4">
-                      <label class="block text-amber-800 text-sm mb-2">Public ID:</label>
+                      <label class="block text-gray-800 text-sm mb-2">Public ID:</label>
                       <input 
                         id="public-id"
                         type="text" 
-                        class="w-full p-2 bg-gray-800 border border-amber-600 text-amber-200 rounded"
+                        class="w-full p-2 bg-gray-800 border border-blue-600 text-gray-200 rounded"
                         placeholder="sample"
                         value="sample"
                       />
                     </div>
                     
                     <div class="mb-4">
-                      <label class="block text-amber-800 text-sm mb-2">Transformation:</label>
+                      <label class="block text-gray-800 text-sm mb-2">Transformation:</label>
                       <input 
                         id="transformation"
                         type="text" 
-                        class="w-full p-2 bg-gray-800 border border-amber-600 text-amber-200 rounded font-mono text-sm"
+                        class="w-full p-2 bg-gray-800 border border-blue-600 text-gray-200 rounded font-mono text-sm"
                         placeholder="c_scale,w_300,h_200,f_auto,q_auto"
                         value="c_scale,w_300,h_200,f_auto,q_auto"
                       />
                     </div>
                     
                     <div class="mb-4">
-                      <label class="block text-amber-800 text-sm mb-2">Format:</label>
+                      <label class="block text-gray-800 text-sm mb-2">Format:</label>
                       <select 
                         id="format"
-                        class="w-full p-2 bg-gray-800 border border-amber-600 text-amber-200 rounded"
+                        class="w-full p-2 bg-gray-800 border border-blue-600 text-gray-200 rounded"
                       >
                         <option value="auto">Auto</option>
                         <option value="jpg">JPG</option>
@@ -150,31 +150,31 @@
                   
                   <!-- URL Display -->
                   <div class="url-section mb-6">
-                    <label class="block text-amber-800 text-sm mb-2">Generated URL:</label>
+                    <label class="block text-gray-800 text-sm mb-2">Generated URL:</label>
                       <input 
                         id="generated-url"
                         type="text" 
                         readonly
-                      class="w-full p-2 bg-gray-800 border border-amber-600 text-amber-200 rounded font-mono text-xs"
+                      class="w-full p-2 bg-gray-800 border border-blue-600 text-gray-200 rounded font-mono text-xs"
                     />
                   </div>
                   
                   <!-- Preview Section -->
                   <div class="preview-section mb-6">
-                    <h4 class="text-amber-800 text-md font-bold mb-3">Preview:</h4>
+                    <h4 class="text-gray-800 text-md font-bold mb-3">Preview:</h4>
                     <div class="preview-container">
                       <img 
                         id="preview-image"
-                        class="max-w-full border border-amber-600 rounded"
+                        class="max-w-full border border-blue-600 rounded"
                         alt="Transformation preview"
                       />
                     </div>
                   </div>
                   
                   <!-- Lab Test Section (only shown on lab pages) -->
-                  <div id="lab-test-container" class="lab-test-section p-4 border border-amber-600 rounded-lg mb-4 hidden" style="background: linear-gradient(135deg, #2a1f1a 0%, #1a1410 25%, #0f0a08 50%, #0a0705 75%, #050302 100%);">
-                    <h4 class="text-amber-400 text-lg font-bold mb-3" style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);" id="lab-test-title">Lab Test:</h4>
-                    <p class="text-amber-200 text-sm mb-4" style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);" id="lab-test-question">
+                  <div id="lab-test-container" class="lab-test-section p-4 border border-blue-600 rounded-lg mb-4 hidden" style="background: linear-gradient(135deg, #2a1f1a 0%, #1a1410 25%, #0f0a08 50%, #0a0705 75%, #050302 100%);">
+                    <h4 class="text-gray-400 text-lg font-bold mb-3" style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);" id="lab-test-title">Lab Test:</h4>
+                    <p class="text-gray-200 text-sm mb-4" style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);" id="lab-test-question">
                       After transforming the image, what letters or words can you see? Select your answer:
                     </p>
                     <div class="space-y-2 mb-4" id="lab-test-options">
@@ -189,7 +189,7 @@
                       </button>
                       <button 
                         id="clear-answer"
-                        class="px-4 py-2 bg-gray-600 text-amber-200 rounded hover:bg-gray-500 transition-colors"
+                        class="px-4 py-2 bg-gray-600 text-gray-200 rounded hover:bg-gray-500 transition-colors"
                       >
                         Clear
                       </button>
@@ -462,8 +462,8 @@
             const label = document.createElement('label');
             label.className = 'flex items-center space-x-2 cursor-pointer';
             label.innerHTML = `
-              <input type="radio" name="lab-answer" value="${option.value}" class="text-amber-600">
-              <span class="text-amber-200">${option.text}</span>
+              <input type="radio" name="lab-answer" value="${option.value}" class="text-gray-600">
+              <span class="text-gray-200">${option.text}</span>
             `;
             optionsContainer.appendChild(label);
           });

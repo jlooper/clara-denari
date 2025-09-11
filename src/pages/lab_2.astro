@@ -11,7 +11,7 @@ const backdrop = "https://res.cloudinary.com/dr60nybtj/image/upload/e_sepia/twin
 <Layout title={title} backdrop={backdrop} fullScreenLayout={true}>
   <div class="prose max-w-none">
     <!-- Main content area with image and inventory side by side -->
-    <GameLayout title={title} backdrop={backdrop} imageClass="lg:w-1/3" />
+    <GameLayout title={title} backdrop={backdrop} imageClass="lg:w-1/3 md:w-1/3" />
     
     <!-- Full width storyline -->
     <div class="w-full mb-6">
@@ -19,7 +19,7 @@ const backdrop = "https://res.cloudinary.com/dr60nybtj/image/upload/e_sepia/twin
         {title}
       </h1>
       
-      <div class="bg-black bg-opacity-50 border-2 border-amber-500 rounded-lg p-6 mb-6">
+      <div class="bg-black bg-opacity-50 border-2 border-blue-500 rounded-lg p-6 mb-6">
         <p class="text-green-500 text-lg leading-relaxed" style="text-shadow: 0 0 3px rgba(0, 255, 0, 0.5);">
          This grimy string needs to be cleaned so you can view its original color. Tip: remove the sepia transformation in the transformation field to view the original in the lab view.
         </p>
@@ -35,7 +35,7 @@ const backdrop = "https://res.cloudinary.com/dr60nybtj/image/upload/e_sepia/twin
     <div class="w-full flex flex-col sm:flex-row gap-4 justify-center">
       <button 
         id="sandbox-btn"
-        class="bg-gradient-to-br from-gray-800 to-gray-900 text-amber-400 border-2 border-amber-600 px-6 py-3 text-lg rounded-lg hover:from-amber-700 hover:to-amber-800 hover:text-white transition-all duration-200 shadow-lg font-bold"
+        class="bg-gradient-to-br from-gray-800 to-gray-900 text-gray-400 border-2 border-blue-600 px-6 py-3 text-lg rounded-lg hover:from-amber-700 hover:to-amber-800 hover:text-white transition-all duration-200 shadow-lg font-bold"
         style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);"
       >
         🧪 Lab
