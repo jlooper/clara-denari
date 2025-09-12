@@ -16,6 +16,24 @@
     "initialHide": true,
     "location": "north_end",
     "result": "You pick up the soggy piece of string. It looks like baker's twine, but you can't tell for sure."
+  },
+  {
+    "id": 3,
+    "instructions": "Break the",
+    "name": "cannoli",
+    "imageUrl": "https://res.cloudinary.com/dr60nybtj/image/upload/v1757718913/key.png",
+    "initialHide": true,
+    "location": "the_key",
+    "result": "You break the cannoli in half. Inside you find a small brass key. It looks like it might fit a lock."
+  },
+  {
+    "id": 4,
+    "instructions": "Examine the",
+    "name": "photo",
+    "imageUrl": "https://res.cloudinary.com/dr60nybtj/image/upload/e_sepia/twine",
+    "initialHide": true,
+    "location": "the_photo",
+    "result": "This photo shows a picture of the famous MIT dome. There seems to be something on top of it."
   }
  
 ] 

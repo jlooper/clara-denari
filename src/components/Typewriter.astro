@@ -1,15 +1,16 @@
 ---
 export interface Props {
-  text: string;
+  text?: string;
+  translationKey?: string;
   speed?: number;
   delay?: number;
   class?: string;
 }
 
-const { text, speed = 50, delay = 0, class: className = "" } = Astro.props;
+const { text, translationKey, speed = 50, delay = 0, class: className = "" } = Astro.props;
 ---
 
-<div class={`typewriter ${className}`} data-text={text} data-speed={speed} data-delay={delay}>
+<div class={`typewriter ${className}`} data-text={text || ''} data-translation-key={translationKey || ''} data-speed={speed} data-delay={delay}>
   <span class="typewriter-text"></span>
   <span class="typewriter-cursor">|</span>
 </div>
@@ -27,6 +28,14 @@ const { text, speed = 50, delay = 0, class: className = "" } = Astro.props;
 </style>
 
 <script>
+  // Import translations for global access
+  import { translations } from '../i18n/translations.js';
+  
+  // Make translations available globally
+  if (typeof window !== 'undefined') {
+    (window as any).translations = translations;
+  }
+
   interface TextItem {
     type: 'text';
     content: string;
@@ -41,7 +50,8 @@ const { text, speed = 50, delay = 0, class: className = "" } = Astro.props;
   class Typewriter {
       element: any;
       textElement: any;
-      text: any;
+      text: string;
+      translationKey: string;
       speed: number;
       delay: number;
       currentIndex: number;
@@ -51,14 +61,36 @@ const { text, speed = 50, delay = 0, class: className = "" } = Astro.props;
     constructor(element) {
       this.element = element;
       this.textElement = element.querySelector('.typewriter-text');
-      this.text = element.dataset.text;
+      this.translationKey = element.dataset.translationKey || '';
+      this.text = element.dataset.text || '';
       this.speed = parseInt(element.dataset.speed) || 50;
       this.delay = parseInt(element.dataset.delay) || 0;
       this.currentIndex = 0;
-      this.processedText = this.parseTextWithBreaks(this.text);
+      this.processedText = [];
       this.currentTextNode = null;
       
       this.init();
+    }
+
+    getTranslatedText(): string {
+      if (this.translationKey) {
+        // Get translation from i18n system
+        if (typeof window !== 'undefined' && (window as any).i18n) {
+          return (window as any).i18n.t(this.translationKey);
+        }
+        // Fallback: try to get from localStorage or use default
+        const currentLang = localStorage.getItem('preferred-language') || 'en';
+        const translations = (window as any).translations || {};
+        const translation = translations[this.translationKey];
+        if (translation && translation[currentLang]) {
+          return translation[currentLang];
+        }
+        // Final fallback to English
+        if (translation && translation['en']) {
+          return translation['en'];
+        }
+      }
+      return this.text;
     }
 
     parseTextWithBreaks(text: string): ProcessedItem[] {
@@ -79,6 +111,10 @@ const { text, speed = 50, delay = 0, class: className = "" } = Astro.props;
     }
 
     init() {
+      // Get the translated text and parse it
+      const translatedText = this.getTranslatedText();
+      this.processedText = this.parseTextWithBreaks(translatedText);
+      
       setTimeout(() => {
         this.type();
       }, this.delay);
@@ -120,7 +156,31 @@ const { text, speed = 50, delay = 0, class: className = "" } = Astro.props;
   document.addEventListener('DOMContentLoaded', () => {
     const typewriterElements = document.querySelectorAll('.typewriter');
     typewriterElements.forEach(element => {
-      new Typewriter(element);
+      const typewriter = new Typewriter(element);
+      // Store reference on element for language change updates
+      (element as any).__typewriter = typewriter;
+    });
+  });
+
+  // Listen for language changes and update typewriter text
+  document.addEventListener('language-changed', () => {
+    const typewriterElements = document.querySelectorAll('.typewriter');
+    typewriterElements.forEach(element => {
+      const typewriter = (element as any).__typewriter;
+      if (typewriter && typewriter.translationKey) {
+        // Clear current text
+        const textElement = element.querySelector('.typewriter-text');
+        if (textElement) {
+          textElement.innerHTML = '';
+        }
+        
+        // Reset and restart with new translation
+        typewriter.currentIndex = 0;
+        typewriter.currentTextNode = null;
+        const translatedText = typewriter.getTranslatedText();
+        typewriter.processedText = typewriter.parseTextWithBreaks(translatedText);
+        typewriter.init();
+      }
     });
   });
 </script> 

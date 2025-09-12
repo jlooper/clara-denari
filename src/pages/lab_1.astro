@@ -15,17 +15,14 @@ const backdrop = "https://res.cloudinary.com/dr60nybtj/image/upload/v1756945788/
     
     <!-- Full width storyline -->
     <div class="w-full mb-6">
-      <h1 class="text-3xl font-bold text-green-500 mb-4" style="text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);">
+      <h2 class="text-2xl font-bold text-blue-400 mb-4 shadow-lg">
         {title}
-      </h1>
+      </h2>
       
       <div class="bg-black bg-opacity-50 border-2 border-blue-500 rounded-lg p-6 mb-6">
-        <p class="text-green-500 text-lg leading-relaxed" style="text-shadow: 0 0 3px rgba(0, 255, 0, 0.5);">
-          The image appears to be burned and is far too dark to read easily. Use a Cloudinary transformation in the Lab to enhance the image's contrast to find your first clue.
-          <br/><br/>Create a free account at <a href="https://Cloudinary.com" target="_blank">https://Cloudinary.com</a>. Upload your image to the Media Library. Take note of your <b>cloud name</b> (listed in the top left dropdown menu of the console) and your uploaded image's <b>public ID</b> , which you can find by clicking on the image in the Media Library in the Summary tab.<br/><br/>
-          Click the 'Lab' button and enter your cloud name and the image's public ID. Enhance the image which is very dark, but appears to have a word written on it. Hint: try the <a href="https://cloudinary.com/documentation/transformation_reference#e_contrast">'contrast' transformation</a>. Once you have transformed the image, and the word is visible, select the letters from the options in the lab.
-
-        </p>
+        <div class="text-gray-100 text-lg leading-relaxed" style="text-shadow: 0 0 3px rgba(0, 255, 0, 0.5);" id="lab-instructions">
+          <!-- Instructions will be loaded via i18n -->
+        </div>
         
        
       </div>
@@ -50,8 +47,22 @@ const backdrop = "https://res.cloudinary.com/dr60nybtj/image/upload/v1756945788/
 </Layout>
 
 <script>
+  // Import translations
+  import { translations } from '../i18n/translations.js';
+  
   // Check if lab is completed and show continue button
   document.addEventListener('DOMContentLoaded', () => {
+    // Load translated instructions
+    function loadInstructions() {
+      const instructionsElement = document.getElementById('lab-instructions');
+      if (instructionsElement) {
+        const currentLang = localStorage.getItem('preferred-language') || 'en';
+        const translation = translations['lab.1.instructions'];
+        const text = translation[currentLang] || translation['en'];
+        instructionsElement.innerHTML = text;
+      }
+    }
+    
     function checkLabCompletion() {
       const results = JSON.parse(localStorage.getItem('labResults') || '[]');
       const labCompleted = results.some((result: any) => result.lab === 'Lab 1' && result.correct === true);
@@ -66,11 +77,15 @@ const backdrop = "https://res.cloudinary.com/dr60nybtj/image/upload/v1756945788/
       }
     }
     
-    // Check on page load
+    // Load instructions and check completion on page load
+    loadInstructions();
     checkLabCompletion();
     
     // Listen for lab completion events
     window.addEventListener('labCompleted', checkLabCompletion);
+    
+    // Listen for language changes
+    window.addEventListener('language-changed', loadInstructions);
     
     // Also check periodically in case localStorage is updated from another tab
     setInterval(checkLabCompletion, 1000);

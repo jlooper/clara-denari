@@ -9,7 +9,7 @@ import NotificationPanel from '../components/NotificationPanel.astro';
 const title = "Purloined Property";
 const backdrop = "https://res.cloudinary.com/dr60nybtj/image/upload/v1756943680/cd_2.png";
 
-const storyText = `When Clara arrived, the Director was tapping his foot. "It's that sticky-fingered kleptomaniac, Dr. Oscuro again". "What's he pilfered this time?" Clara asked, sighing. This particular thief had a penchant for sending detectives chasing around the globe to find where he hid his ill-gotten gains. He also had a notoriously terrible memory, and tended to steal things, then forget where he hid them, leaving a trail of clues to jog his own memory. "He broke into the National Bank," said the Director grimly, " and managed to spirit away a valuable jewelled necklace belonging to madame here". <br/><br/>For the first time Clara noticed a lady in a mink coat standing in the corner, quietly tearing a damp handkerchief to shreds. "I'm sorry that your property has been stolen," said Clara, "but rest assured, we'll get it back." As the lady burst into relieved tears, the Director handed Clara an envelope. "Inside this envelope you'll find a small bit of evidence tying the crime to Dr. Oscuro."`;
+// Story text is now handled by translations
 ---
 
 <Layout title={title} backdrop={backdrop} fullScreenLayout={true}>
@@ -19,13 +19,13 @@ const storyText = `When Clara arrived, the Director was tapping his foot. "It's 
     
     <!-- Full width storyline -->
     <div class="w-full mb-6">
-      <h1 class="text-3xl font-bold text-green-500 mb-4" style="text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);">
+      <h2 class="text-2xl font-bold text-blue-400 mb-4 shadow-lg">
         {title}
-      </h1>
+      </h2>
       
       <div class="bg-black bg-opacity-50 border-2 border-blue-500 rounded-lg p-6 mb-6">
         <Typewriter 
-          text={storyText}
+          translationKey="story.purloined_property"
           speed={30}
           delay={1000}
           class="block mb-4 text-gray-100 text-lg leading-relaxed"

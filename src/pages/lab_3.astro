@@ -4,8 +4,8 @@ import GameLayout from '../components/GameLayout.astro';
 import NotificationPanel from '../components/NotificationPanel.astro';
 import Page from '../components/Page.astro';
 
-const title = "Lab 2";
-const backdrop = "https://res.cloudinary.com/dr60nybtj/image/upload/e_sepia/twine";
+const title = "Lab 3";
+const backdrop = "https://res.cloudinary.com/dr60nybtj/image/upload/v1757718913/key.png";
 ---
 
 <Layout title={title} backdrop={backdrop} fullScreenLayout={true}>
@@ -57,7 +57,7 @@ const backdrop = "https://res.cloudinary.com/dr60nybtj/image/upload/e_sepia/twin
       const instructionsElement = document.getElementById('lab-instructions');
       if (instructionsElement) {
         const currentLang = localStorage.getItem('preferred-language') || 'en';
-        const translation = translations['lab.2.instructions'];
+        const translation = translations['lab.3.instructions'];
         const text = translation[currentLang] || translation['en'];
         instructionsElement.innerHTML = text;
       }

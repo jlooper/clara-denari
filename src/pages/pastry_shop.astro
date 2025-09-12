@@ -6,8 +6,8 @@ import GameLayout from '../components/GameLayout.astro';
 import Typewriter from '../components/Typewriter.astro';
 import NotificationPanel from '../components/NotificationPanel.astro';
 
-const title = "In the North End";
-const backdrop = "https://res.cloudinary.com/dr60nybtj/image/upload/v1756943680/cd_2.png";
+const title = "The Pastry Shop";
+const backdrop = "https://res.cloudinary.com/dr60nybtj/image/upload/v1757718429/the_cannoli.png";
 
 // Story text is now handled by translations
 ---
@@ -25,7 +25,7 @@ const backdrop = "https://res.cloudinary.com/dr60nybtj/image/upload/v1756943680/
         
         <div class="bg-black bg-opacity-50 border-2 border-blue-500 rounded-lg p-6 mb-6">
           <Typewriter 
-            translationKey="story.north_end"
+            translationKey="story.pastry_shop"
             speed={30}
             delay={1000}
             class="block mb-4 text-gray-100 text-lg leading-relaxed"
@@ -45,17 +45,20 @@ const backdrop = "https://res.cloudinary.com/dr60nybtj/image/upload/v1756943680/
         <GameAction 
           id="recycle" 
           actionType="text" 
-          customText="Toss the string in the trash"
-          customResult="Laudable, but you may have just thrown away a clue."
+          customText="Dunk the cannoli into a latte"
+          customResult="There's now mascarpone cheese all over the place."
           client:load 
         />
-        <GameAction id="2" actionType="item" client:load />
+
+     
+
+        <GameAction id="3" actionType="item" client:load />
         
        
           <Page 
-            url="lab_2" 
+            url="lab_3" 
             action="Go to the lab" 
-            condition="2"
+            condition="3"
             resultText="Off you go!"
           />
           
