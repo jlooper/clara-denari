@@ -32,6 +32,56 @@ const { url, instructions = "", action, condition = "none", resultText = "", sho
   document.addEventListener('DOMContentLoaded', () => {
     // Find all page navigation buttons
     const pageButtons = document.querySelectorAll('[data-url], [data-show-result-only]');
+    
+    // Check button visibility based on conditions
+    pageButtons.forEach(button => {
+      const condition = button.getAttribute('data-condition');
+      
+      // Check if button should be initially visible
+      if (condition && condition !== 'none') {
+        let shouldShow = true;
+        
+        // Check lab completion condition
+        if (condition.startsWith('lab_')) {
+          const labName = condition.replace('lab_', 'Lab ');
+          const results = JSON.parse(localStorage.getItem('labResults') || '[]');
+          shouldShow = results.some((result: any) => result.lab === labName && result.correct === true);
+        }
+        // Check item collection condition
+        else if (!isNaN(Number(condition))) {
+          const itemId = condition;
+          const inventoryItems = JSON.parse(localStorage.getItem('inventory_item') || '{}');
+          shouldShow = inventoryItems[itemId] === true;
+        }
+        
+        // Hide button if condition not met
+        if (!shouldShow) {
+          (button as HTMLElement).style.display = 'none';
+        }
+      }
+    });
+    
+    // Listen for inventory changes to update button visibility
+    window.addEventListener('item_added', () => {
+      pageButtons.forEach(button => {
+        const condition = button.getAttribute('data-condition');
+        
+        if (condition && condition !== 'none') {
+          let shouldShow = true;
+          
+          // Check item collection condition
+          if (!isNaN(Number(condition))) {
+            const itemId = condition;
+            const inventoryItems = JSON.parse(localStorage.getItem('inventory_item') || '{}');
+            shouldShow = inventoryItems[itemId] === true;
+          }
+          
+          // Show/hide button based on condition
+          (button as HTMLElement).style.display = shouldShow ? 'block' : 'none';
+        }
+      });
+    });
+    
     pageButtons.forEach(button => {
       button.addEventListener('click', () => {
         const url = button.getAttribute('data-url');
@@ -63,6 +113,20 @@ const { url, instructions = "", action, condition = "none", resultText = "", sho
               // Show notification that lab must be completed first
               if (typeof window !== 'undefined' && (window as any).showNotificationPanel) {
                 (window as any).showNotificationPanel(`You must complete ${labName} first! Use the Lab button to take the quiz.`, 5000);
+              }
+              return; // Don't navigate
+            }
+          } 
+          // Check if this is an item collection condition (numeric)
+          else if (!isNaN(Number(condition))) {
+            const itemId = condition;
+            const inventoryItems = JSON.parse(localStorage.getItem('inventory_item') || '{}');
+            const itemCollected = inventoryItems[itemId] === true;
+            
+            if (!itemCollected) {
+              // Show notification that item must be collected first
+              if (typeof window !== 'undefined' && (window as any).showNotificationPanel) {
+                (window as any).showNotificationPanel(`You need to examine the evidence first! Look for items you can interact with.`, 5000);
               }
               return; // Don't navigate
             }

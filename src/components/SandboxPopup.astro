@@ -331,7 +331,7 @@
             ],
             successMessage: 'Yes! The string is blue and white. It looks like it\'s from a bakery!',
             defaultCloudName: 'dr60nybtj',
-            defaultPublicId: 'twine_w1pkkj',
+            defaultPublicId: 'twine',
             defaultTransformation: 'e_sepia/f_auto/q_auto'
           };
         }
@@ -343,6 +343,8 @@
       function validateAnswer() {
         const selectedRadio = document.querySelector('input[name="lab-answer"]:checked') as HTMLInputElement;
         const currentLab = getCurrentLab();
+        if (!currentLab) return;
+        
         const correctAnswer = currentLab.correctAnswer;
         
         testResult.classList.remove('hidden');
@@ -373,6 +375,9 @@
           window.dispatchEvent(new CustomEvent('labCompleted', { 
             detail: { labName: currentLab.name } 
           }));
+          
+          // Update continue button to show it
+          updateContinueButton();
           
           // Show notification
           if ((window as any).showNotificationPanel) {
@@ -447,6 +452,8 @@
       
       function generateQuiz() {
         const currentLab = getCurrentLab();
+        if (!currentLab) return;
+        
         const titleElement = document.getElementById('lab-test-title');
         const questionElement = document.getElementById('lab-test-question');
         const optionsContainer = document.getElementById('lab-test-options');
@@ -472,6 +479,8 @@
       
       function checkLabCompletion() {
         const currentLab = getCurrentLab();
+        if (!currentLab) return;
+        
         const results = JSON.parse(localStorage.getItem('labResults') || '[]');
         const labCompleted = results.some((result: any) => result.lab === currentLab.name && result.correct === true);
         
@@ -539,6 +548,42 @@
             checkLabCompletion(); // Re-enable test buttons if lab was completed
           });
         }
+        
+        // Update continue button visibility and navigation
+        updateContinueButton();
+      }
+      
+      function updateContinueButton() {
+        const continueBtn = document.getElementById('continue-btn');
+        const currentLab = getCurrentLab();
+        
+        if (!continueBtn || !currentLab) return;
+        
+        // Check if current lab is completed
+        const results = JSON.parse(localStorage.getItem('labResults') || '[]');
+        const labCompleted = results.some((result: any) => result.lab === currentLab.name && result.correct === true);
+        
+        if (labCompleted) {
+          continueBtn.style.display = 'block';
+          (continueBtn as HTMLButtonElement).disabled = false;
+          continueBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+        } else {
+          continueBtn.style.display = 'none';
+        }
+      }
+      
+      function getNextPageUrl() {
+        const currentLab = getCurrentLab();
+        if (!currentLab) return '#';
+        
+        // Define navigation flow based on lab
+        if (currentLab.name === 'Lab 1') {
+          return '/sticky_paper';
+        } else if (currentLab.name === 'Lab 2') {
+          return '/pastry_shop';
+        }
+        
+        return '#';
       }
       
       // Add event listeners
@@ -548,6 +593,17 @@
       
       submitAnswerBtn.addEventListener('click', validateAnswer);
       clearAnswerBtn.addEventListener('click', clearAnswer);
+      
+      // Add continue button event listener
+      const continueBtn = document.getElementById('continue-btn');
+      if (continueBtn) {
+        continueBtn.addEventListener('click', () => {
+          const nextPageUrl = getNextPageUrl();
+          if (nextPageUrl && nextPageUrl !== '#') {
+            window.location.href = nextPageUrl;
+          }
+        });
+      }
       
       // Initialize URL and always show lab results
       updateUrl();
@@ -585,6 +641,9 @@
       
       // Always show lab results regardless of page
       showLabResults();
+      
+      // Update continue button initially
+      updateContinueButton();
     }
   });
 </script>

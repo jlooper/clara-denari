@@ -12,7 +12,7 @@
     "id": 2,
     "instructions": "Pick up the",
     "name": "piece of string",
-    "imageUrl": "https://res.cloudinary.com/dr60nybtj/image/upload/e_sepia/twine_w1pkkj",
+    "imageUrl": "https://res.cloudinary.com/dr60nybtj/image/upload/e_sepia/twine",
     "initialHide": true,
     "location": "north_end",
     "result": "You pick up the soggy piece of string. It looks like baker's twine, but you can't tell for sure."

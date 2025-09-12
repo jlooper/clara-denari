@@ -1,7 +1,7 @@
 <template>
   <div class="markdown-body">
     <div class="flex justify-between items-center">
-      <h2 class="text-xl pb-3 p-3 text-sans text-gray-200 text-boldtext-start" style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);">
+      <h2 class="text-2xl font-bold text-blue-400 mb-4 shadow-lg">
         {{ isHydrated ? titleText : 'Inventory' }}
       </h2>
     </div>
