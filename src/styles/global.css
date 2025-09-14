@@ -16,7 +16,7 @@ body {
 }
 
 .title {
-  font-size: 2.5em;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
   font-weight: bold;
 }
 
@@ -33,7 +33,7 @@ h1, h2, h3, h4, p {
      radial-gradient(circle at 80% 20%, rgba(160, 82, 45, 0.15) 0%, transparent 50%);
    min-height: 100%;
    font-family: 'Georgia', 'Times New Roman', serif;
-   padding: 1rem;
+   padding: clamp(0.5rem, 2vw, 1rem);
    border-radius: 8px;
    box-shadow: 
        0 8px 32px rgba(0, 0, 0, 0.9),
@@ -91,7 +91,7 @@ a.header-anchor {
   cursor: pointer;
   color: #0D9AFF;
   border: 2px solid #1e3a8a;
-  padding: 0.75rem 1.5rem;
+  padding: clamp(0.5rem, 2vw, 0.75rem) clamp(1rem, 3vw, 1.5rem);
   border-radius: 6px;
   font-weight: bold;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -100,7 +100,7 @@ a.header-anchor {
     0 4px 8px rgba(0, 0, 0, 0.8),
     inset 0 1px 0 rgba(255, 255, 255, 0.05);
   margin: 0.5rem 0.5rem 0.5rem 0;
-  font-size: 1rem;
+  font-size: clamp(0.875rem, 2vw, 1rem);
   display: inline-block;
   position: relative;
   overflow: hidden;
@@ -154,7 +154,7 @@ a.header-anchor {
   cursor: pointer;
   color: #0D9AFF;
   border: 2px solid #1e3a8a;
-  padding: 0.75rem 1.5rem;
+  padding: clamp(0.5rem, 2vw, 0.75rem) clamp(1rem, 3vw, 1.5rem);
   border-radius: 6px;
   font-weight: bold;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -163,7 +163,7 @@ a.header-anchor {
     0 4px 8px rgba(0, 0, 0, 0.8),
     inset 0 1px 0 rgba(255, 255, 255, 0.05);
   margin: 0.5rem 0.5rem 0.5rem 0;
-  font-size: 1rem;
+  font-size: clamp(0.875rem, 2vw, 1rem);
   display: inline-block;
   position: relative;
   overflow: hidden;
@@ -235,26 +235,26 @@ a.header-anchor {
 }
 
 .markdown-body h1 {
-  font-size: 2.2em;
+  font-size: clamp(1.5rem, 5vw, 2.2rem);
   font-weight: bold;
   text-decoration: none;
   color: #0D9AFF;
   text-shadow: 
     0 2px 4px rgba(0, 0, 0, 0.8),
     0 0 20px rgba(255, 193, 7, 0.3);
-  margin-bottom: 1.5rem;
+  margin-bottom: clamp(1rem, 3vw, 1.5rem);
   margin-top: 0;
   font-family: 'Georgia', 'Times New Roman', serif;
   letter-spacing: 0.05em;
 }
 
 .markdown-body p {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  font-size: 1.2em;
+  padding-top: clamp(0.5rem, 2vw, 1rem);
+  padding-bottom: clamp(0.5rem, 2vw, 1rem);
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
   color: #e6d7b8;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
-  margin-bottom: 1rem;
+  margin-bottom: clamp(0.5rem, 2vw, 1rem);
   line-height: 1.6;
   font-family: 'Georgia', 'Times New Roman', serif;
 }
@@ -264,9 +264,10 @@ input, select, textarea {
   background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
   border: 2px solid #1e3a8a;
   color: #e6d7b8;
-  padding: 0.75rem;
+  padding: clamp(0.5rem, 2vw, 0.75rem);
   border-radius: 6px;
   font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: clamp(0.875rem, 2vw, 1rem);
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
   box-shadow: 
     0 4px 8px rgba(0, 0, 0, 0.8),
@@ -300,4 +301,46 @@ input:focus, select:focus, textarea:focus {
 
 ::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(145deg, #1e40af, #3b82f6);
+}
+
+/* Responsive typography utilities */
+.text-responsive-xs { font-size: clamp(0.75rem, 2vw, 0.875rem); }
+.text-responsive-sm { font-size: clamp(0.875rem, 2.5vw, 1rem); }
+.text-responsive-base { font-size: clamp(1rem, 3vw, 1.125rem); }
+.text-responsive-lg { font-size: clamp(1.125rem, 3.5vw, 1.25rem); }
+.text-responsive-xl { font-size: clamp(1.25rem, 4vw, 1.5rem); }
+.text-responsive-2xl { font-size: clamp(1.5rem, 5vw, 2rem); }
+.text-responsive-3xl { font-size: clamp(1.875rem, 6vw, 2.5rem); }
+.text-responsive-4xl { font-size: clamp(2.25rem, 7vw, 3rem); }
+.text-responsive-5xl { font-size: clamp(3rem, 8vw, 4rem); }
+.text-responsive-6xl { font-size: clamp(3.75rem, 10vw, 5rem); }
+
+/* Mobile-specific adjustments */
+@media (max-width: 640px) {
+  .markdown-body {
+    padding: 0.75rem;
+  }
+  
+  .markdown-body button,
+  .markdown-body-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+  }
+  
+  .markdown-body h1 {
+    font-size: 1.5rem;
+    line-height: 1.3;
+  }
+  
+  .markdown-body p {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  
+  /* Ensure buttons are touch-friendly on mobile */
+  .markdown-body button,
+  .markdown-body-button {
+    min-height: 44px;
+    min-width: 44px;
+  }
 } 

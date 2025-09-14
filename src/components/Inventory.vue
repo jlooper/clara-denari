@@ -1,13 +1,13 @@
 <template>
   <div class="markdown-body">
     <div class="flex justify-between items-center">
-      <h2 class="text-2xl font-bold text-blue-400 mb-4 shadow-lg">
+      <h2 class="text-responsive-xl md:text-responsive-2xl font-bold text-blue-400 mb-4 shadow-lg">
         {{ isHydrated ? titleText : 'Inventory' }}
       </h2>
     </div>
     
       <div id="inventory-container">
-        <div v-if="inventory.length === 0" class="text-gray-200 text-start p-2" style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);">
+        <div v-if="inventory.length === 0" class="text-gray-200 text-start p-2 text-responsive-sm" style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);">
           {{ isHydrated ? emptyText : 'Sorry, there are no items here yet' }}
         </div>
         <div v-else class="grid grid-cols-2 gap-3">
@@ -28,7 +28,7 @@
               
               <!-- Item name -->
               <div class="flex-1 min-w-0">
-                <p class="text-gray-200 text-xs font-medium truncate" style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);">
+                <p class="text-gray-200 text-responsive-xs font-medium truncate" style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);">
                   <a :href="`/${item.location}`" class="hover:text-blue-400 transition-colors">{{ item.name }}</a>
                 </p>
               </div>

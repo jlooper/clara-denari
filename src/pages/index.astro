@@ -15,7 +15,7 @@ const backdrop = "https://res.cloudinary.com/dr60nybtj/image/upload/v1756943716/
     
     <!-- Full width storyline -->
     <div class="w-full mb-6">
-      <h2 class="text-2xl font-bold text-blue-400 mb-4 shadow-lg">
+      <h2 class="text-responsive-xl md:text-responsive-2xl font-bold text-blue-400 mb-4 shadow-lg">
         {title}
       </h2>
       
@@ -24,14 +24,14 @@ const backdrop = "https://res.cloudinary.com/dr60nybtj/image/upload/v1756943716/
           translationKey="story.index"
           speed={30}
           delay={1000}
-          class="block mb-4 text-gray-100 text-lg leading-relaxed"
+          class="block mb-4 text-gray-100 text-responsive-base md:text-responsive-lg leading-relaxed"
         />
       </div>
     </div>
     
     <!-- Full width buttons -->
     <div class="w-full flex justify-center">
-      <Page url="purloined_property" instructions="" action="Grab a Taxi to HQ" condition="none" />
+      <Page url="purloined_property" instructions="" action="Grab a Taxi to Boston HQ" condition="none" />
     </div>
   </div>
 </Layout> 
