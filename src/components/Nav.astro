@@ -3,14 +3,15 @@ import Inventory from './Inventory.vue';
 // Nav component for Astro
 ---
 
-<nav class="nav rounded-t flex items-center justify-between flex-wrap text-right pr-0 lg:pr-8 md:pr-6 sm:pr-4">
-  
-  <div class="flex items-center space-x-4">
+<nav class="nav rounded-t">
+  <!-- Top row with logo and language selector -->
+  <div class="flex items-center justify-between pr-0 lg:pr-8 md:pr-6 sm:pr-4">
+    <div class="flex items-center">
+      <a href="/" class="flex items-center">
+        <img src="/images/logo.png" alt="Cloudinary Logo" class="h-8 w-auto">
+      </a>
+    </div>
     
-    <a href="/" class="text-gray-800 hover:text-gray-600 transition-colors">
-      Home
-    </a>
-   
     <!-- Language Selector Dropdown -->
     <div class="relative">
       <button 
@@ -28,7 +29,7 @@ import Inventory from './Inventory.vue';
       
       <div 
         id="language-dropdown"
-        class="absolute left-0 mt-2 w-56 bg-gray-800 border border-blue-600 rounded-lg shadow-xl hidden z-50"
+        class="absolute right-0 mt-2 w-56 bg-gray-800 border border-blue-600 rounded-lg shadow-xl hidden z-50"
         style="background: linear-gradient(135deg, #2a1f1a 0%, #1a1410 25%, #0f0a08 50%, #0a0705 75%, #050302 100%);"
       >
         <div class="py-2 m-2">
@@ -69,8 +70,12 @@ import Inventory from './Inventory.vue';
     </div>
   </div>
 
-  <h1 class="pt-6">Clara Denari and the Mysterious Transformations</h1>
+  <!-- H1 on new line -->
+  <div class="text-center pt-4">
+    <h1>Clara Denari and the Mysterious Transformations</h1>
+  </div>
 
+  <!-- Mobile inventory (hidden by default) -->
   <div class="w-full block justify-end lg:flex lg:w-auto">
     <div class="nav-text text-med lg:flex-grow">
       <span class="lg:hidden md:hidden sm:hidden hidden" id="mobile-inventory">
