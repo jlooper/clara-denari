@@ -10,26 +10,26 @@
         <div v-if="inventory.length === 0" class="text-gray-200 text-start p-2" style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);">
           {{ isHydrated ? emptyText : 'Sorry, there are no items here yet' }}
         </div>
-        <div v-else class="wrapper">
+        <div v-else class="grid grid-cols-2 gap-3">
           <div 
             v-for="item in inventory" 
             :key="item.name"
-            class="item mb-4 p-3 bg-black bg-opacity-30"
+            class="item p-3 bg-black bg-opacity-30 rounded-lg border border-blue-600"
           >
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-2">
               <!-- Image if available -->
               <div v-if="item.imageUrl" class="flex-shrink-0">
                 <img 
                   :src="item.imageUrl" 
                   :alt="item.name"
-                  class="w-12 h-12 object-cover"
+                  class="w-8 h-8 object-cover rounded"
                 />
               </div>
               
               <!-- Item name -->
-              <div class="flex-1">
-                <p class="text-gray-200 text-sm font-medium" style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);">
-                  <a :href="`/${item.location}`">{{ item.name }}</a>
+              <div class="flex-1 min-w-0">
+                <p class="text-gray-200 text-xs font-medium truncate" style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);">
+                  <a :href="`/${item.location}`" class="hover:text-blue-400 transition-colors">{{ item.name }}</a>
                 </p>
               </div>
             </div>

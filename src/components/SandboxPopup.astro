@@ -74,8 +74,6 @@
     }
     
     if (sandboxPopup) {
-      console.log('Found sandbox popup, setting up event listeners');
-      
       // Update text content initially
       updateTextContent();
       
@@ -295,7 +293,7 @@
       // Check if we're on a lab page
       function isLabPage() {
         const path = window.location.pathname;
-        return path.includes('lab_1') || path.includes('lab_2') || path.includes('/1') || path.includes('/2');
+        return path.includes('lab_1') || path.includes('lab_2') || path.includes('/1') || path.includes('/2') || path.includes('lab_3') || path.includes('/3') || path.includes('lab_4') || path.includes('/4');
       }
       
       // Get current lab based on URL
@@ -313,8 +311,8 @@
               { value: 'Other', text: 'Other' }
             ],
             successMessage: 'Well done! You\'ve successfully enhanced the image and discovered the hidden letters "Ch Os". It looks like this is a piece of Dr. Chiaro Obscuro\'s stationery, and it ties this criminal to the crime. Keep this information safe as you continue your investigation!',
-            defaultCloudName: 'demo',
-            defaultPublicId: 'sample',
+            defaultCloudName: 'dr60nybtj',
+            defaultPublicId: 'lab_scrap',
             defaultTransformation: 'e_contrast:50,c_scale,w_300,h_200,f_auto,q_auto'
           };
         }
@@ -331,10 +329,45 @@
             ],
             successMessage: 'Yes! The string is blue and white. It looks like it\'s from a bakery!',
             defaultCloudName: 'dr60nybtj',
-            defaultPublicId: 'twine',
+            defaultPublicId: 'lab_twine',
             defaultTransformation: 'e_sepia/f_auto/q_auto'
           };
         }
+        if (path.includes('lab_3') || path.includes('/3')) {
+          return {
+            name: 'Lab 3',
+            correctAnswer: 'e_background_removal',
+            question: 'What\'s the URL transformation to remove the cheese from the key?',
+            options: [
+              { value: 'e_bg_removal', text: 'e_bg_removal' },
+              { value: 'e_background_removal', text: 'e_background_removal' },
+              { value: 'e_bg_rm', text: 'e_bg_rm' },
+              { value: 'e_removal', text: 'e_removal' }
+            ],
+            successMessage: 'Yes! The key is now clean and ready to use!',
+            defaultCloudName: 'dr60nybtj',
+            defaultPublicId: 'lab_key',
+            defaultTransformation: 'f_auto/q_auto'
+          };
+        }
+        if (path.includes('lab_4') || path.includes('/4')) {
+          return {
+            name: 'Lab 4',
+            correctAnswer: 'a fire truck',
+            question: 'What was the object you removed?',
+            options: [
+              { value: 'a police car', text: 'a police car' },
+              { value: 'a Barbie car', text: 'a Barbie car' },
+              { value: 'the Batmobile', text: 'the Batmobile' },
+              { value: 'a fire truck', text: 'a fire truck' }
+            ],
+            successMessage: 'Yes! MIT students do \'hacks\' each year to decorate the dome.',
+            defaultCloudName: 'dr60nybtj',
+            defaultPublicId: 'mit',
+            defaultTransformation: 'f_auto/q_auto'
+          };
+        }
+
         // Default fallback - should not reach here if isLabPage() works correctly
         return null;
       }
@@ -359,7 +392,7 @@
         const timestamp = new Date().toLocaleString();
         
         if (selectedAnswer === correctAnswer) {
-          testResult.textContent = `✓ Correct! You found the hidden letters: ${correctAnswer}`;
+          testResult.textContent = `✓ Correct! You found the solution: ${correctAnswer}`;
           testResult.className = 'mt-3 text-sm font-bold text-green-400';
           
           // Show special success message
@@ -381,10 +414,10 @@
           
           // Show notification
           if ((window as any).showNotificationPanel) {
-            (window as any).showNotificationPanel(`Excellent detective work! You found the hidden letters: ${correctAnswer}`);
+            (window as any).showNotificationPanel(`Excellent detective work! You found the solution: ${correctAnswer}`);
           }
         } else {
-          testResult.textContent = 'Not quite right. Look more carefully at the transformed image.';
+          testResult.textContent = 'Not quite right. Look more carefully at the transformed image and its URL.';
           testResult.className = 'mt-3 text-sm font-bold text-red-400';
           
           // Hide success message for incorrect answers
@@ -581,8 +614,12 @@
           return '/sticky_paper';
         } else if (currentLab.name === 'Lab 2') {
           return '/pastry_shop';
+        } else if (currentLab.name === 'Lab 3') {
+          return '/the_napkin';
         }
-        
+        else if (currentLab.name === 'Lab 4') {
+          return '/the_dome';
+        }
         return '#';
       }
       

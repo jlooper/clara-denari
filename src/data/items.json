@@ -3,7 +3,7 @@
     "id": 1,
     "instructions": "Examine the",
     "name": "scrap of paper",
-    "imageUrl": "https://res.cloudinary.com/dr60nybtj/image/upload/v1756949210/9c6ce5d8-db57-4fc2-b483-2698dcb2c158-1_ne9nlo.png",
+    "imageUrl": "https://res.cloudinary.com/dr60nybtj/image/upload/v1756949210/lab_scrap.png",
     "initialHide": true,
     "location": "sticky_paper",
     "result": "You open the envelope to find a torn corner of a scrap of paper. It's hard to make out what it is as it looks burned."
@@ -12,7 +12,7 @@
     "id": 2,
     "instructions": "Pick up the",
     "name": "piece of string",
-    "imageUrl": "https://res.cloudinary.com/dr60nybtj/image/upload/e_sepia/twine",
+    "imageUrl": "https://res.cloudinary.com/dr60nybtj/image/upload/e_sepia/lab_twine",
     "initialHide": true,
     "location": "north_end",
     "result": "You pick up the soggy piece of string. It looks like baker's twine, but you can't tell for sure."
@@ -21,19 +21,28 @@
     "id": 3,
     "instructions": "Break the",
     "name": "cannoli",
-    "imageUrl": "https://res.cloudinary.com/dr60nybtj/image/upload/v1757718913/key.png",
+    "imageUrl": "https://res.cloudinary.com/dr60nybtj/image/upload/v1757718913/lab_key.png",
     "initialHide": true,
-    "location": "the_key",
-    "result": "You break the cannoli in half. Inside you find a small brass key. It looks like it might fit a lock."
+    "location": "pastry_shop",
+    "result": "You break the cannoli in half, ready to take a bite. Surprisingly, you find a small brass key stuck in the filling. It looks like it might fit a lock."
   },
   {
     "id": 4,
     "instructions": "Examine the",
-    "name": "photo",
-    "imageUrl": "https://res.cloudinary.com/dr60nybtj/image/upload/e_sepia/twine",
+    "name": "newspaper clipping",
+    "imageUrl": "https://res.cloudinary.com/dr60nybtj/image/upload/v1757815114/MIT.jpg",
     "initialHide": true,
-    "location": "the_photo",
-    "result": "This photo shows a picture of the famous MIT dome. There seems to be something on top of it."
+    "location": "mit",
+    "result": "This clipping shows a picture of a domed building. There seems to be something on top of it."
+  },
+  {
+    "id": 5,
+    "instructions": "Pick up the",
+    "name": "mirror",
+    "imageUrl": "https://res.cloudinary.com/dr60nybtj/image/upload/v1757814156/mirror.png",
+    "initialHide": true,
+    "location": "mit",
+    "result": "The mirror is just a mirror. Clara looks into it and sees herself. Could this be a clue?"
   }
  
 ] 
