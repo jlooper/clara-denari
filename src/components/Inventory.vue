@@ -3,6 +3,9 @@
     <div class="flex justify-between items-center">
       <h2 class="text-responsive-xl md:text-responsive-2xl font-bold text-blue-400 mb-4 shadow-lg">
         {{ isHydrated ? titleText : 'Inventory' }}
+        <span class="text-gray-400 font-normal text-responsive-sm ml-2">
+          ({{ inventory.length }} / 5)
+        </span>
       </h2>
     </div>
     
