@@ -9,6 +9,14 @@ export interface Translations {
 }
 
 export const translations: Translations = {
+  // Game title
+  'game.title': {
+    en: 'Clara Denari and the Mysterious Transformations',
+    fr: 'Clara Denari et les Transformations Mystérieuses',
+    es: 'Clara Denari y las Transformaciones Misteriosas',
+    'pt-br': 'Clara Denari e as Transformações Misteriosas'
+  },
+
   // Navigation
   'nav.home': {
     en: 'Home',
@@ -253,10 +261,10 @@ export const translations: Translations = {
   },
 
   'lab.4.instructions': {
-    en: 'MIT students are famous for decorating the dome each year. Use a transformation to remove the object from the top of the dome so that Clara can be sure she\'s in the right place. Can you tell what the red object was?',
-    fr: 'Les étudiants de l\'MIT sont célèbres pour décorer le dôme chaque année. Utilisez une transformation pour retirer l\'objet du sommet du dôme. Pouvez-vous dire ce qu\'il est ?',
-    es: 'Los estudiantes de MIT son famosos por decorar el domo cada año. Utiliza una transformación para quitar el objeto del techo del domo. ¿Puedes decir qué es?',
-    'pt-br': 'Os estudantes da MIT são famosos por decorar o domo cada ano. Use uma transformação para remover o objeto do topo do domo. Você pode dizer o que é?'
+    en: 'MIT students are famous for decorating the dome each year. Use a transformation to remove the object from the top of the dome so that Clara can be sure she\'s in the right place. Can you tell what the red object was? TIP: remove the crop transformation.',
+    fr: 'Les étudiants de l\'MIT sont célèbres pour décorer le dôme chaque année. Utilisez une transformation pour retirer l\'objet du sommet du dôme. Pouvez-vous dire ce qu\'il est ? ASTUCE: retirez la transformation de découpage.',
+    es: 'Los estudiantes de MIT son famosos por decorar el domo cada año. Utiliza una transformación para quitar el objeto del techo del domo. ¿Puedes decir qué es? PISTA: elimina la transformación de recorte.',
+    'pt-br': 'Os estudantes da MIT são famosos por decorar o domo cada ano. Use uma transformação para remover o objeto do topo do domo. Você pode dizer o que é? DICA: remova a transformação de recorte.'
   }
 };
 

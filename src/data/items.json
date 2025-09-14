@@ -30,7 +30,7 @@
     "id": 4,
     "instructions": "Examine the",
     "name": "newspaper clipping",
-    "imageUrl": "https://res.cloudinary.com/dr60nybtj/image/upload/v1757815114/MIT.jpg",
+    "imageUrl": "https://res.cloudinary.com/dr60nybtj/image/upload/c_crop,g_north,h_0.50,w_1.00/v1757817714/MIT",
     "initialHide": true,
     "location": "mit",
     "result": "This clipping shows a picture of a domed building. There seems to be something on top of it."
