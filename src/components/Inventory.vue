@@ -67,12 +67,32 @@ export default {
       return t('inventory.empty');
     });
 
+    // Map item IDs to translation keys
+    const getItemTranslationKey = (itemId) => {
+      const itemMap = {
+        1: 'scrap_of_paper',
+        2: 'piece_of_string',
+        3: 'cannoli',
+        4: 'newspaper_clipping',
+        5: 'mirror'
+      };
+      return itemMap[itemId] || null;
+    };
+
     const loadInventory = () => {
       const itemIds = getItems();
       inventory.value = itemIds.map(id => {
         const itemData = itemsData.find(item => item.id == parseInt(id));
+        const translationKey = getItemTranslationKey(parseInt(id));
+        
+        // Get localized name
+        let localizedName = itemData ? itemData.name : `Item ${id}`;
+        if (translationKey) {
+          localizedName = t(`items.${translationKey}.name`);
+        }
+        
         return {
-          name: itemData ? itemData.name : `Item ${id}`,
+          name: localizedName,
           imageUrl: itemData ? itemData.imageUrl : null,
           location: itemData ? itemData.location : null
         };
@@ -101,6 +121,8 @@ export default {
       window.addEventListener('language-changed', () => {
         // Force reactivity by accessing the computed properties
         console.log('Language changed, updating inventory text');
+        // Reload inventory to get localized names
+        loadInventory();
       });
     });
 

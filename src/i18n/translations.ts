@@ -238,6 +238,102 @@ export const translations: Translations = {
     'pt-br': 'Usando a corda de sua cintura de utilidades, Clara rappelou o topo do domo. Olhando ao redor, ela notou um espelho portátil pequeno.'
   },
 
+  // Items
+  'items.scrap_of_paper.name': {
+    en: 'scrap of paper',
+    fr: 'morceau de papier',
+    es: 'pedazo de papel',
+    'pt-br': 'pedaço de papel'
+  },
+  'items.scrap_of_paper.instructions': {
+    en: 'Examine the',
+    fr: 'Examinez le',
+    es: 'Examina el',
+    'pt-br': 'Examine o'
+  },
+  'items.scrap_of_paper.result': {
+    en: 'You open the envelope to find a torn corner of a scrap of paper. It\'s hard to make out what it is as it looks burned.',
+    fr: 'Vous ouvrez l\'enveloppe pour trouver un coin déchiré d\'un morceau de papier. Il est difficile de voir ce que c\'est car il semble brûlé.',
+    es: 'Abres el sobre y encuentras una esquina rota de un pedazo de papel. Es difícil distinguir qué es ya que parece quemado.',
+    'pt-br': 'Você abre o envelope e encontra um canto rasgado de um pedaço de papel. É difícil ver o que é pois parece queimado.'
+  },
+
+  'items.piece_of_string.name': {
+    en: 'piece of string',
+    fr: 'morceau de ficelle',
+    es: 'pedazo de cuerda',
+    'pt-br': 'pedaço de barbante'
+  },
+  'items.piece_of_string.instructions': {
+    en: 'Pick up the',
+    fr: 'Ramassez le',
+    es: 'Recoge el',
+    'pt-br': 'Pegue o'
+  },
+  'items.piece_of_string.result': {
+    en: 'You pick up the soggy piece of string. It looks like baker\'s twine, but you can\'t tell for sure.',
+    fr: 'Vous ramassez le morceau de ficelle détrempé. Il ressemble à de la ficelle de boulanger, mais vous ne pouvez pas en être sûr.',
+    es: 'Recoges el pedazo de cuerda empapado. Parece cuerda de panadero, pero no puedes estar seguro.',
+    'pt-br': 'Você pega o pedaço de barbante encharcado. Parece barbante de padeiro, mas você não tem certeza.'
+  },
+
+  'items.cannoli.name': {
+    en: 'cannoli',
+    fr: 'cannoli',
+    es: 'cannoli',
+    'pt-br': 'cannoli'
+  },
+  'items.cannoli.instructions': {
+    en: 'Break the',
+    fr: 'Cassez le',
+    es: 'Rompe el',
+    'pt-br': 'Quebre o'
+  },
+  'items.cannoli.result': {
+    en: 'You break the cannoli in half, ready to take a bite. Surprisingly, you find a small brass key stuck in the filling. It looks like it might fit a lock.',
+    fr: 'Vous cassez le cannoli en deux, prêt à prendre une bouchée. Étonnamment, vous trouvez une petite clé en laiton coincée dans la garniture. Il semble qu\'elle pourrait convenir à une serrure.',
+    es: 'Rompes el cannoli por la mitad, listo para darle un mordisco. Sorprendentemente, encuentras una pequeña llave de latón atascada en el relleno. Parece que podría encajar en una cerradura.',
+    'pt-br': 'Você quebra o cannoli ao meio, pronto para dar uma mordida. Surpreendentemente, você encontra uma pequena chave de latão presa no recheio. Parece que pode servir para uma fechadura.'
+  },
+
+  'items.newspaper_clipping.name': {
+    en: 'newspaper clipping',
+    fr: 'coupure de journal',
+    es: 'recorte de periódico',
+    'pt-br': 'recorte de jornal'
+  },
+  'items.newspaper_clipping.instructions': {
+    en: 'Examine the',
+    fr: 'Examinez la',
+    es: 'Examina el',
+    'pt-br': 'Examine o'
+  },
+  'items.newspaper_clipping.result': {
+    en: 'This clipping shows a picture of a domed building. There seems to be something on top of it.',
+    fr: 'Cette coupure montre une photo d\'un bâtiment en forme de dôme. Il semble y avoir quelque chose au-dessus.',
+    es: 'Este recorte muestra una foto de un edificio en forma de domo. Parece que hay algo encima.',
+    'pt-br': 'Este recorte mostra uma foto de um edifício em forma de domo. Parece que há algo em cima.'
+  },
+
+  'items.mirror.name': {
+    en: 'mirror',
+    fr: 'miroir',
+    es: 'espejo',
+    'pt-br': 'espelho'
+  },
+  'items.mirror.instructions': {
+    en: 'Pick up the',
+    fr: 'Ramassez le',
+    es: 'Recoge el',
+    'pt-br': 'Pegue o'
+  },
+  'items.mirror.result': {
+    en: 'The mirror is just a mirror. Clara looks into it and sees herself. Could this be a clue?',
+    fr: 'Le miroir n\'est qu\'un miroir. Clara y regarde et se voit elle-même. Cela pourrait-il être un indice ?',
+    es: 'El espejo es solo un espejo. Clara se mira en él y se ve a sí misma. ¿Podría esto ser una pista?',
+    'pt-br': 'O espelho é apenas um espelho. Clara olha para ele e se vê. Isso poderia ser uma pista?'
+  },
+
   // Lab instructions
   'lab.1.instructions': {
     en: 'The image appears to be burned and is far too dark to read easily. Use a Cloudinary transformation in the Lab to enhance the image\'s contrast to find your first clue.<br/><br/>Create a free account at <a href="https://Cloudinary.com" target="_blank">https://Cloudinary.com</a>. Upload your image to the Media Library. Take note of your <b>cloud name</b> (listed in the top left dropdown menu of the console) and your uploaded image\'s <b>public ID</b> , which you can find by clicking on the image in the Media Library in the Summary tab.<br/><br/>Click the \'Lab\' button and enter your cloud name and the image\'s public ID. Enhance the image which is very dark, but appears to have a word written on it. Hint: try the <a href="https://cloudinary.com/documentation/transformation_reference#e_contrast">\'contrast\' transformation</a>. Once you have transformed the image, and the word is visible, select the letters from the options in the lab.',
