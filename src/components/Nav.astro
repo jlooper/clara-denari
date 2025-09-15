@@ -86,16 +86,7 @@ import { translations } from '../i18n/translations';
   </div>
 </nav>
 
-<script>
-  // Translations object
-  const translations = {
-    'game.title': {
-      en: 'Clara Denari and the Mysterious Transformations',
-      fr: 'Clara Denari et les Transformations Mystérieuses',
-      es: 'Clara Denari y las Transformaciones Misteriosas',
-      'pt-br': 'Clara Denari e as Transformações Misteriosas'
-    }
-  };
+<script define:vars={{ translations }}>
 
   // Language dropdown functionality
   document.addEventListener('DOMContentLoaded', () => {
@@ -122,8 +113,8 @@ import { translations } from '../i18n/translations';
       
       // Handle language selection
       languageDropdown.addEventListener('click', (e) => {
-        const target = e.target as HTMLElement;
-        const langButton = target.closest('button[data-lang]') as HTMLButtonElement;
+        const target = e.target;
+        const langButton = target.closest('button[data-lang]');
         
         if (langButton) {
           const lang = langButton.getAttribute('data-lang');
@@ -165,7 +156,7 @@ import { translations } from '../i18n/translations';
       
       // Close dropdown when clicking outside
       document.addEventListener('click', (e) => {
-        if (!languageBtn.contains(e.target as Node) && !languageDropdown.contains(e.target as Node)) {
+        if (!languageBtn.contains(e.target) && !languageDropdown.contains(e.target)) {
           languageDropdown.classList.add('hidden');
           languageBtn.setAttribute('aria-expanded', 'false');
         }
@@ -175,7 +166,7 @@ import { translations } from '../i18n/translations';
         setTimeout(() => {
           const savedLang = localStorage.getItem('preferred-language');
           if (savedLang) {
-            const langButton = languageDropdown.querySelector(`button[data-lang="${savedLang}"]`) as HTMLButtonElement;
+            const langButton = languageDropdown.querySelector(`button[data-lang="${savedLang}"]`);
             if (langButton) {
               const flag = langButton.getAttribute('data-flag');
               const languageNames = {

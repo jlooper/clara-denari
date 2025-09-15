@@ -116,11 +116,9 @@ const indicatorVariant = computed(() => {
 
 const createPopover = () => {
   if (!popoverContainer.value) {
-    console.log('❌ C2PA Web Component: popoverContainer not available')
     return
   }
   
-  console.log('🔧 C2PA Web Component: Creating popover dynamically')
   
   // Clear existing content
   popoverContainer.value.innerHTML = ''
@@ -131,11 +129,7 @@ const createPopover = () => {
   const hasManifestSummary = customElements.get('cai-manifest-summary-v2')
   
   if (!hasIndicator || !hasPopover || !hasManifestSummary) {
-    console.error('❌ C2PA Web Component: Required custom elements not defined', {
-      caiIndicator: !!hasIndicator,
-      caiPopover: !!hasPopover,
-      caiManifestSummaryV2: !!hasManifestSummary
-    })
+    
     return
   }
   
@@ -153,7 +147,6 @@ const createPopover = () => {
 
   // Create the popover structure positioned over the image
   const positionStyle = getPositionStyle()
-  console.log('🎯 C2PA Web Component: Position style:', positionStyle)
   
   const popoverHTML = `
     <cai-popover interactive style="position: absolute; ${positionStyle} z-index: 10;" placement="bottom-start">
@@ -162,15 +155,11 @@ const createPopover = () => {
     </cai-popover>
   `
   
-  console.log('🔧 C2PA Web Component: Creating popover HTML:', popoverHTML)
   popoverContainer.value.innerHTML = popoverHTML
   
   // Debug: Check if popover was created
   const createdPopover = popoverContainer.value.querySelector('cai-popover')
-  console.log('🔍 C2PA Web Component: Popover created:', !!createdPopover)
   if (createdPopover) {
-    console.log('🔍 C2PA Web Component: Popover style:', createdPopover.style.cssText)
-    console.log('🔍 C2PA Web Component: Popover interactive:', createdPopover.getAttribute('interactive'))
     
     // Add click event listener for debugging
     createdPopover.addEventListener('click', (e) => {
@@ -180,9 +169,7 @@ const createPopover = () => {
     // Check if indicator is clickable
     const indicator = createdPopover.querySelector('cai-indicator')
     if (indicator) {
-      console.log('🔍 C2PA Web Component: Indicator found:', !!indicator)
       indicator.addEventListener('click', (e) => {
-        console.log('🖱️ C2PA Web Component: Indicator clicked!', e)
       })
     }
   }
@@ -192,8 +179,6 @@ const createPopover = () => {
     const manifestSummary = popoverContainer.value.querySelector('cai-manifest-summary-v2')
     if (manifestSummary && manifestStore.value) {
       try {
-        console.log('🔧 C2PA Web Component: Setting manifestStore:', manifestStore.value)
-        console.log('🔧 C2PA Web Component: manifestStore keys:', Object.keys(manifestStore.value || {}))
         
         // Try multiple approaches to set the manifest data
         const approaches = [
@@ -202,10 +187,8 @@ const createPopover = () => {
             if (getManifestSummaryStore && manifestStore.value) {
               const formattedManifestStore = getManifestSummaryStore(manifestStore.value)
               manifestSummary.manifestStore = formattedManifestStore
-              console.log('✅ Set via getManifestSummaryStore:', formattedManifestStore)
             } else {
               manifestSummary.manifestStore = manifestStore.value
-              console.log('✅ Set via manifestStore property (fallback)')
             }
           },
           // Approach 2: Set inspectUrl for verification
@@ -213,13 +196,11 @@ const createPopover = () => {
             if (generateVerifyUrl && props.imageSrc) {
               const inspectUrl = generateVerifyUrl(props.imageSrc)
               manifestSummary.inspectUrl = inspectUrl
-              console.log('✅ Set inspectUrl:', inspectUrl)
             }
           },
           // Approach 3: Set as attribute for compatibility
           () => {
             manifestSummary.setAttribute('manifest-store', JSON.stringify(manifestStore.value))
-            console.log('✅ Set via manifest-store attribute')
           },
           // Approach 4: Set individual properties
           () => {
@@ -232,7 +213,6 @@ const createPopover = () => {
             if (manifestStore.value.validationStatus) {
               manifestSummary.validationStatus = manifestStore.value.validationStatus
             }
-            console.log('✅ Set individual properties')
           }
         ]
         
@@ -248,29 +228,25 @@ const createPopover = () => {
         // Force a re-render if the component has update methods
         if (typeof manifestSummary.requestUpdate === 'function') {
           manifestSummary.requestUpdate()
-          console.log('✅ Called requestUpdate')
         }
         
         // Try to trigger any lifecycle methods
         if (typeof manifestSummary.connectedCallback === 'function') {
           manifestSummary.connectedCallback()
-          console.log('✅ Called connectedCallback')
         }
         
         // Try to dispatch a custom event to notify the component
         manifestSummary.dispatchEvent(new CustomEvent('manifestStoreChanged', {
           detail: manifestStore.value
         }))
-        console.log('✅ Dispatched manifestStoreChanged event')
         
-        console.log('✅ C2PA Web Component: Set manifestStore on cai-manifest-summary-v2')
       } catch (error) {
         console.error('❌ C2PA Web Component: Error setting manifestStore:', error)
       }
     } else {
       console.warn('⚠️ C2PA Web Component: manifestSummary or manifestStore not available', {
         manifestSummary: !!manifestSummary,
-        manifestStore: !!manifestStore.value
+        //manifestStore: !!manifestStore.value
       })
     }
   }
@@ -287,7 +263,6 @@ const createPopover = () => {
     const indicator = popover?.querySelector('cai-indicator')
     
     if (popover) {
-      console.log('🔧 C2PA Web Component: Ensuring popover is interactive')
       
       // Force set interactive attribute
       popover.setAttribute('interactive', 'true')
@@ -307,7 +282,6 @@ const createPopover = () => {
       if (indicator) {
         indicator.style.pointerEvents = 'auto'
         indicator.style.cursor = 'pointer'
-        console.log('🔧 C2PA Web Component: Indicator made clickable')
       }
       
       // Try to trigger any initialization methods if they exist
@@ -320,7 +294,6 @@ const createPopover = () => {
         detail: { manifestStore: manifestStore.value }
       }))
       
-      console.log('✅ C2PA Web Component: Popover initialization completed')
     }
   }, 500)
   
@@ -328,12 +301,8 @@ const createPopover = () => {
   setTimeout(() => {
     const popover = popoverContainer.value.querySelector('cai-popover')
     if (popover) {
-      console.log('🔧 C2PA Web Component: Final popover check')
       
-      // Check if popover has any shadow DOM or internal structure
-      if (popover.shadowRoot) {
-        console.log('🔍 C2PA Web Component: Popover has shadow DOM')
-      }
+      
       
       // Force a re-render
       if (typeof popover.requestUpdate === 'function') {
@@ -342,7 +311,6 @@ const createPopover = () => {
     }
   }, 1500)
   
-  console.log('✅ C2PA Web Component: Created popover dynamically')
 }
 
 // Manifest summary is handled by cai-manifest-summary-v2 within the popover
@@ -353,17 +321,9 @@ const verifyImage = async () => {
     console.log('🔍 C2PA Web Component: Verifying image:', props.imageSrc)
     
     const result = await checkActiveManifest(props.imageSrc)
-    console.log('📋 C2PA Web Component: Verification result:', result)
-    console.log('📋 C2PA Web Component: result.manifestStore:', result.manifestStore)
-    console.log('📋 C2PA Web Component: result.manifestStore keys:', Object.keys(result.manifestStore || {}))
-    console.log('📋 C2PA Web Component: result.manifestStore.activeManifest:', result.manifestStore?.activeManifest)
-    console.log('📋 C2PA Web Component: result.manifestStore.manifests:', result.manifestStore?.manifests)
-    console.log('📋 C2PA Web Component: result.manifestStore.validationStatus:', result.manifestStore?.validationStatus)
-    
+     
     verificationResult.value = result
     manifestStore.value = result.manifestStore
-    
-    console.log('✅ C2PA Web Component: showComponent will be:', result.hasActiveManifest)
     
     // Create the popover if we have an active manifest
     if (result.hasActiveManifest) {
@@ -372,7 +332,6 @@ const verifyImage = async () => {
       createPopover()
     }
   } catch (error) {
-    console.error('❌ C2PA Web Component: Error verifying image:', error)
     verificationResult.value = {
       hasActiveManifest: false,
       isValid: false,
@@ -429,11 +388,9 @@ onMounted(async () => {
 
   // Import C2PA libraries only on client side
   if (typeof window !== 'undefined') {
-    console.log('📦 C2PA Web Component: Importing C2PA libraries...')
     try {
       // Import c2pa-wc for web components
       await import('c2pa-wc')
-      console.log('✅ C2PA Web Component: c2pa-wc imported successfully')
       
       // Import C2PA core functions
       const c2paModule = await import('c2pa')
@@ -444,12 +401,7 @@ onMounted(async () => {
       const c2paWcModule = await import('c2pa-wc')
       getManifestSummaryStore = c2paWcModule.getManifestSummaryStore
       
-      console.log('✅ C2PA Web Component: All C2PA functions imported successfully')
-      console.log('🔍 C2PA Web Component: Available custom elements:', 
-        customElements.get('cai-indicator') ? 'cai-indicator ✓' : 'cai-indicator ✗',
-        customElements.get('cai-popover') ? 'cai-popover ✓' : 'cai-popover ✗',
-        customElements.get('cai-manifest-summary-v2') ? 'cai-manifest-summary-v2 ✓' : 'cai-manifest-summary-v2 ✗'
-      )
+      
     } catch (error) {
       console.error('❌ C2PA Web Component: Failed to import C2PA libraries:', error)
     }

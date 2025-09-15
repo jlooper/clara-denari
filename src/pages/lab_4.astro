@@ -2,8 +2,9 @@
 import Layout from '../layouts/Layout.astro';
 import GameLayout from '../components/GameLayout.astro';
 import NotificationPanel from '../components/NotificationPanel.astro';
+import { translations } from '../i18n/translations.js';
 
-const title = "Lab 4: Restore the dome";
+const title = 'page.lab_4';
 const backdrop = "https://res.cloudinary.com/dr60nybtj/image/upload/fl_c2pa/c_crop,g_north,h_0.50,w_1.00/v1757817714/MIT";
 ---
 
@@ -14,8 +15,8 @@ const backdrop = "https://res.cloudinary.com/dr60nybtj/image/upload/fl_c2pa/c_cr
     
     <!-- Full width storyline -->
     <div class="w-full mb-6">
-      <h2 class="text-2xl font-bold text-blue-400 mb-4 shadow-lg">
-        {title}
+      <h2 id="page-title" class="text-2xl font-bold text-blue-400 mb-4 shadow-lg" data-page-key="lab_4">
+        Lab 4: Restore the dome
       </h2>
       
       <div class="bg-black bg-opacity-50 border-2 border-blue-500 rounded-lg p-6 mb-6">
@@ -88,5 +89,19 @@ const backdrop = "https://res.cloudinary.com/dr60nybtj/image/upload/fl_c2pa/c_cr
     
     // Also check periodically in case localStorage is updated from another tab
     setInterval(checkLabCompletion, 1000);
+    
+    // Load translated title
+    function loadTitle() {
+      const titleElement = document.getElementById('page-title');
+      if (titleElement) {
+        const currentLang = localStorage.getItem('preferred-language') || 'en';
+        const fallbackLang = currentLang === 'pt-br' ? 'en' : currentLang;
+        const translation = translations['page.lab_4'];
+        const text = translation[fallbackLang] || translation['en'] || 'Lab 4: Restore the dome';
+        titleElement.textContent = text;
+      }
+    }
+    loadTitle();
+    window.addEventListener('language-changed', loadTitle);
   });
 </script> 
