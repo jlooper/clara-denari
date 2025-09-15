@@ -5,6 +5,7 @@ import GameAction from '../components/GameAction.vue';
 import GameLayout from '../components/GameLayout.astro';
 import Typewriter from '../components/Typewriter.astro';
 import NotificationPanel from '../components/NotificationPanel.astro';
+import SteganographyWidget from '../components/SteganographyWidget.vue';
 
 const title = "On top of the dome";
 const backdrop = "https://res.cloudinary.com/dr60nybtj/image/upload/fl_c2pa/v1757789407/cd_atop_dome.png";
@@ -35,6 +36,12 @@ const backdrop = "https://res.cloudinary.com/dr60nybtj/image/upload/fl_c2pa/v175
       
       <!-- Notification Panel -->
       <NotificationPanel />
+      
+      <!-- Steganography Widget -->
+      <SteganographyWidget 
+        correctAnswer="Ronan Park Well"
+        client:only="vue"
+      />
       
       <!-- Full width items and buttons -->
       <div class="w-full">

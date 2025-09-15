@@ -1,15 +1,32 @@
 ---
 import Inventory from './Inventory.vue';
 import C2PAWebComponent from './C2PAWebComponent.vue';
+import Watermark from './Watermark.astro';
 
 export interface Props {
   title: string;
   backdrop: string;
   imageClass?: string;
   inventoryClass?: string;
+  watermark?: {
+    text: string;
+    position?: 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left' | 'center';
+    opacity?: number;
+    fontSize?: string;
+    color?: string;
+    rotation?: number;
+  };
+  isAIGenerated?: boolean;
 }
 
-const { title, backdrop, imageClass = "lg:w-1/3 md:w-1/3", inventoryClass = "lg:w-2/3 md:w-2/3" } = Astro.props;
+const { 
+  title, 
+  backdrop, 
+  imageClass = "lg:w-1/3 md:w-1/3", 
+  inventoryClass = "lg:w-2/3 md:w-2/3",
+  watermark,
+  isAIGenerated = false
+} = Astro.props;
 ---
 
 <!-- Main content area with image and inventory side by side -->
@@ -22,6 +39,7 @@ const { title, backdrop, imageClass = "lg:w-1/3 md:w-1/3", inventoryClass = "lg:
         alt={title}
         class="w-full h-full object-cover object-top"
       />
+      
       <!-- C2PA Web Component -->
       <C2PAWebComponent 
         imageSrc={backdrop}
@@ -29,6 +47,29 @@ const { title, backdrop, imageClass = "lg:w-1/3 md:w-1/3", inventoryClass = "lg:
         size="medium"
         client:only="vue"
       />
+      
+      <!-- Custom Watermark -->
+      {watermark && (
+        <Watermark 
+          text={watermark.text}
+          position={watermark.position || 'bottom-right'}
+          opacity={watermark.opacity || 0.7}
+          fontSize={watermark.fontSize || '14px'}
+          color={watermark.color || 'white'}
+          rotation={watermark.rotation || 0}
+        />
+      )}
+      
+      <!-- AI Generated Watermark (if no custom watermark) -->
+      {isAIGenerated && !watermark && (
+        <Watermark 
+          text="AI Generated"
+          position="bottom-right"
+          opacity={0.8}
+          fontSize="12px"
+          color="red"
+        />
+      )}
     </div>
   </div>
   

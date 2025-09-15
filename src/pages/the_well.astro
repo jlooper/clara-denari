@@ -1,0 +1,137 @@
+---
+import Layout from '../layouts/Layout.astro';
+import GameLayout from '../components/GameLayout.astro';
+import Typewriter from '../components/Typewriter.astro';
+import NotificationPanel from '../components/NotificationPanel.astro';
+
+const title = "Ronan Park Well";
+const backdrop = "https://res.cloudinary.com/dr60nybtj/image/upload/fl_c2pa/v1757945277/cd_well.png"; 
+
+// Check if all 5 items have been collected
+const checkAllItemsCollected = () => {
+  if (typeof window !== 'undefined') {
+    const inventoryItems = JSON.parse(localStorage.getItem('inventory_item') || '{}');
+    const allItemsCollected = ['1', '2', '3', '4', '5'].every(itemId => inventoryItems[itemId] === true);
+    return allItemsCollected;
+  }
+  return false;
+};
+---
+
+<Layout title={title} backdrop={backdrop} fullScreenLayout={true}>
+  <div class="prose max-w-none">
+    <!-- Main content area with image and inventory side by side -->
+    <GameLayout title={title} backdrop={backdrop} />
+    
+    <!-- Full width storyline -->
+    <div class="w-full mb-6">
+      <h2 class="text-2xl font-bold text-blue-400 mb-4 shadow-lg">
+        {title}
+      </h2>
+      
+          <div class="bg-black bg-opacity-50 border-2 border-blue-500 rounded-lg p-6 mb-6">
+        <div class="text-gray-100 text-lg leading-relaxed">
+          <p class="mb-4">
+            You've successfully decoded the hidden message and found your way to Ronan Park Well.
+          </p>
+          
+          <p class="mb-4">
+            Clara pulls up the well's bucket, discovers a metal box inside, and opens it with the brass key.
+          </p>
+          
+          <!-- Success message - only shown when all items are collected -->
+          <div id="success-message" class="bg-green-900 bg-opacity-30 border border-green-500 rounded p-4 mt-6 hidden">
+            <h3 class="text-green-400 font-bold text-xl mb-2">🎉 Case Solved!</h3>
+            <p class="text-green-200">
+              Eureka! The stolen necklace is safe and sound and can be returned to its rightful owner. Congratulations on completing your first Clara Denari Adventure.
+            </p>
+          </div>
+          
+          <!-- Message shown when items are missing -->
+          <div id="incomplete-message" class="bg-red-900 bg-opacity-30 border border-red-500 rounded p-4 mt-6">
+            <h3 class="text-red-400 font-bold text-xl mb-2">🔍 Investigation Incomplete</h3>
+            <p class="text-red-200 mb-3">
+              You've found the well, but you haven't collected all the necessary evidence yet. 
+              Clara needs all items from her investigation to solve this case properly.
+            </p>
+            <div class="text-red-300 text-sm">
+              <p class="font-semibold mb-2">Items still needed:</p>
+              <ul id="missing-items" class="list-disc list-inside space-y-1">
+                <!-- Will be populated by JavaScript -->
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Notification Panel -->
+    <NotificationPanel />
+    
+    <!-- Final Action -->
+    <div class="w-full flex justify-center">
+      <div class="text-center">
+        <button 
+          onclick="window.location.href='/'"
+          class="px-8 py-4 bg-gradient-to-br from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-500 hover:to-purple-500 transition-all duration-200 font-bold text-lg shadow-lg"
+        >
+          🏠 Return to Start
+        </button>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  // Check inventory and show appropriate message
+  document.addEventListener('DOMContentLoaded', () => {
+    const successMessage = document.getElementById('success-message');
+    const incompleteMessage = document.getElementById('incomplete-message');
+    const missingItemsList = document.getElementById('missing-items');
+    
+    // Check if elements exist
+    if (!successMessage || !incompleteMessage || !missingItemsList) {
+      console.error('Required DOM elements not found');
+      return;
+    }
+    
+    // Get inventory items
+    const inventoryItems = JSON.parse(localStorage.getItem('inventory_item') || '{}');
+    
+    // Define item names for display
+    const itemNames: Record<string, string> = {
+      '1': 'Brass Key',
+      '2': 'Napkin',
+      '3': 'Sticky Paper', 
+      '4': 'Purloined Property',
+      '5': 'Mirror'
+    };
+    
+    // Check which items are missing
+    const missingItems: string[] = [];
+    const allItemIds = ['1', '2', '3', '4', '5'];
+    
+    allItemIds.forEach(itemId => {
+      if (inventoryItems[itemId] !== true) {
+        missingItems.push(itemNames[itemId]);
+      }
+    });
+    
+    if (missingItems.length === 0) {
+      // All items collected - show success message
+      successMessage.classList.remove('hidden');
+      incompleteMessage.classList.add('hidden');
+    } else {
+      // Items missing - show incomplete message
+      successMessage.classList.add('hidden');
+      incompleteMessage.classList.remove('hidden');
+      
+      // Populate missing items list
+      missingItems.forEach(itemName => {
+        const li = document.createElement('li');
+        li.textContent = itemName;
+        missingItemsList.appendChild(li);
+      });
+    }
+  });
+</script>

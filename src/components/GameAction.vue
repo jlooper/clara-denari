@@ -61,6 +61,13 @@ export default {
         // Add item to inventory
         addItem(props.id);
         
+        // Dispatch item_added event for other components to listen to
+        if (typeof window !== 'undefined') {
+          window.dispatchEvent(new CustomEvent('item_added', {
+            detail: { itemId: props.id, item: item.value }
+          }));
+        }
+        
         // Show result message in notification panel
         if (typeof window !== 'undefined' && window.showNotificationPanel) {
           window.showNotificationPanel(item.value.result, 4000);

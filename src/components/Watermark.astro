@@ -1,0 +1,42 @@
+---
+export interface Props {
+  text: string;
+  position?: 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left' | 'center';
+  opacity?: number;
+  fontSize?: string;
+  color?: string;
+  rotation?: number;
+}
+
+const { 
+  text, 
+  position = 'bottom-right', 
+  opacity = 0.7, 
+  fontSize = '14px',
+  color = 'white',
+  rotation = 0
+} = Astro.props;
+
+const positionClasses = {
+  'bottom-right': 'bottom-2 right-2',
+  'bottom-left': 'bottom-2 left-2',
+  'top-right': 'top-2 right-2',
+  'top-left': 'top-2 left-2',
+  'center': 'top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'
+};
+---
+
+<div 
+  class={`absolute ${positionClasses[position]} pointer-events-none z-10`}
+  style={`
+    opacity: ${opacity};
+    font-size: ${fontSize};
+    color: ${color};
+    transform: ${rotation ? `rotate(${rotation}deg)` : ''};
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    font-weight: bold;
+    white-space: nowrap;
+  `}
+>
+  {text}
+</div>

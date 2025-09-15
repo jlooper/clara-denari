@@ -23,6 +23,25 @@ const { id = "notification-panel", class: className = "" } = Astro.props;
   </div>
 </div>
 
+<style>
+  /* Style links in notification panel */
+  #notification-message a {
+    color: #3b82f6;
+    text-decoration: underline;
+    font-weight: bold;
+    transition: color 0.2s ease;
+  }
+  
+  #notification-message a:hover {
+    color: #60a5fa;
+    text-shadow: 0 0 5px rgba(59, 130, 246, 0.5);
+  }
+  
+  #notification-message a:visited {
+    color: #8b5cf6;
+  }
+</style>
+
 <script>
   // Global notification function
   (window as any).showNotificationPanel = (message: string) => {
@@ -30,7 +49,8 @@ const { id = "notification-panel", class: className = "" } = Astro.props;
     const messageEl = document.getElementById('notification-message');
     
     if (panel && messageEl) {
-      messageEl.textContent = message;
+      // Use innerHTML to support HTML links and formatting
+      messageEl.innerHTML = message;
       panel.classList.remove('hidden');
     }
   };
