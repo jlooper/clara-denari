@@ -34,7 +34,6 @@ class I18nManager {
   t(key: string): string {
     const translation = translations[key];
     if (!translation) {
-      console.warn(`Translation key not found: ${key}`);
       return key;
     }
 
@@ -53,13 +52,11 @@ class I18nManager {
   tForLanguage(key: string, language: SupportedLanguage): string {
     const translation = translations[key];
     if (!translation) {
-      console.warn(`Translation key not found: ${key}`);
       return key;
     }
 
     const text = translation[language];
     if (!text) {
-      console.warn(`Translation not found for key: ${key} in language: ${language}`);
       return translation[defaultLanguage] || key;
     }
 
@@ -71,7 +68,6 @@ class I18nManager {
    */
   changeLanguage(language: SupportedLanguage): void {
     if (!supportedLanguages.includes(language)) {
-      console.warn(`Unsupported language: ${language}`);
       return;
     }
 
@@ -90,7 +86,6 @@ class I18nManager {
       }));
     }
     
-    console.log(`Language changed to: ${language}`);
   }
 
   /**
@@ -132,7 +127,6 @@ class I18nManager {
         return saved as SupportedLanguage;
       }
     } catch (error) {
-      console.warn('Failed to load saved language preference:', error);
     }
     return null;
   }
@@ -144,7 +138,6 @@ class I18nManager {
     try {
       localStorage.setItem('preferred-language', language);
     } catch (error) {
-      console.warn('Failed to save language preference:', error);
     }
   }
 

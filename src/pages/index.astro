@@ -33,7 +33,7 @@ const backdrop = "https://res.cloudinary.com/dr60nybtj/image/upload/fl_c2pa/v175
     
     <!-- Full width buttons -->
     <div class="w-full flex justify-center">
-      <Page url="purloined_property" instructions="" action="Grab a Taxi to Boston HQ" condition="none" />
+      <Page url="purloined_property" instructions="" actionKey="page.action.grab_taxi" condition="none" />
     </div>
   </div>
 </Layout> 
@@ -49,7 +49,6 @@ const backdrop = "https://res.cloudinary.com/dr60nybtj/image/upload/fl_c2pa/v175
         const translation = translations['page.index'];
         const text = translation[fallbackLang] || translation['en'] || 'Stolen!';
         titleElement.textContent = text;
-        console.log('Updated page title:', text, 'for language:', currentLang);
       }
     }
     loadTitle();

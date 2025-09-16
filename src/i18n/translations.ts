@@ -426,6 +426,127 @@ export const translations: Translations = {
     'pt-br': 'O espelho é apenas um espelho. Clara olha para ele e se vê. Isso poderia ser uma pista?'
   },
 
+  // Page actions
+  'page.action.grab_taxi': {
+    en: 'Grab a Taxi to Boston HQ',
+    fr: 'Prendre un taxi vers le QG de Boston',
+    es: 'Tomar un taxi a la sede de Boston',
+    'pt-br': 'Pegar um táxi para o QG de Boston'
+  },
+
+  'page.action.head_to_lab': {
+    en: 'Head to the Lab',
+    fr: 'Se diriger vers le laboratoire',
+    es: 'Dirigirse al laboratorio',
+    'pt-br': 'Ir para o laboratório'
+  },
+
+  'page.action.walk_to_north_end': {
+    en: 'Walk to the North End',
+    fr: 'Marcher vers le North End',
+    es: 'Caminar al North End',
+    'pt-br': 'Caminhar para o North End'
+  },
+
+  'page.action.go_to_lab': {
+    en: 'Go to the lab',
+    fr: 'Aller au laboratoire',
+    es: 'Ir al laboratorio',
+    'pt-br': 'Ir ao laboratório'
+  },
+
+  'page.action.continue_to_mit': {
+    en: 'Continue to MIT',
+    fr: 'Continuer vers MIT',
+    es: 'Continuar al MIT',
+    'pt-br': 'Continuar para o MIT'
+  },
+
+  // Custom GameAction texts
+  'gameaction.ask_reward.text': {
+    en: 'Ask about reward money',
+    fr: 'Demander de l\'argent de récompense',
+    es: 'Preguntar sobre el dinero de recompensa',
+    'pt-br': 'Perguntar sobre dinheiro de recompensa'
+  },
+
+  'gameaction.ask_reward.result': {
+    en: 'The Director rolls his eyes as the wealthy lady clutches her purse tighter. "We will discuss compensation after the case is solved," he says sternly.',
+    fr: 'Le Directeur lève les yeux au ciel tandis que la dame riche serre son sac à main plus fort. "Nous discuterons de la compensation une fois l\'affaire résolue," dit-il sévèrement.',
+    es: 'El Director pone los ojos en blanco mientras la señora adinerada aprieta más su bolso. "Discutiremos la compensación después de que se resuelva el caso," dice severamente.',
+    'pt-br': 'O Diretor revira os olhos enquanto a senhora rica segura sua bolsa mais apertada. "Discutiremos a compensação depois que o caso for resolvido," ele diz severamente.'
+  },
+
+  'gameaction.recycle_marzipan.text': {
+    en: 'Stick around and try some marzipan',
+    fr: 'Restez et goûtez au massepain',
+    es: 'Quédate y prueba un poco de mazapán',
+    'pt-br': 'Fique e experimente um pouco de marzipã'
+  },
+
+  'gameaction.recycle_marzipan.result': {
+    en: 'Why not, it\'s excellent!',
+    fr: 'Pourquoi pas, c\'est excellent !',
+    es: '¡Por qué no, es excelente!',
+    'pt-br': 'Por que não, é excelente!'
+  },
+
+  'gameaction.dunk_cannoli.text': {
+    en: 'Dunk the cannoli into a latte',
+    fr: 'Trempez le cannoli dans un latte',
+    es: 'Moja el cannoli en un café con leche',
+    'pt-br': 'Mergulhe o cannoli em um café com leite'
+  },
+
+  'gameaction.dunk_cannoli.result': {
+    en: 'There\'s now mascarpone cheese all over the place.',
+    fr: 'Il y a maintenant du fromage mascarpone partout.',
+    es: 'Ahora hay queso mascarpone por todas partes.',
+    'pt-br': 'Agora há queijo mascarpone em todo lugar.'
+  },
+
+  'gameaction.toss_string.text': {
+    en: 'Toss the string in the trash',
+    fr: 'Jetez la ficelle à la poubelle',
+    es: 'Tira la cuerda a la basura',
+    'pt-br': 'Jogue o barbante no lixo'
+  },
+
+  'gameaction.toss_string.result': {
+    en: 'Laudable, but you may have just thrown away a clue.',
+    fr: 'Louable, mais vous venez peut-être de jeter un indice.',
+    es: 'Loable, pero puede que hayas tirado una pista.',
+    'pt-br': 'Louvável, mas você pode ter jogado fora uma pista.'
+  },
+
+  'gameaction.grab_coffee.text': {
+    en: 'Grab some coffee',
+    fr: 'Prenez du café',
+    es: 'Toma un poco de café',
+    'pt-br': 'Pegue um pouco de café'
+  },
+
+  'gameaction.grab_coffee.result': {
+    en: 'The molasses smell makes you hungry, so you grab a cup of coffee. No harm done there!',
+    fr: 'L\'odeur de mélasse vous donne faim, alors vous prenez une tasse de café. Pas de mal !',
+    es: 'El olor a melaza te da hambre, así que tomas una taza de café. ¡No hay daño ahí!',
+    'pt-br': 'O cheiro de melaço te deixa com fome, então você pega uma xícara de café. Nenhum mal feito!'
+  },
+
+  'gameaction.look_around.text': {
+    en: 'Look around',
+    fr: 'Regardez autour',
+    es: 'Mira alrededor',
+    'pt-br': 'Olhe ao redor'
+  },
+
+  'gameaction.look_around.result': {
+    en: 'Enjoy the view over the city!',
+    fr: 'Profitez de la vue sur la ville !',
+    es: '¡Disfruta de la vista de la ciudad!',
+    'pt-br': 'Aproveite a vista da cidade!'
+  },
+
   // Lab instructions
   'lab.1.instructions': {
     en: 'The image appears to be burned and is far too dark to read easily. Use a Cloudinary transformation in the Lab to enhance the image\'s contrast to find your first clue.<br/><br/>Create a free account at <a href="https://Cloudinary.com" target="_blank">https://Cloudinary.com</a>. Upload your image to the Media Library. Take note of your <b>cloud name</b> (listed in the top left dropdown menu of the console) and your uploaded image\'s <b>public ID</b> , which you can find by clicking on the image in the Media Library in the Summary tab.<br/><br/>Click the \'Lab\' button and enter your cloud name and the image\'s public ID. Enhance the image which is very dark, but appears to have a word written on it. <br/><br/>Tip: try the <a href="https://cloudinary.com/documentation/transformation_reference#e_contrast" target="_blank">\'contrast\' transformation</a>. Once you have transformed the image, and the word is visible, select the letters from the options in the lab.',

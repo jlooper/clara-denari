@@ -47,6 +47,8 @@ const backdrop = "https://res.cloudinary.com/dr60nybtj/image/upload/fl_c2pa/v175
         <GameAction 
           id="ask_reward" 
           actionType="text" 
+          textKey="gameaction.ask_reward.text"
+          resultKey="gameaction.ask_reward.result"
           customText="Ask about reward money"
           customResult="The Director rolls his eyes as the wealthy lady clutches her purse tighter. &quot;We will discuss compensation after the case is solved,&quot; he says sternly."
           client:load
@@ -57,7 +59,7 @@ const backdrop = "https://res.cloudinary.com/dr60nybtj/image/upload/fl_c2pa/v175
         <!-- Button with result text before navigation -->
         <Page 
           url="lab_1" 
-          action="Head to the Lab" 
+          actionKey="page.action.head_to_lab" 
           condition="1"
           resultText="Time to do some transformation magic!"
         />

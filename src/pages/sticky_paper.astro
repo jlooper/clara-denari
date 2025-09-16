@@ -45,6 +45,8 @@ const backdrop = "https://res.cloudinary.com/dr60nybtj/image/upload/fl_c2pa/v175
           <GameAction 
             id="grab_coffee" 
             actionType="text" 
+            textKey="gameaction.grab_coffee.text"
+            resultKey="gameaction.grab_coffee.result"
             customText="Grab some coffee"
             customResult="The molasses smell makes you hungry, so you grab a cup of coffee. No harm done there!"
             client:load 
@@ -52,7 +54,7 @@ const backdrop = "https://res.cloudinary.com/dr60nybtj/image/upload/fl_c2pa/v175
        
           <Page 
             url="north_end" 
-            action="Walk to the North End" 
+            actionKey="page.action.walk_to_north_end" 
             condition="1"
             resultText="Off you go!"
           />

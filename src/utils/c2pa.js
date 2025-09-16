@@ -13,7 +13,6 @@ export async function initializeC2PA() {
         wasmSrc: '/c2pa-assets/toolkit_bg.wasm',
         workerSrc: '/c2pa-assets/c2pa.worker.min.js'
       });
-      console.log('C2PA SDK initialized successfully');
     }
     return true;
   } catch (error) {
@@ -60,10 +59,8 @@ function parseISO(isoString) {
  */
 export async function checkActiveManifest(source) {
   try {
-    console.log('🔍 checkActiveManifest called with source:', source);
     
     if (!c2paInstance) {
-      console.log('🔄 Initializing C2PA instance...');
       await initializeC2PA();
     }
 

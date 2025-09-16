@@ -48,6 +48,8 @@ const backdrop = "https://res.cloudinary.com/dr60nybtj/image/upload/fl_c2pa/v175
         <GameAction 
           id="recycle" 
           actionType="text" 
+          textKey="gameaction.recycle_marzipan.text"
+          resultKey="gameaction.recycle_marzipan.result"
           customText="Stick around and try some marzipan"
           customResult="Why not, it's excellent!"
           client:load 
@@ -55,8 +57,8 @@ const backdrop = "https://res.cloudinary.com/dr60nybtj/image/upload/fl_c2pa/v175
        
           <Page 
             url="mit"
+            actionKey="page.action.continue_to_mit"
             condition="4"
-            action="Take the subway to MIT" 
             resultText="Off you go!"
           />
           

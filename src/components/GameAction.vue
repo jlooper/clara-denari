@@ -12,9 +12,10 @@
 </template>
 
 <script>
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, watch } from 'vue';
 import { addItem } from '../utils/helpers.js';
 import itemsData from '../data/items.json';
+import { translations } from '../i18n/translations.ts';
 
 export default {
   name: 'GameAction',
@@ -35,6 +36,14 @@ export default {
     customResult: {
       type: String,
       default: ''
+    },
+    textKey: {
+      type: String,
+      default: ''
+    },
+    resultKey: {
+      type: String,
+      default: ''
     }
   },
   setup(props) {
@@ -47,14 +56,81 @@ export default {
       return null;
     });
 
+    // Get current language
+    const getCurrentLanguage = () => {
+      const currentLang = localStorage.getItem('preferred-language') || 'en';
+      return currentLang === 'pt-br' ? 'en' : currentLang; // Fallback to English for Portuguese
+    };
+
+    // Get translated text for item
+    const getTranslatedItemText = (item) => {
+      if (!item) return '';
+      
+      const lang = getCurrentLanguage();
+      const itemKey = getItemKey(item);
+      
+      if (!itemKey) return `${item.instructions} ${item.name}`;
+      
+      const instructionsKey = `items.${itemKey}.instructions`;
+      const nameKey = `items.${itemKey}.name`;
+      
+      const instructions = translations[instructionsKey]?.[lang] || item.instructions;
+      const name = translations[nameKey]?.[lang] || item.name;
+      
+      return `${instructions} ${name}`;
+    };
+
+    // Get item key from item data
+    const getItemKey = (item) => {
+      switch (item.name) {
+        case 'scrap of paper': return 'scrap_of_paper';
+        case 'piece of string': return 'piece_of_string';
+        case 'cannoli': return 'cannoli';
+        case 'newspaper clipping': return 'newspaper_clipping';
+        case 'mirror': return 'mirror';
+        default: return null;
+      }
+    };
+
+    // Get translated custom text
+    const getTranslatedCustomText = () => {
+      if (props.textKey) {
+        const lang = getCurrentLanguage();
+        return translations[props.textKey]?.[lang] || props.customText || 'Perform action';
+      }
+      return props.customText || 'Perform action';
+    };
+
     const buttonText = computed(() => {
+      // Use forceUpdate to trigger reactivity on language changes
+      forceUpdate.value; // This will cause the computed to re-evaluate
+      
       if (props.actionType === 'item' && item.value) {
-        return `${item.value.instructions} ${item.value.name}`;
+        return getTranslatedItemText(item.value);
       } else if (props.actionType === 'text') {
-        return props.customText || 'Perform action';
+        return getTranslatedCustomText();
       }
       return 'Action';
     });
+
+    // Get translated result text
+    const getTranslatedResultText = (item) => {
+      if (props.resultKey) {
+        // Use custom result key
+        const lang = getCurrentLanguage();
+        return translations[props.resultKey]?.[lang] || props.customResult || 'Action completed.';
+      } else if (item) {
+        // Use item result
+        const lang = getCurrentLanguage();
+        const itemKey = getItemKey(item);
+        
+        if (!itemKey) return item.result;
+        
+        const resultKey = `items.${itemKey}.result`;
+        return translations[resultKey]?.[lang] || item.result;
+      }
+      return props.customResult || 'Action completed.';
+    };
 
     const performAction = () => {
       if (props.actionType === 'item' && item.value) {
@@ -68,9 +144,10 @@ export default {
           }));
         }
         
-        // Show result message in notification panel
+        // Show translated result message in notification panel
+        const translatedResult = getTranslatedResultText(item.value);
         if (typeof window !== 'undefined' && window.showNotificationPanel) {
-          window.showNotificationPanel(item.value.result, 4000);
+          window.showNotificationPanel(translatedResult, 4000);
         }
         
         // Mark as collected
@@ -85,10 +162,10 @@ export default {
           }
         }, 200);
       } else if (props.actionType === 'text') {
-        // Show text-only result in notification panel
-        const resultText = props.customResult || 'Action completed.';
+        // Show translated text-only result in notification panel
+        const translatedResult = getTranslatedResultText(null);
         if (typeof window !== 'undefined' && window.showNotificationPanel) {
-          window.showNotificationPanel(resultText, 4000);
+          window.showNotificationPanel(translatedResult, 4000);
         }
         
         // Mark as completed
@@ -96,14 +173,30 @@ export default {
       }
     };
 
+    // Force reactivity for language changes
+    const forceUpdate = ref(0);
+    
     onMounted(() => {
-      // Component mounted
+      // Listen for language changes
+      const handleLanguageChange = () => {
+        forceUpdate.value++; // Force reactivity update
+      };
+      
+      document.addEventListener('language-changed', handleLanguageChange);
+      window.addEventListener('language-changed', handleLanguageChange);
+      
+      // Cleanup on unmount
+      return () => {
+        document.removeEventListener('language-changed', handleLanguageChange);
+        window.removeEventListener('language-changed', handleLanguageChange);
+      };
     });
 
     return {
       collected,
       buttonText,
-      performAction
+      performAction,
+      forceUpdate
     };
   }
 };

@@ -84,7 +84,6 @@
       document.addEventListener('click', (e) => {
         const target = e.target as HTMLElement;
         if (target && target.id === 'sandbox-btn') {
-          console.log('Sandbox button clicked via event delegation');
           sandboxPopup.classList.remove('hidden');
           sandboxPopup.classList.add('flex');
           

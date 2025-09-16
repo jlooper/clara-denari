@@ -145,11 +145,11 @@ import { translations } from '../i18n/translations';
             }
 
             // Trigger language change event
+            console.log('Nav: Dispatching language-changed event for language:', lang);
             window.dispatchEvent(new CustomEvent('language-changed', { 
               detail: { language: lang } 
             }));
             
-            console.log(`Language changed to: ${lang}`);
           }
         }
       });

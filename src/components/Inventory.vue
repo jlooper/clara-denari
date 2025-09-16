@@ -58,15 +58,12 @@ export default {
 
     // Create computed properties that will re-evaluate when language changes
     const titleText = computed(() => {
-      console.log('Computing titleText, current language:', currentLanguage.value);
       return t('inventory.title');
     });
     const labText = computed(() => {
-      console.log('Computing labText, current language:', currentLanguage.value);
       return t('inventory.lab');
     });
     const emptyText = computed(() => {
-      console.log('Computing emptyText, current language:', currentLanguage.value);
       return t('inventory.empty');
     });
 
@@ -123,7 +120,6 @@ export default {
       // Listen for language changes to force re-render
       window.addEventListener('language-changed', () => {
         // Force reactivity by accessing the computed properties
-        console.log('Language changed, updating inventory text');
         // Reload inventory to get localized names
         loadInventory();
       });
