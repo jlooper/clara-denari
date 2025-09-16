@@ -1,7 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import GameLayout from '../components/GameLayout.astro';
-import Typewriter from '../components/Typewriter.astro';
 import NotificationPanel from '../components/NotificationPanel.astro';
 import { translations } from '../i18n/translations.js';
 
@@ -32,31 +31,31 @@ const checkAllItemsCollected = () => {
       
           <div class="bg-black bg-opacity-50 border-2 border-blue-500 rounded-lg p-6 mb-6">
         <div class="text-gray-100 text-lg leading-relaxed">
-          <p class="mb-4">
+          <p class="mb-4" data-translation-key="the_well.story.decoded_message">
             You've successfully decoded the hidden message and found your way to Ronan Park Well.
           </p>
           
-          <p class="mb-4">
+          <p class="mb-4" data-translation-key="the_well.story.clara_discovers">
             Clara pulls up the well's bucket, discovers a metal box inside, and opens it with the brass key.
           </p>
           
           <!-- Success message - only shown when all items are collected -->
           <div id="success-message" class="bg-green-900 bg-opacity-30 border border-green-500 rounded p-4 mt-6 hidden">
-            <h3 class="text-green-400 font-bold text-xl mb-2">🎉 Case Solved!</h3>
-            <p class="text-green-200">
+            <h3 class="text-green-400 font-bold text-xl mb-2" data-translation-key="the_well.success.title">🎉 Case Solved!</h3>
+            <p class="text-green-200" data-translation-key="the_well.success.message">
               Eureka! The stolen necklace is safe and sound and can be returned to its rightful owner. Congratulations on completing your first Clara Denari Adventure.
             </p>
           </div>
           
           <!-- Message shown when items are missing -->
           <div id="incomplete-message" class="bg-red-900 bg-opacity-30 border border-red-500 rounded p-4 mt-6">
-            <h3 class="text-red-400 font-bold text-xl mb-2">🔍 Investigation Incomplete</h3>
-            <p class="text-red-200 mb-3">
+            <h3 class="text-red-400 font-bold text-xl mb-2" data-translation-key="the_well.incomplete.title">🔍 Investigation Incomplete</h3>
+            <p class="text-red-200 mb-3" data-translation-key="the_well.incomplete.message">
               You've found the well, but you haven't collected all the necessary evidence yet. 
               Clara needs all items from her investigation to solve this case properly.
             </p>
             <div class="text-red-300 text-sm">
-              <p class="font-semibold mb-2">Items still needed:</p>
+              <p class="font-semibold mb-2" data-translation-key="the_well.incomplete.items_needed">Items still needed:</p>
               <ul id="missing-items" class="list-disc list-inside space-y-1">
                 <!-- Will be populated by JavaScript -->
               </ul>
@@ -73,8 +72,10 @@ const checkAllItemsCollected = () => {
     <div class="w-full flex justify-center">
       <div class="text-center">
         <button 
+          id="return-button"
           onclick="window.location.href='/'"
           class="px-8 py-4 bg-gradient-to-br from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-500 hover:to-purple-500 transition-all duration-200 font-bold text-lg shadow-lg"
+          data-translation-key="the_well.return_button"
         >
           🏠 Return to Start
         </button>
@@ -85,18 +86,77 @@ const checkAllItemsCollected = () => {
 
 <script define:vars={{ translations }}>
   document.addEventListener('DOMContentLoaded', () => {
-    function loadTitle() {
+    function getCurrentLanguage() {
+      return localStorage.getItem('preferred-language') || 'en';
+    }
+
+    function getTranslation(key) {
+      const currentLang = getCurrentLanguage();
+      const fallbackLang = currentLang === 'pt-br' ? 'en' : currentLang;
+      return translations[key]?.[fallbackLang] || translations[key]?.en || key;
+    }
+
+    function getItemName(itemId) {
+      const key = `the_well.item.${itemId}`;
+      return getTranslation(key);
+    }
+
+    function updateAllText() {
+      // Update page title
       const titleElement = document.getElementById('page-title');
       if (titleElement) {
-        const currentLang = localStorage.getItem('preferred-language') || 'en';
-        const fallbackLang = currentLang === 'pt-br' ? 'en' : currentLang;
-        const translation = translations['page.the_well'];
-        const text = translation[fallbackLang] || translation['en'] || 'Ronan Park Well';
+        const text = getTranslation('page.the_well');
         titleElement.textContent = text;
       }
+
+      // Update all elements with data-translation-key
+      const elements = document.querySelectorAll('[data-translation-key]');
+      elements.forEach(element => {
+        const key = element.getAttribute('data-translation-key');
+        if (key) {
+          const text = getTranslation(key);
+          element.textContent = text;
+        }
+      });
+
+      // Update missing items list if it exists
+      updateMissingItemsList();
     }
-    loadTitle();
-    window.addEventListener('language-changed', loadTitle);
+
+    function updateMissingItemsList() {
+      const missingItemsList = document.getElementById('missing-items');
+      if (!missingItemsList) return;
+
+      // Get inventory items
+      const inventoryItems = JSON.parse(localStorage.getItem('inventory_item') || '{}');
+      
+      // Check which items are missing
+      const missingItems = [];
+      const allItemIds = ['1', '2', '3', '4', '5'];
+      
+      allItemIds.forEach(itemId => {
+        if (inventoryItems[itemId] !== true) {
+          missingItems.push(getItemName(itemId));
+        }
+      });
+      
+      // Clear existing list
+      missingItemsList.innerHTML = '';
+      
+      // Populate with translated item names
+      missingItems.forEach(itemName => {
+        const li = document.createElement('li');
+        li.textContent = itemName;
+        missingItemsList.appendChild(li);
+      });
+    }
+
+    // Initial load
+    updateAllText();
+
+    // Listen for language changes
+    window.addEventListener('language-changed', updateAllText);
+    document.addEventListener('language-changed', updateAllText);
   });
 </script>
 
@@ -105,10 +165,9 @@ const checkAllItemsCollected = () => {
   document.addEventListener('DOMContentLoaded', () => {
     const successMessage = document.getElementById('success-message');
     const incompleteMessage = document.getElementById('incomplete-message');
-    const missingItemsList = document.getElementById('missing-items');
     
     // Check if elements exist
-    if (!successMessage || !incompleteMessage || !missingItemsList) {
+    if (!successMessage || !incompleteMessage) {
       console.error('Required DOM elements not found');
       return;
     }
@@ -116,22 +175,13 @@ const checkAllItemsCollected = () => {
     // Get inventory items
     const inventoryItems = JSON.parse(localStorage.getItem('inventory_item') || '{}');
     
-    // Define item names for display
-    const itemNames: Record<string, string> = {
-      '1': 'Brass Key',
-      '2': 'Napkin',
-      '3': 'Sticky Paper', 
-      '4': 'Purloined Property',
-      '5': 'Mirror'
-    };
-    
     // Check which items are missing
-    const missingItems: string[] = [];
+    const missingItems = [];
     const allItemIds = ['1', '2', '3', '4', '5'];
     
     allItemIds.forEach(itemId => {
       if (inventoryItems[itemId] !== true) {
-        missingItems.push(itemNames[itemId]);
+        (missingItems as any[]).push(itemId);
       }
     });
     
@@ -143,13 +193,6 @@ const checkAllItemsCollected = () => {
       // Items missing - show incomplete message
       successMessage.classList.add('hidden');
       incompleteMessage.classList.remove('hidden');
-      
-      // Populate missing items list
-      missingItems.forEach(itemName => {
-        const li = document.createElement('li');
-        li.textContent = itemName;
-        missingItemsList.appendChild(li);
-      });
     }
   });
 </script>

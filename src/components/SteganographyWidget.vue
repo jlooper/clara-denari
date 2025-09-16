@@ -7,7 +7,7 @@
       <!-- Header -->
       <div class="flex justify-between items-center mb-4">
         <h3 class="text-2xl font-bold text-blue-400 shadow-lg">
-          Steganography Decoder
+          {{ title }}
         </h3>
         <button 
           @click="closeWidget"
@@ -20,16 +20,11 @@
       <!-- Instructions -->
       <div class="mb-6">
         <p class="text-gray-200 text-lg leading-relaxed mb-4">
-          You've discovered a hidden message in the image! Use the steganography decoder to reveal the secret text, then enter the decoded message below to continue your investigation.
+          {{ instructions }}
         </p>
         
         <div class="bg-blue-900 bg-opacity-30 border border-blue-500 rounded p-4 mb-4">
-          <p class="text-blue-200 text-sm">
-            <strong>Hint:</strong> Download <a href="https://res.cloudinary.com/dr60nybtj/image/upload/v1757944359/encoded_image_cd_w3femn.png" target="_blank">this image</a> and use 
-            <a href="https://www.desmondcheong.com/projects/code/steganography/decode" 
-               target="_blank" 
-               class="text-blue-400 hover:text-blue-300 underline">
-              this steganography decoder</a> to reveal the hidden message.
+          <p class="text-blue-200 text-sm" v-html="hintHtml">
           </p>
         </div>
       </div>
@@ -37,12 +32,12 @@
       <!-- Input Form -->
       <div class="mb-6">
         <label class="block text-gray-200 text-lg font-bold mb-3">
-          Enter the decoded message:
+          {{ inputLabel }}
         </label>
         <input 
           v-model="inputValue"
           type="text"
-          placeholder="Type the hidden message here..."
+          :placeholder="inputPlaceholder"
           class="w-full p-4 bg-gray-800 border-2 border-blue-600 text-gray-200 rounded-lg text-lg focus:border-blue-400 focus:outline-none"
           @keyup.enter="submitAnswer"
           :disabled="isSubmitting"
@@ -57,7 +52,7 @@
           :disabled="isSubmitting || !inputValue.trim()"
           class="px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-500 disabled:bg-gray-600 disabled:cursor-not-allowed transition-colors font-bold text-lg"
         >
-          {{ isSubmitting ? 'Checking...' : 'Submit Answer' }}
+          {{ isSubmitting ? checkingText : submitButton }}
         </button>
         
         <!-- Continue Button (shown after correct answer) -->
@@ -66,7 +61,7 @@
           @click="continueToFinalPage"
           class="px-8 py-3 bg-green-600 text-white rounded-lg hover:bg-green-500 transition-colors font-bold text-lg"
         >
-          Continue to Final Location
+          {{ continueButton }}
         </button>
       </div>
       
@@ -79,7 +74,8 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { translations } from '../i18n/translations.ts'
 
 const props = defineProps({
   correctAnswer: {
@@ -95,6 +91,34 @@ const resultMessage = ref('')
 const resultClass = ref('')
 const showContinueButton = ref(false)
 
+// Language state
+const currentLanguage = ref('en')
+
+// Translation functions
+const getCurrentLanguage = () => {
+  return localStorage.getItem('preferred-language') || 'en'
+}
+
+const getTranslation = (key) => {
+  const lang = getCurrentLanguage()
+  // Portuguese fallback to English for poor translations
+  const fallbackLang = lang === 'pt-br' ? 'en' : lang
+  return translations[key]?.[fallbackLang] || translations[key]?.en || key
+}
+
+// Computed properties for translations
+const title = computed(() => getTranslation('steganography.title'))
+const instructions = computed(() => getTranslation('steganography.instructions'))
+const hintHtml = computed(() => {
+  const hint = getTranslation('steganography.hint')
+  return hint
+})
+const inputLabel = computed(() => getTranslation('steganography.input_label'))
+const inputPlaceholder = computed(() => getTranslation('steganography.input_placeholder'))
+const submitButton = computed(() => getTranslation('steganography.submit_button'))
+const checkingText = computed(() => getTranslation('steganography.checking'))
+const continueButton = computed(() => getTranslation('steganography.continue_button'))
+
 const submitAnswer = () => {
   if (!inputValue.value.trim() || isSubmitting.value) return
   
@@ -106,7 +130,7 @@ const submitAnswer = () => {
     const correctAnswer = props.correctAnswer
     
     if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
-      resultMessage.value = '✓ Correct! You\'ve decoded the hidden message successfully!'
+      resultMessage.value = getTranslation('steganography.correct')
       resultClass.value = 'bg-green-900 border border-green-500 text-green-200'
       
       // Show continue button instead of auto-closing
@@ -114,7 +138,7 @@ const submitAnswer = () => {
         showContinueButton.value = true
       }, 1000)
     } else {
-      resultMessage.value = '✗ Incorrect. Please try again. Make sure you\'re using the steganography decoder correctly.'
+      resultMessage.value = getTranslation('steganography.incorrect')
       resultClass.value = 'bg-red-900 border border-red-500 text-red-200'
       
       // Clear input and reset after delay
@@ -162,10 +186,23 @@ onMounted(() => {
       }, 2000)
     }
   })
+  
+  // Listen for language changes
+  const handleLanguageChange = () => {
+    currentLanguage.value = getCurrentLanguage()
+  }
+  
+  window.addEventListener('language-changed', handleLanguageChange)
+  document.addEventListener('language-changed', handleLanguageChange)
+  
+  // Initial language setup
+  currentLanguage.value = getCurrentLanguage()
 })
 
 onUnmounted(() => {
   window.removeEventListener('item_added', checkMirrorCollected)
+  window.removeEventListener('language-changed', handleLanguageChange)
+  document.removeEventListener('language-changed', handleLanguageChange)
 })
 </script>
 

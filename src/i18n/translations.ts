@@ -574,6 +574,148 @@ export const translations: Translations = {
     fr: 'Les étudiants de l\'MIT sont célèbres pour décorer le dôme chaque année. Utilisez une transformation pour retirer l\'objet du sommet du dôme. Pouvez-vous dire ce qu\'il est ? ASTUCE: retirez la transformation de découpage.',
     es: 'Los estudiantes de MIT son famosos por decorar el domo cada año. Utiliza una transformación para quitar el objeto del techo del domo. ¿Puedes decir qué es? PISTA: elimina la transformación de recorte.',
     'pt-br': 'Os estudantes da MIT são famosos por decorar o domo cada ano. Use uma transformação para remover o objeto do topo do domo. Você pode dizer o que é? DICA: remova a transformação de recorte.'
+  },
+
+  // Steganography Widget
+  'steganography.title': {
+    en: 'Steganography Decoder',
+    fr: 'Décodeur de Stéganographie',
+    es: 'Decodificador de Esteganografía',
+    'pt-br': 'Decodificador de Esteganografia'
+  },
+  'steganography.instructions': {
+    en: 'You\'ve discovered a hidden message in the image! Use the steganography decoder to reveal the secret text, then enter the decoded message below to continue your investigation.',
+    fr: 'Vous avez découvert un message caché dans l\'image ! Utilisez le décodeur de stéganographie pour révéler le texte secret, puis entrez le message décodé ci-dessous pour continuer votre enquête.',
+    es: '¡Has descubierto un mensaje oculto en la imagen! Usa el decodificador de esteganografía para revelar el texto secreto, luego ingresa el mensaje decodificado a continuación para continuar tu investigación.',
+    'pt-br': 'Você descobriu uma mensagem oculta na imagem! Use o decodificador de esteganografia para revelar o texto secreto, depois insira a mensagem decodificada abaixo para continuar sua investigação.'
+  },
+  'steganography.hint': {
+    en: 'Hint: Download this image and use this steganography decoder to reveal the hidden message.',
+    fr: 'Indice : Téléchargez cette image et utilisez ce décodeur de stéganographie pour révéler le message caché.',
+    es: 'Pista: Descarga esta imagen y usa este decodificador de esteganografía para revelar el mensaje oculto.',
+    'pt-br': 'Dica: Baixe esta imagem e use este decodificador de esteganografia para revelar a mensagem oculta.'
+  },
+  'steganography.input_label': {
+    en: 'Enter the decoded message:',
+    fr: 'Entrez le message décodé :',
+    es: 'Ingresa el mensaje decodificado:',
+    'pt-br': 'Insira a mensagem decodificada:'
+  },
+  'steganography.input_placeholder': {
+    en: 'Type the hidden message here...',
+    fr: 'Tapez le message caché ici...',
+    es: 'Escribe el mensaje oculto aquí...',
+    'pt-br': 'Digite a mensagem oculta aqui...'
+  },
+  'steganography.submit_button': {
+    en: 'Submit Answer',
+    fr: 'Soumettre la Réponse',
+    es: 'Enviar Respuesta',
+    'pt-br': 'Enviar Resposta'
+  },
+  'steganography.checking': {
+    en: 'Checking...',
+    fr: 'Vérification...',
+    es: 'Verificando...',
+    'pt-br': 'Verificando...'
+  },
+  'steganography.continue_button': {
+    en: 'Continue to Final Location',
+    fr: 'Continuer vers la Destination Finale',
+    es: 'Continuar a la Ubicación Final',
+    'pt-br': 'Continuar para o Local Final'
+  },
+  'steganography.correct': {
+    en: '✓ Correct! You\'ve decoded the hidden message successfully!',
+    fr: '✓ Correct ! Vous avez décodé le message caché avec succès !',
+    es: '✓ ¡Correcto! ¡Has decodificado el mensaje oculto exitosamente!',
+    'pt-br': '✓ Correto! Você decodificou a mensagem oculta com sucesso!'
+  },
+  'steganography.incorrect': {
+    en: '✗ Incorrect. Please try again. Make sure you\'re using the steganography decoder correctly.',
+    fr: '✗ Incorrect. Veuillez réessayer. Assurez-vous d\'utiliser le décodeur de stéganographie correctement.',
+    es: '✗ Incorrecto. Por favor, inténtalo de nuevo. Asegúrate de usar el decodificador de esteganografía correctamente.',
+    'pt-br': '✗ Incorreto. Por favor, tente novamente. Certifique-se de usar o decodificador de esteganografia corretamente.'
+  },
+
+  // The Well page
+  'the_well.story.decoded_message': {
+    en: 'You\'ve successfully decoded the hidden message and found your way to Ronan Park Well.',
+    fr: 'Vous avez réussi à décoder le message caché et trouvé votre chemin vers le Puits du Parc Ronan.',
+    es: 'Has decodificado exitosamente el mensaje oculto y encontraste el camino hacia el Pozo del Parque Ronan.',
+    'pt-br': 'Você decodificou com sucesso a mensagem oculta e encontrou o caminho para o Poço do Parque Ronan.'
+  },
+  'the_well.story.clara_discovers': {
+    en: 'Clara pulls up the well\'s bucket, discovers a metal box inside, and opens it with the brass key.',
+    fr: 'Clara remonte le seau du puits, découvre une boîte métallique à l\'intérieur, et l\'ouvre avec la clé en laiton.',
+    es: 'Clara sube el cubo del pozo, descubre una caja de metal adentro, y la abre con la llave de latón.',
+    'pt-br': 'Clara puxa o balde do poço, descobre uma caixa de metal dentro, e a abre com a chave de latão.'
+  },
+  'the_well.success.title': {
+    en: '🎉 Case Solved!',
+    fr: '🎉 Affaire Résolue !',
+    es: '🎉 ¡Caso Resuelto!',
+    'pt-br': '🎉 Caso Resolvido!'
+  },
+  'the_well.success.message': {
+    en: 'Eureka! The stolen necklace is safe and sound and can be returned to its rightful owner. Congratulations on completing your first Clara Denari Adventure.',
+    fr: 'Eureka ! Le collier volé est sain et sauf et peut être rendu à son propriétaire légitime. Félicitations pour avoir terminé votre première Aventure de Clara Denari.',
+    es: '¡Eureka! El collar robado está sano y salvo y puede ser devuelto a su legítimo propietario. Felicitaciones por completar tu primera Aventura de Clara Denari.',
+    'pt-br': 'Eureka! O colar roubado está são e salvo e pode ser devolvido ao seu legítimo dono. Parabéns por completar sua primeira Aventura de Clara Denari.'
+  },
+  'the_well.incomplete.title': {
+    en: '🔍 Investigation Incomplete',
+    fr: '🔍 Enquête Incomplète',
+    es: '🔍 Investigación Incompleta',
+    'pt-br': '🔍 Investigação Incompleta'
+  },
+  'the_well.incomplete.message': {
+    en: 'You\'ve found the well, but you haven\'t collected all the necessary evidence yet. Clara needs all items from her investigation to solve this case properly.',
+    fr: 'Vous avez trouvé le puits, mais vous n\'avez pas encore collecté toutes les preuves nécessaires. Clara a besoin de tous les éléments de son enquête pour résoudre cette affaire correctement.',
+    es: 'Has encontrado el pozo, pero aún no has recolectado toda la evidencia necesaria. Clara necesita todos los elementos de su investigación para resolver este caso correctamente.',
+    'pt-br': 'Você encontrou o poço, mas ainda não coletou todas as evidências necessárias. Clara precisa de todos os itens de sua investigação para resolver este caso corretamente.'
+  },
+  'the_well.incomplete.items_needed': {
+    en: 'Items still needed:',
+    fr: 'Éléments encore nécessaires :',
+    es: 'Elementos aún necesarios:',
+    'pt-br': 'Itens ainda necessários:'
+  },
+  'the_well.return_button': {
+    en: '🏠 Return to Start',
+    fr: '🏠 Retour au Début',
+    es: '🏠 Volver al Inicio',
+    'pt-br': '🏠 Voltar ao Início'
+  },
+  'the_well.item.1': {
+    en: 'Brass Key',
+    fr: 'Clé en Laiton',
+    es: 'Llave de Latón',
+    'pt-br': 'Chave de Latão'
+  },
+  'the_well.item.2': {
+    en: 'Napkin',
+    fr: 'Serviette',
+    es: 'Servilleta',
+    'pt-br': 'Guardanapo'
+  },
+  'the_well.item.3': {
+    en: 'Sticky Paper',
+    fr: 'Papier Collant',
+    es: 'Papel Pegajoso',
+    'pt-br': 'Papel Grudento'
+  },
+  'the_well.item.4': {
+    en: 'Purloined Property',
+    fr: 'Propriété Volée',
+    es: 'Propiedad Robada',
+    'pt-br': 'Propriedade Roubada'
+  },
+  'the_well.item.5': {
+    en: 'Mirror',
+    fr: 'Miroir',
+    es: 'Espejo',
+    'pt-br': 'Espelho'
   }
 };
 
