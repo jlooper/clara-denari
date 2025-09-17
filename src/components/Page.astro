@@ -59,22 +59,11 @@ const localizedAction = getLocalizedAction();
     (window as any).translations = translations;
   }
   
-  console.log('Page component script loaded');
-  console.log('Page component translations available:', !!translations);
   
   // Check if DOM is already loaded
   function initializePageButtons() {
-    console.log('Page component: Initializing buttons');
     // Find all page navigation buttons
     const pageButtons = document.querySelectorAll('[data-url], [data-show-result-only]');
-    console.log('Page component: Found page buttons:', pageButtons.length);
-    
-    // Debug: Check for action key buttons
-    const actionKeyButtons = document.querySelectorAll('[data-action-key]');
-    console.log('Page component: Found action key buttons:', actionKeyButtons.length);
-    actionKeyButtons.forEach((btn, index) => {
-      console.log(`Action key button ${index}:`, btn.getAttribute('data-action-key'), btn.textContent);
-    });
     
     // Check button visibility based on conditions
     pageButtons.forEach(button => {
@@ -186,36 +175,21 @@ const localizedAction = getLocalizedAction();
 
   // Listen for language changes and update button text
   function handleLanguageChange() {
-    console.log('Page component: Language changed event received');
-    const pageButtons = document.querySelectorAll('[data-action-key]');
-    console.log('Page component: Found buttons with action keys:', pageButtons.length);
-    
-    // Debug: Let's see what buttons exist
-    const allButtons = document.querySelectorAll('button');
-    console.log('Page component: Total buttons found:', allButtons.length);
-    allButtons.forEach((btn, index) => {
-      console.log(`Button ${index}:`, btn.getAttribute('data-action-key'), btn.textContent);
-    });
+    const pageButtons = document.querySelectorAll('[data-action-key]'); 
     
     pageButtons.forEach(button => {
       const actionKey = button.getAttribute('data-action-key');
-      console.log('Page component: Processing button with actionKey:', actionKey);
       if (actionKey) {
         const currentLang = localStorage.getItem('preferred-language') || 'en';
         const fallbackLang = (currentLang === 'pt-br') ? 'en' : currentLang;
         const globalTranslations = (window as any).translations || translations;
         const translation = globalTranslations[actionKey];
-        console.log('Page component: Current lang:', currentLang, 'Fallback lang:', fallbackLang);
-        console.log('Page component: Translation found:', !!translation);
         
         if (translation && translation[fallbackLang]) {
-          console.log('Page component: Updating button text to:', translation[fallbackLang]);
           button.textContent = translation[fallbackLang];
         } else if (translation && translation['en']) {
-          console.log('Page component: Updating button text to English:', translation['en']);
           button.textContent = translation['en'];
         } else {
-          console.log('Page component: No translation found for actionKey:', actionKey);
         }
       }
     });
@@ -237,7 +211,6 @@ const localizedAction = getLocalizedAction();
     initializePageButtons();
   }
 
-  console.log('Page component: Language change listener attached');
   
   // Test the event listener
   setTimeout(() => {

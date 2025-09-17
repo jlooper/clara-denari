@@ -1,8 +1,38 @@
 ---
-// Get current year for dynamic copyright
-const currentYear = new Date().getFullYear();
+import { translations } from '../i18n/translations.js';
 ---
 
 <footer class="text-center p-4 text-green-500" style="text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);">
-  <p>&copy; {currentYear} Cloudinary. A Cloudinary Experiment. Stay Curious!</p>
-</footer> 
+  <p id="footer-text" data-translation-key="footer.copyright">
+  </p>
+</footer>
+
+<script define:vars={{ translations }}>
+  document.addEventListener('DOMContentLoaded', () => {
+    function getCurrentLanguage() {
+      return localStorage.getItem('preferred-language') || 'en';
+    }
+
+    function getTranslation(key) {
+      const currentLang = getCurrentLanguage();
+      const fallbackLang = currentLang === 'pt-br' ? 'en' : currentLang;
+      return translations[key]?.[fallbackLang] || translations[key]?.en || key;
+    }
+
+    function updateFooterText() {
+      const footerElement = document.getElementById('footer-text');
+      if (footerElement) {
+        const currentYear = new Date().getFullYear();
+        const copyrightText = getTranslation('footer.copyright');
+        footerElement.innerHTML = `&copy; ${currentYear} Cloudinary. ${copyrightText}`;
+      }
+    }
+
+    // Initial load
+    updateFooterText();
+
+    // Listen for language changes
+    window.addEventListener('language-changed', updateFooterText);
+    document.addEventListener('language-changed', updateFooterText);
+  });
+</script> 

@@ -1,39 +1,42 @@
 <template>
   <div class="markdown-body">
     <div class="flex justify-between items-center">
-      <h2 class="text-responsive-xl md:text-responsive-2xl font-bold text-blue-400 mb-4 shadow-lg">
+      <h2 class="text-responsive-l md:text-responsive-xl font-bold text-blue-400 shadow-lg">
         {{ isHydrated ? titleText : 'Inventory' }}
-        <span class="text-gray-400 font-normal text-responsive-sm ml-2">
+        <span class="text-gray-400 font-normal text-responsive-sm">
           ({{ inventory.length }} / 5)
         </span>
       </h2>
     </div>
     
       <div id="inventory-container">
-        <div v-if="inventory.length === 0" class="text-gray-200 text-start p-2 text-responsive-sm" style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);">
+        <div v-if="inventory.length === 0" class="text-gray-200 text-start p-3 text-responsive-sm" style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);">
           {{ isHydrated ? emptyText : 'Sorry, there are no items here yet' }}
         </div>
-        <div v-else class="grid grid-cols-2 gap-3">
+        <div v-else class="grid grid-cols-1 md:grid-cols-2 gap-1">
           <div 
             v-for="item in inventory" 
             :key="item.name"
-            class="item p-3 bg-black bg-opacity-30 rounded-lg border border-blue-600"
+            class="item p-1.5 bg-black bg-opacity-20 hover:bg-opacity-30 transition-all duration-200"
           >
-            <div class="flex items-center gap-2">
+            <div class="flex items-center gap-1.5">
               <!-- Image if available -->
               <div v-if="item.imageUrl" class="flex-shrink-0">
                 <img 
                   :src="item.imageUrl" 
                   :alt="item.name"
-                  class="w-8 h-8 object-cover rounded"
+                  class="w-6 h-6 object-cover rounded"
                 />
               </div>
               
-              <!-- Item name -->
+              <!-- Item name and details -->
               <div class="flex-1 min-w-0">
-                <p class="text-gray-200 text-responsive-xs font-medium truncate" style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);">
-                  <a :href="`/${item.location}`" class="hover:text-blue-400 transition-colors">{{ item.name }}</a>
+                <p class="text-gray-200 text-xs font-normal leading-tight" style="text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);">
+                  <a :href="`/${item.location}`" class="hover:text-blue-400 transition-colors duration-200">
+                    <span class="truncate">{{ item.name }}</span>
+                  </a>
                 </p>
+                
               </div>
             </div>
           </div>
