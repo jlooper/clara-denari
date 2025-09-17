@@ -313,10 +313,10 @@ export const translations: Translations = {
   },
 
   'story.the_napkin': {
-    en: 'With the key clean, Clara put it in her pocket. But what now? Where could the next clue be?<br/><br/>Looking down, Clara noticed the crumpled napkin she had used to wipe off the mascarpone cheese. She shook it to remove some crumbs, and out fell a newspaper clipping showing a photo of a building. "This photo looks like MIT\'s dome. That must be where the next clue is," she thought.', 
-    fr: 'Avec la clé propre, Clara la mit dans son poche. Mais maintenant ? Où pourrait se trouver la prochaine piste ?<br/><br/>En regardant le bas, Clara remarqua le mouchoir plié qu\'elle avait utilisé pour essuyer le mascarpone. Elle secoua le mouchoir pour enlever quelques miettes, et il tomba un article de journale montrant une photo d\'un bâtiment. "Cette photo ressemble au dôme de MIT. C\'est forcément là ou se trouvera la prochaine piste," pensa-t-elle.',
-    es: 'Con la llave limpia, Clara la puso en su bolsillo. Pero ahora ¿dónde podría estar la próxima pista?<br/><br/>Mirando hacia abajo, Clara notó el pañuelo doblado que había usado para limpiar el queso mascarpone. Secó el pañuelo para quitar algunas migas, y salió un corte de periódico mostrando una foto de un edificio. "Esta foto parece el domo de MIT. Eso debe ser donde está la próxima pista," pensó.',
-    'pt-br': 'Com a chave limpa, Clara colocou-a no seu bolso. Mas agora? Onde poderia estar a próxima pista?<br/><br/>Olhando para baixo, Clara notou o lenço arrufado que havia usado para limpar o queijo mascarpone. Secou o lenço para remover algumas migalhas, e saiu um recorte de jornal mostrando uma foto de um edifício. "Esta foto parece o domo de MIT. Isso deve ser onde está a próxima pista," pensou.'
+    en: 'With the key clean, Clara put it in her pocket. But what now? Where could the next clue be?<br/><br/>Looking down, Clara noticed the crumpled napkin she had used to wipe off the ricotta cheese. She shook it to remove some crumbs, and out fell a newspaper clipping showing a photo of a building. "This photo looks like MIT\'s dome. That must be where the next clue is," she thought.', 
+    fr: 'Avec la clé propre, Clara la mit dans son poche. Mais maintenant ? Où pourrait se trouver la prochaine piste ?<br/><br/>En regardant le bas, Clara remarqua le mouchoir plié qu\'elle avait utilisé pour essuyer le ricotta. Elle secoua le mouchoir pour enlever quelques miettes, et il tomba un article de journale montrant une photo d\'un bâtiment. "Cette photo ressemble au dôme de MIT. C\'est forcément là ou se trouvera la prochaine piste," pensa-t-elle.',
+    es: 'Con la llave limpia, Clara la puso en su bolsillo. Pero ahora ¿dónde podría estar la próxima pista?<br/><br/>Mirando hacia abajo, Clara notó el pañuelo doblado que había usado para limpiar el queso ricotta. Secó el pañuelo para quitar algunas migas, y salió un corte de periódico mostrando una foto de un edificio. "Esta foto parece el domo de MIT. Eso debe ser donde está la próxima pista," pensó.',
+    'pt-br': 'Com a chave limpa, Clara colocou-a no seu bolso. Mas agora? Onde poderia estar a próxima pista?<br/><br/>Olhando para baixo, Clara notou o lenço arrufado que havia usado para limpar o queijo ricotta. Secou o lenço para remover algumas migalhas, e saiu um recorte de jornal mostrando uma foto de um edifício. "Esta foto parece o domo de MIT. Isso deve ser onde está a próxima pista," pensou.'
    },
   'story.mit': {
     en: 'Clara stepped off the subway and walked to the domed edifice in front of the prestigious university. Around her, bespectacled students rushed around, carrying computers, books, and what appeared to be various wires and circuits.<br/><br/>Clara studied the newspaper clipping carefully. It was a picture of a dome, certainly, but only showed the top of the building, and there was a strange red object parked on top. Maybe this clue signaled that something was on top of the dome, but she wanted to be sure she was in the right place before making the effort to climb.',
@@ -500,10 +500,10 @@ export const translations: Translations = {
   },
 
   'gameaction.dunk_cannoli.result': {
-    en: 'There\'s now mascarpone cheese all over the place.',
-    fr: 'Il y a maintenant du fromage mascarpone partout.',
-    es: 'Ahora hay queso mascarpone por todas partes.',
-    'pt-br': 'Agora há queijo mascarpone em todo lugar.'
+    en: 'There\'s now ricotta cheese all over the place.',
+    fr: 'Il y a maintenant du fromage ricotta partout.',
+    es: 'Ahora hay queso ricotta por todas partes.',
+    'pt-br': 'Agora há queijo ricotta em todo lugar.'
   },
 
   'gameaction.toss_string.text': {
@@ -564,10 +564,10 @@ export const translations: Translations = {
   }, 
   
   'lab.3.instructions': {
-    en: 'The key is coated with a sticky layer of mascarpone cheese, the traditional cannoli filling. Use an AI transformation and an Image Refiner to wipe off the cheese from the key.<br/><br/>Tip: upload the key image to your Media Library and perform an AI transformation to extract the key from the cheese. Try a generative background removal transformation, then use a refiner to erase any extra cream filling from the key.',
-    fr: 'La clé est recouverte d\'une couche collante de mascarpone, le remplissage traditionnel des cannolis. Utilisez une transformation AI et un Réflecteur pour retirer le fromage de la clé.<br/><br/>Astuce : téléchargez l\'image de la clé dans votre Bibliothèque Média et effectuez une transformation AI pour extraire la clé du fromage. Essayez une transformation de suppression de fond générative, puis utilisez un réflecteur pour effacer toute crème supplémentaire dans la clé."',
-    es: 'La llave está cubierta con una capa pegajosa de queso mascarpone, el relleno tradicional de los cannolis. Utiliza una transformación AI y un Reflector para retirar el queso de la llave.<br/><br/>Consejo: sube la imagen de la llave a tu Biblioteca de Medios y realiza una transformación AI para extraer la llave del queso. Prueba una transformación de eliminación de fondo generativa, luego usa un refractor para borrar cualquier relleno de crema adicional en la llave."',
-    'pt-br': 'A chave está coberta com uma camada pegajosa de queijo mascarpone, o recheio tradicional dos cannolis. Use uma transformação AI e um Refletor para retirar o queijo da chave.<br/><br/>Dica: faça upload da imagem da chave para sua Biblioteca de Mídia e realize uma transformação AI para extrair a chave do queijo. Tente uma transformação de remoção de fundo gerativa, então use um refletor para apagar qualquer recheio de creme adicional na chave."'
+    en: 'The key is coated with a sticky layer of ricotta cheese, the traditional cannoli filling. Use an AI transformation and an Image Refiner to wipe off the cheese from the key.<br/><br/>Tip: upload the key image to your Media Library and perform an AI transformation to extract the key from the cheese. Try a generative background removal transformation, then use a refiner to erase any extra cream filling from the key.',
+    fr: 'La clé est recouverte d\'une couche collante de ricotta, le remplissage traditionnel des cannolis. Utilisez une transformation AI et un Réflecteur pour retirer le fromage de la clé.<br/><br/>Astuce : téléchargez l\'image de la clé dans votre Bibliothèque Média et effectuez une transformation AI pour extraire la clé du fromage. Essayez une transformation de suppression de fond générative, puis utilisez un réflecteur pour effacer toute crème supplémentaire dans la clé."',
+    es: 'La llave está cubierta con una capa pegajosa de queso ricotta, el relleno tradicional de los cannolis. Utiliza una transformación AI y un Reflector para retirar el queso de la llave.<br/><br/>Consejo: sube la imagen de la llave a tu Biblioteca de Medios y realiza una transformación AI para extraer la llave del queso. Prueba una transformación de eliminación de fondo generativa, luego usa un refractor para borrar cualquier relleno de crema adicional en la llave."',
+    'pt-br': 'A chave está coberta com uma camada pegajosa de queijo ricotta, o recheio tradicional dos cannolis. Use uma transformação AI e um Refletor para retirar o queijo da chave.<br/><br/>Dica: faça upload da imagem da chave para sua Biblioteca de Mídia e realize uma transformação AI para extrair a chave do queijo. Tente uma transformação de remoção de fundo gerativa, então use um refletor para apagar qualquer recheio de creme adicional na chave."'
   },
 
   'lab.4.instructions': {
