@@ -161,10 +161,7 @@ const createPopover = () => {
   const createdPopover = popoverContainer.value.querySelector('cai-popover')
   if (createdPopover) {
     
-    // Add click event listener for debugging
-    createdPopover.addEventListener('click', (e) => {
-      console.log('🖱️ C2PA Web Component: Popover clicked!', e)
-    })
+    
     
     // Check if indicator is clickable
     const indicator = createdPopover.querySelector('cai-indicator')
@@ -318,7 +315,6 @@ const createPopover = () => {
 const verifyImage = async () => {
   try {
     loading.value = true
-    console.log('🔍 C2PA Web Component: Verifying image:', props.imageSrc)
     
     const result = await checkActiveManifest(props.imageSrc)
      

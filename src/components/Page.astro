@@ -214,7 +214,6 @@ const localizedAction = getLocalizedAction();
   
   // Test the event listener
   setTimeout(() => {
-    console.log('Page component: Testing language change event...');
     window.dispatchEvent(new CustomEvent('language-changed', { 
       detail: { language: 'test' } 
     }));
