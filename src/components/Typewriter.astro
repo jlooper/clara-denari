@@ -180,13 +180,6 @@ const { text, translationKey, speed = 50, delay = 0, class: className = "" } = A
         const translatedText = typewriter.getTranslatedText();
         typewriter.processedText = typewriter.parseTextWithBreaks(translatedText);
         typewriter.init();
-        
-        // Update iframe height after typewriter content changes
-        setTimeout(() => {
-          if ((window as any).triggerHeightUpdate) {
-            (window as any).triggerHeightUpdate();
-          }
-        }, 500); // Wait for typewriter to finish
       }
     });
   });
