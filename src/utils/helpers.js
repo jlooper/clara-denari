@@ -59,4 +59,14 @@ export function getItems() {
   
   var ids = Object.keys(inv_items);
   return ids;
-} 
+}
+
+// Iframe height adjustment utility
+export function setupIframeHeight() {
+  if (typeof window === 'undefined') return;
+  
+  window.onload = function() {
+    const height = document.body.scrollHeight;
+    window.parent.postMessage({ iframeHeight: height }, "*");
+  };
+}

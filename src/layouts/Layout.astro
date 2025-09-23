@@ -95,4 +95,10 @@ const { title, backdrop, fullScreenLayout = false } = Astro.props;
     }
   });
 
+  // Iframe height adjustment for embedded content
+  window.onload = function() {
+    const height = document.body.scrollHeight;
+    window.parent.postMessage({ iframeHeight: height }, "*");
+  };
+
   
