@@ -160,6 +160,11 @@ export default {
           } else if (window.inventoryInstance) {
             window.inventoryInstance.loadInventory();
           }
+          
+          // Update iframe height after content changes
+          if (window.triggerHeightUpdate) {
+            window.triggerHeightUpdate();
+          }
         }, 200);
       } else if (props.actionType === 'text') {
         // Show translated text-only result in notification panel
@@ -170,6 +175,13 @@ export default {
         
         // Mark as completed
         collected.value = true;
+        
+        // Update iframe height after content changes
+        setTimeout(() => {
+          if (window.triggerHeightUpdate) {
+            window.triggerHeightUpdate();
+          }
+        }, 100);
       }
     };
 
