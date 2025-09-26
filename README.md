@@ -1,6 +1,6 @@
-# Interactive Story Engine
+# Clara Denari Adventure Stories
 
-An interactive story/game engine converted from VuePress to Astro.
+An interactive story/game engine for a choose-your-own adventure experience introducing technical topics and innovative products.
 
 ## Features
 
@@ -20,8 +20,8 @@ An interactive story/game engine converted from VuePress to Astro.
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/jlooper/static-game-engine.git
-cd static-game-engine
+git clone https://github.com/jlooper/clara-denari.git
+cd clara-denari
 ```
 
 2. Install dependencies:
@@ -80,15 +80,6 @@ npm run build
 
 The built files will be in the `dist/` directory.
 
-## Conversion Notes
-
-This project was converted from VuePress to Astro with the following changes:
-
-- **Vue Components → Astro Components**: All Vue components were converted to Astro components
-- **Vue Router → Astro Pages**: Navigation is now handled by Astro's file-based routing
-- **Vuex → Local Storage**: State management simplified to use browser localStorage
-- **VuePress Theme → Custom Layout**: Custom theme converted to Astro layout system
-- **Build System**: VuePress build system replaced with Astro's build system
 
 ## Technologies Used
 
