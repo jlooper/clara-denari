@@ -4,6 +4,7 @@ import Inventory from '../components/Inventory.vue';
 import Footer from '../components/Footer.astro';
 import Notification from '../components/Notification.astro';
 import SandboxPopup from '../components/SandboxPopup.astro';
+import AboutModal from '../components/AboutModal.astro';
 import '../styles/global.css';
 
 export interface Props {
@@ -44,6 +45,7 @@ const { title, backdrop, fullScreenLayout = false } = Astro.props;
     </div>
     
     <Notification id="global-notification" type="info" message="" />
+    <AboutModal />
   </body>
 </html>
 

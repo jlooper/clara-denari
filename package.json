@@ -1,5 +1,5 @@
 {
-	"name": "static-game-engine",
+	"name": "clara-denari",
 	"version": "1.0.0",
 	"description": "Explore and Learn!",
 	"type": "module",
@@ -27,10 +27,10 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/jlooper/static-game-engine"
+		"url": "git+https://github.com/jlooper/clara-denari"
 	},
 	"bugs": {
-		"url": "https://github.com/jlooper/static-game-engine"
+		"url": "https://github.com/jlooper/clara-denari"
 	},
-	"homepage": "https://github.com/jlooper/static-game-engine"
+	"homepage": "https://github.com/jlooper/clara-denari"
 }

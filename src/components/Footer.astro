@@ -25,6 +25,17 @@ import { translations } from '../i18n/translations.js';
         const currentYear = new Date().getFullYear();
         const copyrightText = getTranslation('footer.copyright');
         footerElement.innerHTML = `&copy; ${currentYear} Cloudinary. ${copyrightText}`;
+        
+        // Add click handler to the about link
+        const aboutLink = footerElement.querySelector('a[href="about"]');
+        if (aboutLink) {
+          aboutLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (window.openAboutModal) {
+              window.openAboutModal();
+            }
+          });
+        }
       }
     }
 
