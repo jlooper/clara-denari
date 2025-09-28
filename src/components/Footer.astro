@@ -24,7 +24,7 @@ import { translations } from '../i18n/translations.js';
       if (footerElement) {
         const currentYear = new Date().getFullYear();
         const copyrightText = getTranslation('footer.copyright');
-        footerElement.innerHTML = `&copy; ${currentYear} Cloudinary. ${copyrightText}`;
+        footerElement.innerHTML = `&copy; ${currentYear} <a href="https://cloudinary.com" target="_blank" class="text-green-400 hover:text-green-300 underline transition-colors duration-200">Cloudinary</a>. ${copyrightText}`;
         
         // Add click handler to the about link
         const aboutLink = footerElement.querySelector('a[href="about"]');
