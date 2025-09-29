@@ -41,10 +41,53 @@ const checkAllItemsCollected = () => {
           
           <!-- Success message - only shown when all items are collected -->
           <div id="success-message" class="bg-green-900 bg-opacity-30 border border-green-500 rounded p-4 mt-6 hidden">
-            <h3 class="text-green-400 font-bold text-xl mb-2" data-translation-key="the_well.success.title">🎉 Case Solved!</h3>
+            <h3 class="text-green-400 font-bold text-xl mb-2" data-translation-key="the_well.success.title">🎉 Case Solved! Holopin Earned!</h3>
             <p class="text-green-200" data-translation-key="the_well.success.message">
               Eureka! The stolen necklace is safe and sound and can be returned to its rightful owner. Congratulations on completing your first Clara Denari Adventure.
             </p>
+            
+            <!-- Badge Download Section -->
+            <div class="bg-opacity-30 rounded">
+              
+              
+              <p class="text-blue-200 mb-4" data-translation-key="badge.download.message">
+                You've successfully solved this Clara Denari mystery! Download your completion badge below by scanning the QR code. Don't forget to share on social media!
+              </p>
+              
+              <!-- Badge Display and QR Code -->
+              <div class="flex flex-col sm:flex-row gap-6 mb-6">
+                <!-- Badge Image -->
+                <div class="flex-1">
+                 
+                  <div class="p-4">
+                    <img 
+                      src="/badges/clara-denari-completion-badge.png" 
+                      alt="Clara Denari Completion Badge"
+                      class="w-full max-w-xs mx-auto rounded-lg shadow-lg"
+                      onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjMzc0MTUxIi8+CjxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iODAiIGZpbGw9IiM0RjQ2NTEiLz4KPHRleHQgeD0iMTAwIiB5PSIxMTAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iI0ZGRkZGRiIgdGV4dC1hbmNob3I9Im1pZGRsZSI+Q2xhcmEgRGVuYXJpPC90ZXh0Pgo8dGV4dCB4PSIxMDAiIHk9IjEzMCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjEyIiBmaWxsPSIjRkZGRkZGIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5Db21wbGV0ZWQhPC90ZXh0Pgo8L3N2Zz4K'"
+                    />
+                  </div>
+                </div>
+                
+                <!-- QR Code -->
+                <div class="flex-1">
+                
+                  <div class="p-4">
+                    <img 
+                      src="/badges/qr.png" 
+                      alt="QR Code for Clara Denari Badge"
+                      class="w-full max-w-xs mx-auto rounded-lg shadow-lg"
+                      onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRkZGRkZGIi8+CjxyZWN0IHg9IjIwIiB5PSIyMCIgd2lkdGg9IjE2MCIgaGVpZ2h0PSIxNjAiIGZpbGw9IiMwMDAwMDAiLz4KPHRleHQgeD0iMTAwIiB5PSIxMDAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxMiIgZmlsbD0iIzAwMDAwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+UVIgQ29kZTwvdGV4dD4KPC9zdmc+Cg=='"
+                    />
+                 
+                  </div>
+                </div>
+              </div>
+              
+             
+              
+             
+            </div>
           </div>
           
           <!-- Message shown when items are missing -->
@@ -77,7 +120,7 @@ const checkAllItemsCollected = () => {
           class="px-8 py-4 bg-gradient-to-br from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-500 hover:to-purple-500 transition-all duration-200 font-bold text-lg shadow-lg"
           data-translation-key="the_well.return_button"
         >
-          🏠 Return to Start
+          Return to Start
         </button>
       </div>
     </div>
@@ -189,10 +232,14 @@ const checkAllItemsCollected = () => {
       // All items collected - show success message
       successMessage.classList.remove('hidden');
       incompleteMessage.classList.add('hidden');
+      
+      // Badge reward is now handled inline in the success message
     } else {
       // Items missing - show incomplete message
       successMessage.classList.add('hidden');
       incompleteMessage.classList.remove('hidden');
     }
   });
+
+  // Email submission widget handles badge requests now
 </script>

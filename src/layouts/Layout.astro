@@ -5,6 +5,7 @@ import Footer from '../components/Footer.astro';
 import Notification from '../components/Notification.astro';
 import SandboxPopup from '../components/SandboxPopup.astro';
 import AboutModal from '../components/AboutModal.astro';
+import HolopinReward from '../components/HolopinReward.astro';
 import '../styles/global.css';
 
 export interface Props {
@@ -46,6 +47,7 @@ const { title, backdrop, fullScreenLayout = false } = Astro.props;
     
     <Notification id="global-notification" type="info" message="" />
     <AboutModal />
+    <HolopinReward />
   </body>
 </html>
 

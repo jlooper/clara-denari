@@ -1,0 +1,107 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { translations } from '../i18n/translations.js';
+
+const title = 'Privacy Policy';
+---
+
+<Layout title={title} fullScreenLayout={true}>
+  <div class="prose max-w-4xl mx-auto p-6">
+    <h1 class="text-3xl font-bold text-blue-400 mb-6">Privacy Policy</h1>
+    
+    <div class="bg-gray-900 bg-opacity-50 border border-blue-500 rounded-lg p-6 space-y-6">
+      
+      <section>
+        <h2 class="text-xl font-bold text-green-400 mb-3">Data Collection</h2>
+        <p class="text-gray-100 mb-4">
+          When you complete the Clara Denari mystery game, we collect the following information:
+        </p>
+        <ul class="text-gray-100 list-disc list-inside space-y-2 ml-4">
+          <li>Email address (required for badge delivery)</li>
+          <li>Newsletter subscription preference (optional)</li>
+          <li>Game completion timestamp</li>
+          <li>Consent records for GDPR compliance</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold text-green-400 mb-3">How We Use Your Data</h2>
+        <p class="text-gray-100 mb-4">
+          Your data is used for the following purposes:
+        </p>
+        <ul class="text-gray-100 list-disc list-inside space-y-2 ml-4">
+          <li><strong>Badge Delivery:</strong> Send your completion badge via email</li>
+          <li><strong>Newsletter:</strong> Send updates about new adventures (only if you opt-in)</li>
+          <li><strong>Analytics:</strong> Understand game completion rates (anonymized)</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold text-green-400 mb-3">Data Retention</h2>
+        <p class="text-gray-100 mb-4">
+          We retain your data for the following periods:
+        </p>
+        <ul class="text-gray-100 list-disc list-inside space-y-2 ml-4">
+          <li><strong>Badge emails:</strong> Deleted after successful delivery</li>
+          <li><strong>Newsletter subscribers:</strong> Until you unsubscribe</li>
+          <li><strong>Consent records:</strong> 3 years for legal compliance</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold text-green-400 mb-3">Your Rights (GDPR)</h2>
+        <p class="text-gray-100 mb-4">
+          Under GDPR, you have the following rights:
+        </p>
+        <ul class="text-gray-100 list-disc list-inside space-y-2 ml-4">
+          <li><strong>Access:</strong> Request a copy of your data</li>
+          <li><strong>Rectification:</strong> Correct inaccurate data</li>
+          <li><strong>Erasure:</strong> Request deletion of your data</li>
+          <li><strong>Portability:</strong> Export your data</li>
+          <li><strong>Objection:</strong> Opt-out of processing</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold text-green-400 mb-3">Contact Information</h2>
+        <p class="text-gray-100 mb-4">
+          To exercise your rights or for any privacy concerns, contact us at:
+        </p>
+        <div class="bg-gray-800 rounded p-4">
+          <p class="text-gray-100">
+            <strong>Email:</strong> privacy@cloudinary.com<br>
+            <strong>Subject:</strong> Clara Denari Privacy Request
+          </p>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold text-green-400 mb-3">Third-Party Services</h2>
+        <p class="text-gray-100 mb-4">
+          This game uses the following third-party services:
+        </p>
+        <ul class="text-gray-100 list-disc list-inside space-y-2 ml-4">
+          <li><strong>Cloudinary:</strong> Image hosting and transformations</li>
+          <li><strong>Email Service:</strong> Badge delivery (to be specified)</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold text-green-400 mb-3">Updates to This Policy</h2>
+        <p class="text-gray-100">
+          We may update this privacy policy from time to time. Changes will be posted on this page with an updated revision date.
+        </p>
+        <p class="text-gray-400 text-sm mt-4">
+          <strong>Last Updated:</strong> {new Date().toLocaleDateString()}
+        </p>
+      </section>
+
+    </div>
+    
+    <div class="text-center mt-8">
+      <a href="/" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition-colors duration-200">
+        Return to Game
+      </a>
+    </div>
+  </div>
+</Layout>

@@ -3,7 +3,7 @@ import { translations } from '../i18n/translations.js';
 ---
 
 <footer class="text-center p-4 text-green-500" style="text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);">
-  <p id="footer-text" data-translation-key="footer.copyright">
+  <p id="footer-text">
   </p>
 </footer>
 
@@ -16,7 +16,11 @@ import { translations } from '../i18n/translations.js';
     function getTranslation(key) {
       const currentLang = getCurrentLanguage();
       const fallbackLang = currentLang === 'pt-br' ? 'en' : currentLang;
-      return translations[key]?.[fallbackLang] || translations[key]?.en || key;
+      console.log('Getting translation for key:', key, 'currentLang:', currentLang, 'fallbackLang:', fallbackLang);
+      console.log('Available translations:', translations);
+      const result = translations[key]?.[fallbackLang] || translations[key]?.en || key;
+      console.log('Translation result:', result);
+      return result;
     }
 
     function updateFooterText() {
@@ -24,18 +28,30 @@ import { translations } from '../i18n/translations.js';
       if (footerElement) {
         const currentYear = new Date().getFullYear();
         const copyrightText = getTranslation('footer.copyright');
-        footerElement.innerHTML = `&copy; ${currentYear} <a href="https://cloudinary.com" target="_blank" class="text-green-400 hover:text-green-300 underline transition-colors duration-200">Cloudinary</a>. ${copyrightText}`;
         
-        // Add click handler to the about link
-        const aboutLink = footerElement.querySelector('a[href="about"]');
-        if (aboutLink) {
-          aboutLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            if (window.openAboutModal) {
-              window.openAboutModal();
-            }
-          });
-        }
+        // Create the complete HTML with proper styling
+        console.log('Copyright text from translation:', copyrightText);
+        footerElement.innerHTML = `&copy; ${currentYear} <a href="https://cloudinary.com" target="_blank" class="text-green-400 hover:text-green-300 underline transition-colors duration-200">Cloudinary</a>. ${copyrightText}`;
+        console.log('Footer HTML after update:', footerElement.innerHTML);
+        
+        // Add click handler to the about link after a short delay to ensure DOM is ready
+        setTimeout(() => {
+          const aboutLink = footerElement.querySelector('a[href="about"]');
+          if (aboutLink) {
+            aboutLink.addEventListener('click', (e) => {
+              e.preventDefault();
+              if (window.openAboutModal) {
+                window.openAboutModal();
+              } else {
+                console.warn('openAboutModal function not found');
+              }
+            });
+          } else {
+            console.warn('About link not found in footer');
+          }
+        }, 10);
+      } else {
+        console.warn('Footer element not found');
       }
     }
 

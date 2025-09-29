@@ -683,10 +683,10 @@ export const translations: Translations = {
     'pt-br': 'Itens ainda necessários:'
   },
   'the_well.return_button': {
-    en: '🏠 Return to Start',
-    fr: '🏠 Retour au Début',
-    es: '🏠 Volver al Inicio',
-    'pt-br': '🏠 Voltar ao Início'
+    en: 'Return to Start',
+    fr: 'Retour au Début',
+    es: 'Volver al Inicio',
+    'pt-br': 'Voltar ao Início'
   },
   'the_well.item.1': {
     en: 'Brass Key',
@@ -721,10 +721,10 @@ export const translations: Translations = {
 
   // Footer component
   'footer.copyright': {
-    en: '<a href="about" target="_blank">A Cloudinary Experiment</a>. Stay Curious!',  
-    fr: '<a href="about" target="_blank">Une Expérience Cloudinary</a>. Restez Curieux !',  
-    es: '<a href="about" target="_blank">Un Experimento de Cloudinary</a>. ¡Mantente Curioso!',
-    'pt-br': '<a href="about" target="_blank">Um Experimento Cloudinary</a>. Mantenha-se Curioso!'
+    en: '<a href="about" class="text-green-400 hover:text-green-300 underline transition-colors duration-200">A Cloudinary Experiment</a>. Stay Curious!',  
+    fr: '<a href="about" class="text-green-400 hover:text-green-300 underline transition-colors duration-200">Une Expérience Cloudinary</a>. Restez Curieux !',  
+    es: '<a href="about" class="text-green-400 hover:text-green-300 underline transition-colors duration-200">Un Experimento de Cloudinary</a>. ¡Mantente Curioso!',
+    'pt-br': '<a href="about" class="text-green-400 hover:text-green-300 underline transition-colors duration-200">Um Experimento Cloudinary</a>. Mantenha-se Curioso!'
   },
 
   // About page
@@ -733,7 +733,103 @@ export const translations: Translations = {
     fr: '<p>Les Expériences Cloudinary sont des applications qui explorent les capacités de transformation d\'images, vidéos et audio de Cloudinary.</p> <p>Les images de ce jeu ont été générées par ChatGPT. Chaque image de fond utilise la transformation "fl_c2pa" pour aider à tracer la provenance en utilisant le standard C2PA. En savoir plus sur C2PA <a href="https://c2pa.org" target="_blank" class="text-blue-400 hover:text-blue-300 underline">ici</a>. En savoir plus sur cette transformation dans la <a href="https://cloudinary.com/documentation/image_transformations#c2pa_transformation" target="_blank" class="text-blue-400 hover:text-blue-300 underline">documentation Cloudinary</a>.</p>',
     es: '<p>Los Experimentos de Cloudinary son aplicaciones que exploran las capacidades de transformación de imágenes, videos y audio de Cloudinary.</p> <p>Las imágenes de este juego fueron generadas por ChatGPT. Cada imagen de fondo usa la transformación "fl_c2pa" para ayudar a rastrear la procedencia usando el estándar C2PA. Aprende más sobre C2PA <a href="https://c2pa.org" target="_blank" class="text-blue-400 hover:text-blue-300 underline">aquí</a>. Aprende más sobre esta transformación en la <a href="https://cloudinary.com/documentation/image_transformations#c2pa_transformation" target="_blank" class="text-blue-400 hover:text-blue-300 underline">documentación de Cloudinary</a>.</p>',
     'pt-br': '<p>Os Experimentos Cloudinary são aplicativos que exploram as capacidades de transformação de imagens, vídeos e áudio do Cloudinary.</p> <p>As imagens neste jogo foram geradas pelo ChatGPT. Cada imagem de fundo usa a transformação "fl_c2pa" para ajudar a rastrear a procedência usando o padrão C2PA. Saiba mais sobre C2PA <a href="https://c2pa.org" target="_blank" class="text-blue-400 hover:text-blue-300 underline">aqui</a>. Saiba mais sobre esta transformação na <a href="https://cloudinary.com/documentation/image_transformations#c2pa_transformation" target="_blank" class="text-blue-400 hover:text-blue-300 underline">documentação do Cloudinary</a>.</p>'
-  }
+  },
+
+ 
+  'holopin.reward.message': {
+    en: 'Congratulations! You\'ve earned a Holopin badge for completing this challenge.',
+    fr: 'Félicitations ! Vous avez gagné un badge Holopin pour avoir terminé ce défi.',
+    es: '¡Felicidades! Has ganado un badge de Holopin por completar este desafío.',
+    'pt-br': 'Parabéns! Você conquistou um badge do Holopin por completar este desafio.'
+  },
+  'holopin.reward.claim': {
+    en: 'Claim Holopin',
+    fr: 'Réclamer Holopin',
+    es: 'Reclamar Holopin',
+    'pt-br': 'Reivindicar Holopin'
+  },
+  'holopin.reward.close': {
+    en: 'Close',
+    fr: 'Fermer',
+    es: 'Cerrar',
+    'pt-br': 'Fechar'
+  },
+  'holopin.reward.email_sent': {
+    en: '📧 A claim link has been sent to your email address!',
+    fr: '📧 Un lien de réclamation a été envoyé à votre adresse e-mail !',
+    es: '📧 ¡Se ha enviado un enlace de reclamación a tu dirección de correo electrónico!',
+    'pt-br': '📧 Um link de reivindicação foi enviado para seu endereço de e-mail!'
+  },
+  'holopin.reward.game_completion': {
+    en: 'You\'ve successfully solved the Clara Denari mystery!',
+    fr: 'Vous avez résolu avec succès le mystère de Clara Denari !',
+    es: '¡Has resuelto exitosamente el misterio de Clara Denari!',
+    'pt-br': 'Você resolveu com sucesso o mistério de Clara Denari!'
+  },
+  'holopin.reward.lab_completion': {
+    en: 'You\'ve mastered another Cloudinary transformation!',
+    fr: 'Vous avez maîtrisé une autre transformation Cloudinary !',
+    es: '¡Has dominado otra transformación de Cloudinary!',
+    'pt-br': 'Você dominou outra transformação do Cloudinary!'
+  },
+
+ 
+
+  // Badge Download
+  'badge.download.title': {
+    en: '🎉 Badge Earned!',
+    fr: '🎉 Badge Gagné !',
+    es: '🎉 ¡Badge Ganado!',
+    'pt-br': '🎉 Badge Conquistado!'
+  },
+  'badge.download.message': {
+    en: 'You\'ve successfully solved this Clara Denari mystery! Download your Holopin below.',
+    fr: 'Vous avez résolu avec succès ce mystère de Clara Denari ! Téléchargez votre Holopin ci-dessous.',
+    es: '¡Has resuelto exitosamente este misterio de Clara Denari! Descarga tu Holopin a continuación.',
+    'pt-br': 'Você resolveu com sucesso este mistério de Clara Denari! Baixe seu Holopin abaixo.'
+  },
+  'badge.download.button': {
+    en: 'Download Badge',
+    fr: 'Télécharger le Badge',
+    es: 'Descargar Badge',
+    'pt-br': 'Baixar Badge'
+  },
+  'badge.download.holopin': {
+    en: 'View on Holopin',
+    fr: 'Voir sur Holopin',
+    es: 'Ver en Holopin',
+    'pt-br': 'Ver no Holopin'
+  },
+  'badge.download.note': {
+    en: 'Share your achievement on social media or add it to your Holopin profile!',
+    fr: 'Partagez votre réussite sur les réseaux sociaux ou ajoutez-la à votre profil Holopin !',
+    es: '¡Comparte tu logro en redes sociales o agrégalo a tu perfil de Holopin!',
+    'pt-br': 'Compartilhe sua conquista nas redes sociais ou adicione ao seu perfil do Holopin!'
+  },
+  'badge.download.badge_preview': {
+    en: 'Your Completion Badge:',
+    fr: 'Votre Badge de Completion :',
+    es: 'Tu Badge de Completion:',
+    'pt-br': 'Seu Badge de Completion:'
+  },
+  'badge.download.qr_code': {
+    en: 'QR Code:',
+    fr: 'Code QR :',
+    es: 'Código QR:',
+    'pt-br': 'Código QR:'
+  },
+  'badge.download.qr_note': {
+    en: 'Scan to verify your achievement',
+    fr: 'Scannez pour vérifier votre réussite',
+    es: 'Escanea para verificar tu logro',
+    'pt-br': 'Escaneie para verificar sua conquista'
+  },
+  'badge.download.download_qr': {
+    en: 'Download QR Code',
+    fr: 'Télécharger le Code QR',
+    es: 'Descargar Código QR',
+    'pt-br': 'Baixar Código QR'
+  },
 };
 
 // Language codes mapping
