@@ -3,7 +3,7 @@
     "id": 1,
     "instructions": "Open the",
     "name": "scrap of paper",
-    "imageUrl": "https://res.cloudinary.com/dr60nybtj/image/upload/v1756949210/lab_scrap.png",
+    "imageUrl": "https://res.cloudinary.com/claradenari/image/upload/v1759195612/clara-denari/lab_scrap.png",
     "initialHide": true,
     "location": "purloined_property",
     "result": "You open the envelope to find a torn corner of a scrap of paper. It's hard to make out what it is as it looks burned."
@@ -12,7 +12,7 @@
     "id": 2,
     "instructions": "Pick up the",
     "name": "piece of string",
-    "imageUrl": "https://res.cloudinary.com/dr60nybtj/image/upload/e_sepia/lab_twine",
+    "imageUrl": "https://res.cloudinary.com/claradenari/image/upload/e_sepia/clara-denari/lab_twine",
     "initialHide": true,
     "location": "north_end",
     "result": "You pick up the soggy piece of string. It looks like baker's twine, but you can't tell for sure."
@@ -21,7 +21,7 @@
     "id": 3,
     "instructions": "Break the",
     "name": "cannoli",
-    "imageUrl": "https://res.cloudinary.com/dr60nybtj/image/upload/v1757718913/lab_key.png",
+    "imageUrl": "https://res.cloudinary.com/claradenari/image/upload/v1759195612/clara-denari/lab_key.png",
     "initialHide": true,
     "location": "pastry_shop",
     "result": "You break the cannoli in half, ready to take a bite. Surprisingly, you find a small brass key stuck in the filling. It looks like it might fit a lock."
@@ -30,7 +30,7 @@
     "id": 4,
     "instructions": "Examine the",
     "name": "newspaper clipping",
-    "imageUrl": "https://res.cloudinary.com/dr60nybtj/image/upload/c_crop,g_north,h_0.50,w_1.00/v1757817714/MIT",
+    "imageUrl": "https://res.cloudinary.com/claradenari/image/upload/c_crop,g_north,h_0.50,w_1.00/v1759195612/clara-denari/MIT",
     "initialHide": true,
     "location": "mit",
     "result": "This clipping shows a picture of a domed building. There seems to be something on top of it."
@@ -39,7 +39,7 @@
     "id": 5,
     "instructions": "Pick up the",
     "name": "mirror",
-    "imageUrl": "https://res.cloudinary.com/dr60nybtj/image/upload/v1757814156/mirror.png",
+    "imageUrl": "https://res.cloudinary.com/claradenari/image/upload/v1759195613/clara-denari/mirror.png",
     "initialHide": true,
     "location": "mit",
     "result": "The mirror is just a mirror. Clara looks into it and sees herself. Could this be a clue?"

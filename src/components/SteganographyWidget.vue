@@ -23,10 +23,37 @@
           {{ instructions }}
         </p>
         
-        <div class="bg-blue-900 bg-opacity-30 border border-blue-500 rounded p-4 mb-4">
-          <p class="text-blue-200 text-sm" v-html="hintHtml">
-          </p>
+        <!-- Steganography Image -->
+        <div class="mb-4">
+          <div class="bg-gray-800 border border-gray-600 rounded-lg p-4">
+            <h4 class="text-blue-400 font-bold mb-3 text-center">Hidden Message Image</h4>
+            <div class="flex justify-center">
+              <img 
+                :src="imageUrl" 
+                alt="Image with hidden steganography message"
+                class="max-w-full h-auto rounded-lg border border-gray-500 shadow-lg"
+                style="max-height: 300px;"
+              />
+            </div>
+            <p class="text-gray-400 text-sm text-center mt-2">
+              Right-click to download this image for steganography analysis
+            </p>
+            <div class="text-center mt-3">
+              <a 
+                href="https://stylesuxx.github.io/steganography/" 
+                target="_blank" 
+                class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors duration-200 text-sm font-medium"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                </svg>
+                Open Steganography Decoder
+              </a>
+            </div>
+          </div>
         </div>
+        
+       
       </div>
       
       <!-- Input Form -->
@@ -81,6 +108,10 @@ const props = defineProps({
   correctAnswer: {
     type: String,
     default: 'Ronan Park Well'
+  },
+  imageUrl: {
+    type: String,
+    default: 'https://res.cloudinary.com/claradenari/image/upload/v1759201796/clara-denari/encoded_image_cd_w3femn_pxfrbt.png'
   }
 })
 
@@ -165,18 +196,8 @@ const closeWidget = () => {
   showContinueButton.value = false
 }
 
-const checkMirrorCollected = () => {
-  // Check if mirror (item 5) has been collected
-  const inventoryItems = JSON.parse(localStorage.getItem('inventory_item') || '{}')
-  if (inventoryItems['5'] === true) {
-    showWidget.value = true
-  }
-}
 
 onMounted(() => {
-  // Check initially
-  checkMirrorCollected()
-  
   // Listen for item collection events
   window.addEventListener('item_added', (event) => {
     if (event.detail && event.detail.itemId === '5') {

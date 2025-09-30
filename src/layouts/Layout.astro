@@ -5,7 +5,6 @@ import Footer from '../components/Footer.astro';
 import Notification from '../components/Notification.astro';
 import SandboxPopup from '../components/SandboxPopup.astro';
 import AboutModal from '../components/AboutModal.astro';
-import HolopinReward from '../components/HolopinReward.astro';
 import '../styles/global.css';
 
 export interface Props {
@@ -23,7 +22,7 @@ const { title, backdrop, fullScreenLayout = false } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="description" content="Clara Denari Adventures by Cloudinary - Learn about image transformations hands-on.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Clara Denari Adventures - a Cloudinary Mystery</title>
+    <title>Clara Denari Adventures - a Cloudinary Mystery - {title}</title>
   </head>
   <body>
     <div class="wrapper">
@@ -47,7 +46,6 @@ const { title, backdrop, fullScreenLayout = false } = Astro.props;
     
     <Notification id="global-notification" type="info" message="" />
     <AboutModal />
-    <HolopinReward />
   </body>
 </html>
 

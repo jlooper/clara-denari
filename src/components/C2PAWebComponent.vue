@@ -1,24 +1,13 @@
 <template>
-  <!-- Debug: Always show a test div to verify component is working -->
-  <!--<div class="c2pa-web-component-debug" style="position: absolute; top: 0; left: 0; background: red; color: white; padding: 2px; font-size: 10px; z-index: 9999;">
-    C2PA Component: {{ showComponent ? 'SHOW' : 'HIDE' }} | Loading: {{ loading }} | Has Manifest: {{ verificationResult?.hasActiveManifest }}
-  </div>-->
-  
-      <div class="c2pa-web-component" v-if="showComponent">
-        <div class="popover-container" ref="popoverContainer">
-          <!-- Popover will be created dynamically here -->
-        </div>
-      </div>
+  <div class="c2pa-web-component" v-if="showComponent">
+    <div class="popover-container" ref="popoverContainer">
+      <!-- C2PA web components will be inserted here -->
+    </div>
+  </div>
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
-import { checkActiveManifest } from '../utils/c2pa.js'
-
-// Custom elements (cai-*) are configured in astro.config.mjs
-
-// Import C2PA functions for proper manifest handling
-let createC2pa, generateVerifyUrl, getManifestSummaryStore
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 
 const props = defineProps({
   imageSrc: {
@@ -27,7 +16,7 @@ const props = defineProps({
   },
   position: {
     type: String,
-    default: 'bottom-right'
+    default: 'top-left'
   },
   size: {
     type: String,
@@ -39,482 +28,183 @@ const verificationResult = ref(null)
 const manifestStore = ref(null)
 const loading = ref(true)
 const popoverContainer = ref(null)
+const showComponent = ref(false)
 
-// Watch for manifestStore changes to update the cai-manifest-summary-v2
-watch(manifestStore, (newManifestStore) => {
-  if (newManifestStore && popoverContainer.value) {
-    
-    const updateManifestData = () => {
-      const manifestSummary = popoverContainer.value.querySelector('cai-manifest-summary-v2')
-      if (manifestSummary) {
-        try {
-              // Use getManifestSummaryStore for proper formatting
-              if (getManifestSummaryStore && newManifestStore) {
-                const formattedManifestStore = getManifestSummaryStore(newManifestStore)
-                manifestSummary.manifestStore = formattedManifestStore
-              } else {
-                manifestSummary.manifestStore = newManifestStore
-              }
-              
-              // Set inspectUrl for verification
-              if (generateVerifyUrl && props.imageSrc) {
-                const inspectUrl = generateVerifyUrl(props.imageSrc)
-                manifestSummary.inspectUrl = inspectUrl
-              }
-          
-          // Set as attribute for compatibility
-          manifestSummary.setAttribute('manifest-store', JSON.stringify(newManifestStore))
-          
-          // Set individual properties
-          if (newManifestStore.manifests) {
-            manifestSummary.manifests = newManifestStore.manifests
-          }
-          if (newManifestStore.activeManifest) {
-            manifestSummary.activeManifest = newManifestStore.activeManifest
-          }
-          if (newManifestStore.validationStatus) {
-            manifestSummary.validationStatus = newManifestStore.validationStatus
-          }
-          
-          // Force update
-          if (typeof manifestSummary.requestUpdate === 'function') {
-            manifestSummary.requestUpdate()
-          }
-          
-              // Dispatch custom event
-              manifestSummary.dispatchEvent(new CustomEvent('manifestStoreChanged', {
-                detail: newManifestStore
-              }))
-        } catch (error) {
-          console.error('Error updating manifestStore:', error)
-        }
-      }
-    }
-    
-    // Try updating multiple times to ensure it works
-    updateManifestData()
-    setTimeout(updateManifestData, 100)
-    setTimeout(updateManifestData, 300)
+// Import C2PA functions
+let createC2pa = null
+let generateVerifyUrl = null
+
+const getPositionStyle = () => {
+  const positions = {
+    'top-left': 'top: 10px; left: 10px;',
+    'top-right': 'top: 10px; right: 10px;',
+    'bottom-left': 'bottom: 10px; left: 10px;',
+    'bottom-right': 'bottom: 10px; right: 10px;',
+    'center': 'top: 50%; left: 50%; transform: translate(-50%, -50%);'
   }
-}, { deep: true })
-
-const showComponent = computed(() => {
-  return verificationResult.value?.hasActiveManifest || false
-})
-
-const indicatorVariant = computed(() => {
-  if (!verificationResult.value) return 'info-light'
-  
-  if (verificationResult.value.isValid) {
-    return 'info-light'
-  } else if (verificationResult.value.error) {
-    return 'error'
-  } else {
-    return 'warning'
-  }
-})
+  return positions[props.position] || positions['top-left']
+}
 
 const createPopover = () => {
-  if (!popoverContainer.value) {
-    return
-  }
+  if (!popoverContainer.value) return
   
-  
-  // Clear existing content
-  popoverContainer.value.innerHTML = ''
-  
-  // Check if required custom elements are defined
+  // Check if custom elements are defined
   const hasIndicator = customElements.get('cai-indicator')
   const hasPopover = customElements.get('cai-popover')
   const hasManifestSummary = customElements.get('cai-manifest-summary-v2')
   
   if (!hasIndicator || !hasPopover || !hasManifestSummary) {
-    
+    console.warn('C2PA web components not loaded')
     return
   }
   
-  // Determine position based on props
-  const getPositionStyle = () => {
-    const positions = {
-      'top-left': 'top: 10px; left: 10px;',
-      'top-right': 'top: 10px; right: 10px;',
-      'bottom-left': 'bottom: 10px; left: 10px;',
-      'bottom-right': 'bottom: 10px; right: 10px;',
-      'center': 'top: 50%; left: 50%; transform: translate(-50%, -50%);'
-    }
-    return positions[props.position] || positions['top-left']
-  }
-
-  // Create the popover structure positioned over the image
   const positionStyle = getPositionStyle()
   
+  // Create the C2PA popover with indicator
   const popoverHTML = `
-    <cai-popover interactive style="position: absolute; ${positionStyle} z-index: 10;" placement="bottom-start">
-      <cai-indicator slot="trigger"></cai-indicator>
-      <cai-manifest-summary-v2 style="width: 300px" locale="en-US" slot="content"></cai-manifest-summary-v2>
+    <cai-popover interactive style="position: absolute; ${positionStyle} z-index: 20;" placement="bottom-start">
+      <cai-indicator slot="trigger" variant="info"></cai-indicator>
+      <cai-manifest-summary-v2 style="width: 350px; max-height: 500px;" locale="en-US" slot="content"></cai-manifest-summary-v2>
     </cai-popover>
   `
   
   popoverContainer.value.innerHTML = popoverHTML
   
-  // Debug: Check if popover was created
-  const createdPopover = popoverContainer.value.querySelector('cai-popover')
-  if (createdPopover) {
-    
-    
-    
-    // Check if indicator is clickable
-    const indicator = createdPopover.querySelector('cai-indicator')
-    if (indicator) {
-      indicator.addEventListener('click', (e) => {
-      })
-    }
-  }
-  
-  // Set the manifestStore on the manifest summary with proper timing and multiple attempts
-  const setManifestData = () => {
-    const manifestSummary = popoverContainer.value.querySelector('cai-manifest-summary-v2')
-    if (manifestSummary && manifestStore.value) {
-      try {
+  // Set manifest data if available
+  if (manifestStore.value) {
+    setTimeout(() => {
+      const manifestSummary = popoverContainer.value.querySelector('cai-manifest-summary-v2')
+      if (manifestSummary) {
+        manifestSummary.manifestStore = manifestStore.value
         
-        // Try multiple approaches to set the manifest data
-        const approaches = [
-          // Approach 1: Use getManifestSummaryStore for proper formatting
-          () => {
-            if (getManifestSummaryStore && manifestStore.value) {
-              const formattedManifestStore = getManifestSummaryStore(manifestStore.value)
-              manifestSummary.manifestStore = formattedManifestStore
-            } else {
-              manifestSummary.manifestStore = manifestStore.value
-            }
-          },
-          // Approach 2: Set inspectUrl for verification
-          () => {
-            if (generateVerifyUrl && props.imageSrc) {
-              const inspectUrl = generateVerifyUrl(props.imageSrc)
-              manifestSummary.inspectUrl = inspectUrl
-            }
-          },
-          // Approach 3: Set as attribute for compatibility
-          () => {
-            manifestSummary.setAttribute('manifest-store', JSON.stringify(manifestStore.value))
-          },
-          // Approach 4: Set individual properties
-          () => {
-            if (manifestStore.value.manifests) {
-              manifestSummary.manifests = manifestStore.value.manifests
-            }
-            if (manifestStore.value.activeManifest) {
-              manifestSummary.activeManifest = manifestStore.value.activeManifest
-            }
-            if (manifestStore.value.validationStatus) {
-              manifestSummary.validationStatus = manifestStore.value.validationStatus
-            }
-          }
-        ]
-        
-        // Try each approach
-        approaches.forEach((approach, index) => {
-          try {
-            approach()
-          } catch (error) {
-            console.warn(`⚠️ Approach ${index + 1} failed:`, error)
-          }
-        })
-        
-        // Force a re-render if the component has update methods
-        if (typeof manifestSummary.requestUpdate === 'function') {
-          manifestSummary.requestUpdate()
+        // Set inspect URL if generateVerifyUrl is available
+        if (generateVerifyUrl) {
+          manifestSummary.inspectUrl = generateVerifyUrl(props.imageSrc)
         }
-        
-        // Try to trigger any lifecycle methods
-        if (typeof manifestSummary.connectedCallback === 'function') {
-          manifestSummary.connectedCallback()
-        }
-        
-        // Try to dispatch a custom event to notify the component
-        manifestSummary.dispatchEvent(new CustomEvent('manifestStoreChanged', {
-          detail: manifestStore.value
-        }))
-        
-      } catch (error) {
-        console.error('❌ C2PA Web Component: Error setting manifestStore:', error)
       }
-    } else {
-      console.warn('⚠️ C2PA Web Component: manifestSummary or manifestStore not available', {
-        manifestSummary: !!manifestSummary,
-        //manifestStore: !!manifestStore.value
-      })
-    }
+    }, 100)
   }
-  
-  // Try setting the manifest data multiple times with increasing delays
-  setTimeout(setManifestData, 100)
-  setTimeout(setManifestData, 300)
-  setTimeout(setManifestData, 500)
-  setTimeout(setManifestData, 1000)
-  
-  // Also ensure the popover is properly initialized after a delay
-  setTimeout(() => {
-    const popover = popoverContainer.value.querySelector('cai-popover')
-    const indicator = popover?.querySelector('cai-indicator')
-    
-    if (popover) {
-      
-      // Force set interactive attribute
-      popover.setAttribute('interactive', 'true')
-      
-      // Set popover placement to appear underneath and to the right
-      popover.setAttribute('placement', 'bottom-start')
-      
-      // Try alternative placement attributes
-      popover.setAttribute('position', 'bottom-start')
-      popover.setAttribute('align', 'start')
-      
-      // Ensure it's visible and clickable
-      popover.style.pointerEvents = 'auto'
-      popover.style.cursor = 'pointer'
-      
-      // Make sure indicator is also clickable
-      if (indicator) {
-        indicator.style.pointerEvents = 'auto'
-        indicator.style.cursor = 'pointer'
-      }
-      
-      // Try to trigger any initialization methods if they exist
-      if (typeof popover.connectedCallback === 'function') {
-        popover.connectedCallback()
-      }
-      
-      // Dispatch a custom event to notify the popover it's ready
-      popover.dispatchEvent(new CustomEvent('cai-popover-ready', {
-        detail: { manifestStore: manifestStore.value }
-      }))
-      
-    }
-  }, 500)
-  
-  // Additional attempt after a longer delay to ensure web components are fully loaded
-  setTimeout(() => {
-    const popover = popoverContainer.value.querySelector('cai-popover')
-    if (popover) {
-      
-      
-      
-      // Force a re-render
-      if (typeof popover.requestUpdate === 'function') {
-        popover.requestUpdate()
-      }
-    }
-  }, 1500)
-  
 }
-
-// Manifest summary is handled by cai-manifest-summary-v2 within the popover
 
 const verifyImage = async () => {
   try {
     loading.value = true
     
-    const result = await checkActiveManifest(props.imageSrc)
-     
-    verificationResult.value = result
-    manifestStore.value = result.manifestStore
+    if (!createC2pa) {
+      console.warn('C2PA SDK not initialized')
+      return
+    }
     
-    // Create the popover if we have an active manifest
-    if (result.hasActiveManifest) {
-      // Wait for next tick to ensure DOM is updated
+    // Create C2PA instance
+    const c2pa = await createC2pa({
+      wasmSrc: 'https://cdn.jsdelivr.net/npm/c2pa@0.30.14/dist/assets/wasm/toolkit_bg.wasm',
+      workerSrc: 'https://cdn.jsdelivr.net/npm/c2pa@0.30.14/dist/c2pa.worker.min.js'
+    })
+    
+    // Read the manifest from the image
+    const result = await c2pa.read(props.imageSrc)
+    
+    // Check if there's an active manifest
+    if (result && result.manifestStore && result.manifestStore.activeManifest) {
+      verificationResult.value = {
+        hasActiveManifest: true,
+        isValid: true
+      }
+      manifestStore.value = result.manifestStore
+      showComponent.value = true
+      
+      // Create the popover UI
       await new Promise(resolve => setTimeout(resolve, 100))
       createPopover()
     }
   } catch (error) {
+    console.error('C2PA verification error:', error)
     verificationResult.value = {
       hasActiveManifest: false,
       isValid: false,
       error: error.message
     }
+    showComponent.value = false
   } finally {
     loading.value = false
   }
 }
 
 onMounted(async () => {
-  // Suppress C2PA animation errors globally and permanently
-  const originalError = console.error
-  const originalWarn = console.warn
-  
-  const suppressC2PAErrors = (...args) => {
-    const message = args[0]
-    if (typeof message === 'string' && (
-      message.includes('Invalid keyframe value for property transform') ||
-      message.includes('NaN NaN') ||
-      message.includes('c2pa-wc.js') ||
-      message.includes('keyframe')
-    )) {
-      // Suppress C2PA animation errors permanently
-      return
-    }
-    originalError.apply(console, args)
-  }
-  
-  console.error = suppressC2PAErrors
-
-  // Add global error handler for unhandled errors
-  const handleError = (event) => {
-    if (event.error && event.error.message && 
-        (event.error.message.includes('Invalid keyframe value for property transform') ||
-         event.error.message.includes('NaN'))) {
-      event.preventDefault()
-      return false
-    }
-  }
-  
-  window.addEventListener('error', handleError)
-
-  // Disable CSS animations globally for C2PA components
-  const style = document.createElement('style')
-  style.textContent = `
-    cai-popover *, cai-indicator *, cai-manifest-summary-v2 * {
-      animation: none !important;
-      transition: none !important;
-      transform: none !important;
-    }
-  `
-  document.head.appendChild(style)
-
-  // Import C2PA libraries only on client side
+  // Import C2PA libraries
   if (typeof window !== 'undefined') {
     try {
-      // Import c2pa-wc for web components
+      // Import c2pa-wc web components
       await import('c2pa-wc')
       
-      // Import C2PA core functions
+      // Import C2PA SDK
       const c2paModule = await import('c2pa')
       createC2pa = c2paModule.createC2pa
       generateVerifyUrl = c2paModule.generateVerifyUrl
       
-      // Import getManifestSummaryStore from c2pa-wc
-      const c2paWcModule = await import('c2pa-wc')
-      getManifestSummaryStore = c2paWcModule.getManifestSummaryStore
+      // Wait for web components to be defined
+      await Promise.all([
+        customElements.whenDefined('cai-indicator'),
+        customElements.whenDefined('cai-popover'),
+        customElements.whenDefined('cai-manifest-summary-v2')
+      ])
       
-      
+      // Verify the image
+      await verifyImage()
     } catch (error) {
-      console.error('❌ C2PA Web Component: Failed to import C2PA libraries:', error)
+      console.error('Failed to load C2PA libraries:', error)
     }
   }
-  
-  verifyImage()
-  
-  // Keep error suppression active
-  console.error = suppressC2PAErrors
 })
 
 onUnmounted(() => {
-  // Cleanup if needed
+  // Cleanup
+  if (popoverContainer.value) {
+    popoverContainer.value.innerHTML = ''
+  }
 })
 </script>
 
 <style scoped>
 .c2pa-web-component {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.popover-container {
   position: relative;
-  display: inline-block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
 }
 
-/* C2PA web components styling according to UX specifications */
-
-/* Ensure proper display of C2PA components */
-cai-popover {
-  display: block;
+/* Allow C2PA components to be clickable */
+.c2pa-web-component :deep(cai-popover),
+.c2pa-web-component :deep(cai-indicator),
+.c2pa-web-component :deep(cai-manifest-summary-v2) {
+  pointer-events: auto !important;
 }
 
-cai-indicator {
-  display: inline-block;
+/* C2PA indicator styling */
+.c2pa-web-component :deep(cai-indicator) {
+  cursor: pointer;
 }
 
-cai-manifest-summary-v2 {
-  display: block;
-  min-width: 300px;
-}
-
-/* Size variants for cai-indicator */
-.c2pa-web-component[data-size="small"] cai-indicator {
+/* Size variants */
+.c2pa-web-component[data-size="small"] :deep(cai-indicator) {
   --cai-indicator-size: 24px;
 }
 
-.c2pa-web-component[data-size="medium"] cai-indicator {
+.c2pa-web-component[data-size="medium"] :deep(cai-indicator) {
   --cai-indicator-size: 32px;
 }
 
-.c2pa-web-component[data-size="large"] cai-indicator {
+.c2pa-web-component[data-size="large"] :deep(cai-indicator) {
   --cai-indicator-size: 48px;
 }
-
-    /* Ensure proper positioning for the popover */
-    .c2pa-web-component [style*="position: relative"] {
-      position: relative !important;
-    }
-
-    /* Position the popover container over the image */
-    .c2pa-web-component {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-    }
-
-    .c2pa-web-component .popover-container {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-    }
-
-    /* Allow the popover and its children to be clickable */
-    .c2pa-web-component cai-popover,
-    .c2pa-web-component cai-indicator,
-    .c2pa-web-component cai-manifest-summary-v2 {
-      pointer-events: auto !important;
-    }
-
-    /* Ensure the popover container allows clicks for its children */
-    .c2pa-web-component .popover-container cai-popover {
-      pointer-events: auto !important;
-    }
-
-    /* Position the popover content underneath and to the right of the badge */
-    .c2pa-web-component cai-popover::part(content) {
-      position: absolute !important;
-      top: 100% !important;
-      left: 0 !important;
-      margin-top: 5px !important;
-      z-index: 1000 !important;
-    }
-
-    /* Alternative approach - target the popover content directly */
-    .c2pa-web-component cai-popover [slot="content"] {
-      position: absolute !important;
-      top: 100% !important;
-      left: 0 !important;
-      margin-top: 5px !important;
-      z-index: 1000 !important;
-    }
-
-    /* Force popover positioning with CSS custom properties */
-    .c2pa-web-component cai-popover {
-      --cai-popover-placement: bottom-start !important;
-      --cai-popover-offset: 5px !important;
-    }
-
-    /* Try to override popover positioning with CSS */
-    .c2pa-web-component cai-popover .popover-content,
-    .c2pa-web-component cai-popover .content,
-    .c2pa-web-component cai-popover [role="tooltip"] {
-      position: absolute !important;
-      top: 100% !important;
-      left: 0 !important;
-      margin-top: 5px !important;
-      z-index: 1000 !important;
-    }
 </style>
