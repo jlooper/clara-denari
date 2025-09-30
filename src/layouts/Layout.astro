@@ -23,6 +23,15 @@ const { title, backdrop, fullScreenLayout = false } = Astro.props;
     <meta name="description" content="Clara Denari Adventures by Cloudinary - Learn about image transformations hands-on.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Clara Denari Adventures - a Cloudinary Mystery - {title}</title>
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y7S9N6GLK2"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-Y7S9N6GLK2');
+    </script>
   </head>
   <body>
     <div class="wrapper">

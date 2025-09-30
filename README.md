@@ -81,6 +81,30 @@ npm run build
 The built files will be in the `dist/` directory.
 
 
+## Google Analytics Setup
+
+To enable Google Analytics tracking:
+
+1. **Create a Google Analytics Account**:
+   - Visit [Google Analytics](https://analytics.google.com/analytics/web/)
+   - Create a new GA4 property for your website
+
+2. **Get Your Tracking ID**:
+   - In Google Analytics, go to Admin → Data Streams
+   - Select your web stream
+   - Copy the Measurement ID (format: G-XXXXXXXXXX)
+
+3. **Set Environment Variable**:
+   - Create a `.env` file in your project root
+   - Add your tracking ID:
+   ```bash
+   PUBLIC_GA_TRACKING_ID=G-XXXXXXXXXX
+   ```
+
+4. **Deploy**:
+   - The Google Analytics script will automatically be included on all pages
+   - Analytics will start tracking once deployed
+
 ## Technologies Used
 
 - **Astro**: Static site generator
