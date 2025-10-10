@@ -90,8 +90,8 @@ a.header-anchor {
   background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
   cursor: pointer;
   color: #0D9AFF;
-  border: 2px solid #1e3a8a;
-  padding: clamp(0.5rem, 2vw, 0.75rem) clamp(1rem, 3vw, 1.5rem);
+    border: 2px solid #1e3a8a;
+padding: clamp(0.5rem, 2vw, 0.75rem) clamp(1rem, 3vw, 1.5rem);
   border-radius: 6px;
   font-weight: bold;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);

@@ -10,10 +10,9 @@ export async function initializeC2PA() {
   try {
     if (!c2paInstance) {
       c2paInstance = await createC2pa({
-        wasmSrc: 'https://cdn.jsdelivr.net/npm/c2pa@0.30.14/dist/assets/wasm/toolkit_bg.wasm',
-        workerSrc: 'https://cdn.jsdelivr.net/npm/c2pa@0.30.14/dist/c2pa.worker.min.js'
+        wasmSrc: 'https://cdn.jsdelivr.net/npm/c2pa@0.30.15/dist/assets/wasm/toolkit_bg.wasm',
+        workerSrc: 'https://cdn.jsdelivr.net/npm/c2pa@0.30.15/dist/c2pa.worker.min.js'
       });
-      console.log('C2PA SDK initialized successfully');
     }
     return true;
   } catch (error) {

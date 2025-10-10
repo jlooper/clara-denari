@@ -60,11 +60,19 @@ const createPopover = () => {
   
   const positionStyle = getPositionStyle()
   
+  // Get signer info to potentially pass as attribute
+  const signerName = manifestStore.value.activeManifest?.signatureInfo?.common_name || 
+                     manifestStore.value.activeManifest?.signatureInfo?.issuer || '';
+  
   // Create the C2PA popover with indicator
   const popoverHTML = `
     <cai-popover interactive style="position: absolute; ${positionStyle} z-index: 20;" placement="bottom-start">
       <cai-indicator slot="trigger" variant="info"></cai-indicator>
-      <cai-manifest-summary-v2 style="width: 350px; max-height: 500px;" locale="en-US" slot="content"></cai-manifest-summary-v2>
+      <cai-manifest-summary-v2 
+        style="width: 350px; max-height: 500px;" 
+        locale="en-US" 
+        slot="content"
+      ></cai-manifest-summary-v2>
     </cai-popover>
   `
   
@@ -75,12 +83,91 @@ const createPopover = () => {
     setTimeout(() => {
       const manifestSummary = popoverContainer.value.querySelector('cai-manifest-summary-v2')
       if (manifestSummary) {
-        manifestSummary.manifestStore = manifestStore.value
+        // Get the signer name from signature_info.common_name
+        const signerName = manifestStore.value.activeManifest?.signatureInfo?.common_name || 
+                          manifestStore.value.activeManifest?.signatureInfo?.issuer ||
+                          'Unknown';
         
-        // Set inspect URL if generateVerifyUrl is available
-        if (generateVerifyUrl) {
-          manifestSummary.inspectUrl = generateVerifyUrl(props.imageSrc)
+        // Create a producer object with the signer information
+        const producer = {
+          name: signerName,
+          type: 'organization',
+          identifier: manifestStore.value.activeManifest?.signatureInfo?.cert_serial_number
+        };
+        
+        // Check if there are existing assertions and add creator info if missing
+        const existingAssertions = manifestStore.value.activeManifest?.assertions?.data || [];
+        
+        // Add stds.schema-org.CreativeWork assertion if not present
+        const hasCreativeWork = existingAssertions.some(a => a.label === 'stds.schema-org.CreativeWork');
+        const assertions = {
+          ...manifestStore.value.activeManifest?.assertions,
+          data: hasCreativeWork ? existingAssertions : [
+            ...existingAssertions,
+            {
+              label: 'stds.schema-org.CreativeWork',
+              data: {
+                '@context': 'https://schema.org',
+                '@type': 'CreativeWork',
+                author: [
+                  {
+                    '@type': 'Organization',
+                    name: signerName
+                  }
+                ]
+              }
+            }
+          ]
+        };
+        
+        // Transform camelCase to snake_case for c2pa-wc compatibility
+        const transformedManifestStore = {
+          ...manifestStore.value,
+          activeManifest: manifestStore.value.activeManifest ? {
+            ...manifestStore.value.activeManifest,
+            // Set multiple fields that might be used for "Recorded by"
+            claim_generator: manifestStore.value.activeManifest.claimGenerator || signerName,
+            producer: producer, // Add producer field
+            author: signerName, // Add author field directly
+            assertions: assertions, // Add assertions with creator info
+            signature_info: {
+              ...manifestStore.value.activeManifest.signatureInfo,
+              issuer: manifestStore.value.activeManifest.signatureInfo?.issuer,
+              common_name: manifestStore.value.activeManifest.signatureInfo?.common_name,
+              cert_serial_number: manifestStore.value.activeManifest.signatureInfo?.cert_serial_number,
+              time: manifestStore.value.activeManifest.signatureInfo?.time,
+              alg: manifestStore.value.activeManifest.signatureInfo?.alg
+            },
+            claim_generator_info: manifestStore.value.activeManifest.claimGeneratorInfo && manifestStore.value.activeManifest.claimGeneratorInfo.length > 0
+              ? manifestStore.value.activeManifest.claimGeneratorInfo
+              : [
+                  { 
+                    name: signerName,
+                    version: '1.0',
+                    icon: null
+                  }
+                ],
+            instance_id: manifestStore.value.activeManifest.instanceId,
+            verified_identities: manifestStore.value.activeManifest.verifiedIdentities,
+            // Add title if not present (sometimes used for display)
+            title: manifestStore.value.activeManifest.title || `Signed by ${signerName}`
+          } : null
         }
+        
+        // Set the transformed manifest store
+        manifestSummary.manifestStore = transformedManifestStore
+        
+        // Set inspect URL with the new Content Authenticity verification URL
+        const verifyUrl = `https://verify.contentauthenticity.org/?source=${encodeURIComponent(props.imageSrc)}`
+        manifestSummary.inspectUrl = verifyUrl
+        
+        // Log the transformed data for debugging
+        console.log('Full manifestStore being set:', transformedManifestStore)
+        console.log('activeManifest.producer:', transformedManifestStore.activeManifest?.producer)
+        console.log('activeManifest.claim_generator:', transformedManifestStore.activeManifest?.claim_generator)
+        console.log('activeManifest.claim_generator_info:', transformedManifestStore.activeManifest?.claim_generator_info)
+        console.log('activeManifest.assertions.data:', transformedManifestStore.activeManifest?.assertions?.data)
+        console.log('Number of assertions:', transformedManifestStore.activeManifest?.assertions?.data?.length)
       }
     }, 100)
   }
@@ -97,8 +184,8 @@ const verifyImage = async () => {
     
     // Create C2PA instance
     const c2pa = await createC2pa({
-      wasmSrc: 'https://cdn.jsdelivr.net/npm/c2pa@0.30.14/dist/assets/wasm/toolkit_bg.wasm',
-      workerSrc: 'https://cdn.jsdelivr.net/npm/c2pa@0.30.14/dist/c2pa.worker.min.js'
+      wasmSrc: 'https://cdn.jsdelivr.net/npm/c2pa@0.30.15/dist/assets/wasm/toolkit_bg.wasm',
+      workerSrc: 'https://cdn.jsdelivr.net/npm/c2pa@0.30.15/dist/c2pa.worker.min.js'
     })
     
     // Read the manifest from the image
@@ -176,6 +263,7 @@ onUnmounted(() => {
   z-index: 20;
 }
 
+
 .popover-container {
   position: relative;
   width: 100%;
@@ -191,7 +279,7 @@ onUnmounted(() => {
 }
 
 /* C2PA indicator styling */
-.c2pa-web-component :deep(cai-indicator) {
+.c2pa-web-component :deep(container) {
   cursor: pointer;
 }
 
@@ -204,7 +292,10 @@ onUnmounted(() => {
   --cai-indicator-size: 32px;
 }
 
+
 .c2pa-web-component[data-size="large"] :deep(cai-indicator) {
   --cai-indicator-size: 48px;
 }
+
+
 </style>
